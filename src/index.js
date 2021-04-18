@@ -4,14 +4,20 @@ import { Provider, ReactReduxContext } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import store, { history } from './store'
 import { AppContainer as App } from './containers'
+import { ThemeProvider } from '@material-ui/core/styles'
 import reportWebVitals from './reportWebVitals'
+import theme from './assets/styles/theme'
+import { CssBaseline } from '@material-ui/core'
 
 const root = document.getElementById('root')
 
 ReactDOM.render(
   <Provider store={store} context={ReactReduxContext}>
     <ConnectedRouter history={history} context={ReactReduxContext}>
-      <App history={history} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App history={history} />
+      </ThemeProvider>
     </ConnectedRouter>
   </Provider>,
   root
