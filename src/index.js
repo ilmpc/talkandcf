@@ -1,13 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import { Provider, ReactReduxContext } from 'react-redux'
+import { ConnectedRouter } from 'connected-react-router'
+import store, { history } from './store'
+import { AppContainer as App } from './containers'
 import reportWebVitals from './reportWebVitals'
 
+const root = document.getElementById('root')
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <Provider store={store} context={ReactReduxContext}>
+    <ConnectedRouter history={history} context={ReactReduxContext}>
+      <App history={history} />
+    </ConnectedRouter>
+  </Provider>,
+  root
 )
 
 // If you want to start measuring performance in your app, pass a function
