@@ -1,0 +1,29 @@
+stages:
+  - build
+  - deploy
+
+build:
+  image: node:latest
+  stage: build
+  script:
+    - yarn
+    - yarn build
+  artifacts:
+    paths:
+      - build
+  only:
+    - ci-cd
+  tags:
+    - nodejs
+
+
+deploy:
+  image: node:latest
+  stage: deploy
+  script:
+    - npm i @cloudflare/wrangler -g
+    - npm run wrangler publish
+  only:
+    - ci-cd
+  tags:
+    - nodejs
