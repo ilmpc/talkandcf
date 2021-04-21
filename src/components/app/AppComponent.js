@@ -6,7 +6,7 @@ const AppComponent = () => {
   return (
     <>
       <Switch>
-        <Route exact path={Routes.ROOT} render={() => <>Main route</>} />
+        <Route exact path={Routes.ROOT} render={() => <>Main route Updated</>} />
       </Switch>
     </>
   )
