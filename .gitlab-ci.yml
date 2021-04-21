@@ -3,11 +3,9 @@ stages:
   - deploy
 
 build:
-  image: node:latest
   stage: build
   script:
-    - yarn
-    - yarn build
+    - yarn && yarn build
   artifacts:
     paths:
       - build
@@ -18,7 +16,6 @@ build:
 
 
 deploy:
-  image: node:latest
   stage: deploy
   script:
     - npm i @cloudflare/wrangler -g
