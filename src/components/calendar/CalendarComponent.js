@@ -7,6 +7,11 @@ function CalendarComponent ({ view, plugins, events, actions }) {
   return (
     <FullCalendar
       plugins={plugins}
+      headerToolbar={{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      }}
       weekends={false}
       locale={ruLocale}
       events={events}
@@ -14,8 +19,12 @@ function CalendarComponent ({ view, plugins, events, actions }) {
       selectable
       eventContent={EventContentComponent}
       initialView={view}
-      eventClick={actions.removeEvent}
-      select={actions.addEvent}
+      datesSet={actions.loadEvents}
+      eventClick={actions.clickEvent}
+      select={actions.selectEvent}
+      eventAdd={actions.addEvent}
+      eventChange={actions.changeEvent}
+      eventRemove={actions.removeEvent}
     />
   )
 }

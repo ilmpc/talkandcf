@@ -9,7 +9,10 @@ import { ViewTypes } from '../constants'
 const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]
 
 function CalendarContainer ({ events }) {
-  const addEvent = React.useCallback((selectInfo) => {
+  const loadEvents = React.useCallback((loadInfo) => {
+    console.log(loadInfo)
+  }, [])
+  const selectEvent = React.useCallback((selectInfo) => {
     const calendarApi = selectInfo.view.calendar
     const title = window.prompt('Please enter a new title for your event')
     calendarApi.unselect()
@@ -23,15 +26,34 @@ function CalendarContainer ({ events }) {
       }, true)
     }
   }, [])
-  const removeEvent = React.useCallback((clickInfo) => {
+  const clickEvent = React.useCallback((clickInfo) => {
     if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
       clickInfo.event.remove()
     }
   }, [])
+  const changeEvent = React.useCallback((clickInfo) => {
+    if (window.confirm(`Are you sure you want to CHANGE the event '${clickInfo.event.title}'`)) {
+      console.log(clickInfo)
+    }
+  }, [])
+  const removeEvent = React.useCallback((info) => {
+    console.log(`deleted item with title: ${info.event.title}`)
+  }, [])
+  const addEvent = React.useCallback((info) => {
+    console.log(`added event with title: ${info.event.title}`)
+  }, [])
+  // eslint-disable-next-line no-unused-vars
+  const sendError = React.useCallback(() => {
+    window.alert('Error happened')
+  }, [])
   const calendarActions = React.useMemo(() => ({
+    addEvent,
+    changeEvent,
+    clickEvent,
+    loadEvents,
     removeEvent,
-    addEvent
-  }), [removeEvent, addEvent])
+    selectEvent
+  }), [addEvent, changeEvent, clickEvent, loadEvents, removeEvent, selectEvent])
 
   return (
     <CalendarComponent
