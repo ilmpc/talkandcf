@@ -11,7 +11,7 @@ const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]
 
 function CalendarContainer ({ events }) {
   const [popup, setPopup] = useState(null)
-  const [event, setEvent] = useState(null)
+  const [eventInfo, setEventInfo] = useState(null)
 
   const loadEvents = React.useCallback((loadInfo) => {
     console.log(loadInfo)
@@ -31,11 +31,8 @@ function CalendarContainer ({ events }) {
     }
   }, [])
   const clickEvent = React.useCallback((clickInfo) => {
-    // if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-    //   clickInfo.event.remove()
-    // }
     setPopup(() => clickInfo.el)
-    setEvent(() => clickInfo.event)
+    setEventInfo(() => clickInfo.event)
   }, [])
   const changeEvent = React.useCallback((clickInfo) => {
     if (window.confirm(`Are you sure you want to CHANGE the event '${clickInfo.event.title}'`)) {
@@ -69,7 +66,7 @@ function CalendarContainer ({ events }) {
         view={ViewTypes.timeAllWeek}
         actions={calendarActions}
       />
-      <EventPopoverContainer target={popup} setTarget={setPopup} event={event} />
+      <EventPopoverContainer popup={popup} setPopup={setPopup} eventInfo={eventInfo} />
     </>
   )
 }

@@ -2,52 +2,52 @@ import { useState, useEffect } from 'react'
 import EventPopoverComponent from '../components/calendar/EventPopoverComponent'
 import PropTypes from 'prop-types'
 
-function EventPopoverContainer ({ target, setTarget, event }) {
-  const [data, setData] = useState({
+function EventPopoverContainer ({ popup, setPopup, eventInfo }) {
+  const [formData, setFormData] = useState({
     title: ''
   })
 
   useEffect(() => {
-    if (target && event?._def) {
-      setData(prev => ({ ...prev, title: event?._def.title }))
+    if (popup && eventInfo?._def) {
+      setFormData(prev => ({ ...prev, title: eventInfo?._def.title }))
     } else {
-      setData(() => ({ title: '' }))
+      setFormData(() => ({ title: '' }))
     }
-  }, [event, target])
+  }, [eventInfo, popup])
 
-  const handleClose = () => {
-    setTarget(null)
+  const closePopup = () => {
+    setPopup(null)
   }
-  const handleDelete = () => {
-    event.remove()
-    handleClose()
+  const deleteEvent = () => {
+    eventInfo.remove()
+    closePopup()
   }
-  const handleChange = (e) => {
-    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  const handleChangeEvent = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
-  const handleSubmit = (e) => {
+  const updateEvent = (e) => {
     e.preventDefault()
-    event.setProp('title', data.title)
-    handleClose()
+    eventInfo.setProp('title', formData.title)
+    closePopup()
   }
 
   return (
     <EventPopoverComponent
-      event={event}
-      data={data}
-      target={target}
-      setData={setData}
-      handleClose={handleClose}
-      handleDelete={handleDelete}
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
+      eventInfo={eventInfo}
+      formData={formData}
+      popup={popup}
+      closePopup={closePopup}
+      deleteEvent={deleteEvent}
+      handleChangeEvent={handleChangeEvent}
+      updateEvent={updateEvent}
     />
   )
 }
 
 EventPopoverContainer.propTypes = {
-  target: PropTypes.any,
-  setTarget: PropTypes.func.isRequired
+  popup: PropTypes.any,
+  setPopup: PropTypes.func.isRequired,
+  eventInfo: PropTypes.object
 }
 
 export default EventPopoverContainer

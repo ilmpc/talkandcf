@@ -10,14 +10,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function EventPopoverComponent ({ target, handleClose, event, handleDelete, handleChange, data, setData, handleSubmit }) {
+function EventPopoverComponent ({
+  eventInfo,
+  formData,
+  popup,
+  closePopup,
+  deleteEvent,
+  handleChangeEvent,
+  updateEvent
+}) {
   const classes = useStyles()
 
   return (
     <Popover
-      open={!!target}
-      anchorEl={target}
-      onClose={handleClose}
+      open={!!popup}
+      anchorEl={popup}
+      onClose={closePopup}
       anchorReference='anchorPosition'
       anchorPosition={{ top: 10, left: 10 }}
       anchorOrigin={{
@@ -29,19 +37,24 @@ function EventPopoverComponent ({ target, handleClose, event, handleDelete, hand
         horizontal: 'left'
       }}
     >
-      <Typography className={classes.typography}>Edit event: {event?._def.title}</Typography>
-      <form onSubmit={handleSubmit}>
-        <input type='text' name='title' value={data.title} onChange={handleChange} />
+      <Typography className={classes.typography}>Edit event: {eventInfo?._def.title}</Typography>
+      <form onSubmit={updateEvent}>
+        <input type='text' name='title' value={formData.title} onChange={handleChangeEvent} />
         <button type='submit'>Rename</button>
       </form>
-      <button onClick={handleDelete}>delete</button>
+      <button onClick={deleteEvent}>delete</button>
     </Popover>
   )
 }
 
 EventPopoverComponent.propTypes = {
-  target: PropTypes.any,
-  handleClose: PropTypes.func.isRequired
+  popup: PropTypes.any,
+  formData: PropTypes.object,
+  eventInfo: PropTypes.object,
+  closePopup: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+  handleChangeEvent: PropTypes.func.isRequired,
+  updateEvent: PropTypes.func.isRequired
 }
 
 export default EventPopoverComponent
