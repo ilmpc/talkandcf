@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CalendarComponent from '../components/calendar/CalendarComponent'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import PropTypes from 'prop-types'
 import { ViewTypes } from '../constants'
+import EventPopoverContainer from './EventPopoverContainer'
 
 const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]
 
 function CalendarContainer ({ events }) {
+  const [popup, setPopup] = useState(null)
+  const [event, setEvent] = useState(null)
+
   const loadEvents = React.useCallback((loadInfo) => {
     console.log(loadInfo)
   }, [])
@@ -27,9 +31,11 @@ function CalendarContainer ({ events }) {
     }
   }, [])
   const clickEvent = React.useCallback((clickInfo) => {
-    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove()
-    }
+    // if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    //   clickInfo.event.remove()
+    // }
+    setPopup(() => clickInfo.el)
+    setEvent(() => clickInfo.event)
   }, [])
   const changeEvent = React.useCallback((clickInfo) => {
     if (window.confirm(`Are you sure you want to CHANGE the event '${clickInfo.event.title}'`)) {
@@ -56,12 +62,15 @@ function CalendarContainer ({ events }) {
   }), [addEvent, changeEvent, clickEvent, loadEvents, removeEvent, selectEvent])
 
   return (
-    <CalendarComponent
-      plugins={plugins}
-      events={events}
-      view={ViewTypes.timeAllWeek}
-      actions={calendarActions}
-    />
+    <>
+      <CalendarComponent
+        plugins={plugins}
+        events={events}
+        view={ViewTypes.timeAllWeek}
+        actions={calendarActions}
+      />
+      <EventPopoverContainer target={popup} setTarget={setPopup} event={event} />
+    </>
   )
 }
 
