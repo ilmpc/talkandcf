@@ -1,34 +1,35 @@
 import React, { useCallback } from 'react'
 import { NavbarComponent } from '../components/navbar/NavbarComponent'
-import { useHistory } from 'react-router-dom'
+import { push } from 'connected-react-router'
+import { useDispatch } from 'react-redux'
 import { Routes } from '../constants'
 
 export const NavbarContainer = () => {
-  const history = useHistory()
+  const dispatch = useDispatch()
   const loginHandler = useCallback(() => {
-    history.push(Routes.LOGIN)
-  }, [history])
+    dispatch(push(Routes.LOGIN))
+  }, [])
 
   const notificationHandler = useCallback(() => {
-    history.push(Routes.NOTIFICATIONS)
-  }, [history])
+    dispatch(push(Routes.NOTIFICATIONS))
+  }, [])
 
   const dashboardHandler = useCallback(() => {
-    history.push(Routes.ROOT)
-  }, [history])
+    dispatch(push(Routes.ROOT))
+  }, [])
 
   const profileHandler = useCallback(() => {
-    history.push(Routes.PROFILE)
-  }, [history])
+    dispatch(push(Routes.PROFILE))
+  }, [])
 
   const logoutHandler = useCallback(() => {
     // Do something
     console.log('Logout')
   }, [])
 
-  const username = ''
+  const username = '' // useSelector
 
-  const notifications = 0
+  const notifications = 0 // useSelector
 
   return (
     <NavbarComponent
