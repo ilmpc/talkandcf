@@ -55,5 +55,7 @@ yarn-error.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-#
+# cloudflare deploy
 /dist
+cloudflare-worker/worker
+cloudflare-worker/node_modules
