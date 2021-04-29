@@ -6,6 +6,7 @@ import CalendarContainer from '../../containers/CalendarContainer'
 const AppComponent = () => {
   return (
     <>
+      <NavbarContainer />
       <Switch>
         <Route exact path={Routes.ROOT} render={() => <>Main route</>} />
       </Switch>
