@@ -1,3 +1,6 @@
 export const Routes = {
-  ROOT: '/'
+  ROOT: '/',
+  LOGIN: '/login',
+  PROFILE: '/profile',
+  NOTIFICATIONS: '/notifications'
 }
