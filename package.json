@@ -8,10 +8,11 @@
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "connected-react-router": "^6.9.1",
-    "history": "^5.0.0",
+    "history": "4.10.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.3.4",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
@@ -38,6 +39,12 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
     ]
   },
   "devDependencies": {
