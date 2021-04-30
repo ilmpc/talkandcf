@@ -22,7 +22,8 @@ const locale = {
       firstName: 'Имя',
       lastName: 'Фамилия'
     },
-    UPDATE_PROFILE: 'Обновить данные'
+    UPDATE_PROFILE: 'Обновить данные',
+    EDIT_USERINFO: 'Редактировать данные'
   }
 }
 

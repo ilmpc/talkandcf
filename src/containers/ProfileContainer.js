@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import ProfileComponent from '../components/profile/ProfileComponent'
 import AvatarLoaderComponent from '../components/profile/AvatarLoaderComponent'
 import ProfileFormComponent from '../components/profile/ProfileFormComponent'
@@ -31,12 +31,12 @@ function ProfileContainer (props) {
   const [newAvatar, setNewAvatar] = useState('')
   const [isAvatarPicked, setIsAvatarPicked] = useState(false)
 
-  const chooseAvatar = (e) => {
+  const chooseAvatar = useCallback((e) => {
     setNewAvatar(e.target.files[0])
     setIsAvatarPicked(true)
-  }
+  }, [setNewAvatar, setIsAvatarPicked])
 
-  const uploadAvater = () => {
+  const uploadAvater = useCallback(() => {
     setLoadingAvatar(true)
     setTimeout(() => {
       console.log('new avatar', newAvatar)
@@ -44,8 +44,8 @@ function ProfileContainer (props) {
       setIsAvatarPicked(false)
       setLoadingAvatar(false)
     }, 1000)
-  }
-  const deleteAvatar = () => {
+  }, [setLoadingAvatar, setUserInfo, setIsAvatarPicked, setLoadingAvatar])
+  const deleteAvatar = useCallback(() => {
     if (userInfo.avatar) {
       setLoadingAvatar(true)
       setTimeout(() => {
@@ -54,34 +54,30 @@ function ProfileContainer (props) {
         setLoadingAvatar(false)
       }, 500)
     }
-  }
+  }, [setLoadingAvatar, setUserInfo, setIsAvatarPicked, setLoadingAvatar, userInfo.avatar])
 
-  const handleChange = (e) => {
-    setUserInfo(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
-
-  const updateProfile = (data) => console.log(data)
+  const updateProfile = useCallback((data) => console.log(data), [])
 
   return (
     <ProfileComponent
       userInfo={userInfo}
       loading={loadingAvatar}
-      handleChange={handleChange}
-      avatarLoader={<AvatarLoaderComponent
-        loadingAvatar={loadingAvatar}
-        newAvatar={newAvatar}
-        isAvatarPicked={isAvatarPicked}
-        chooseAvatar={chooseAvatar}
-        uploadAvater={uploadAvater}
-        deleteAvatar={deleteAvatar}
-                    />}
-      profileForm={<ProfileFormComponent
-        userInfo={userInfo}
-        updateProfile={updateProfile}
-                   />}
+      avatarLoader={
+        <AvatarLoaderComponent
+          loadingAvatar={loadingAvatar}
+          newAvatar={newAvatar}
+          isAvatarPicked={isAvatarPicked}
+          chooseAvatar={chooseAvatar}
+          uploadAvater={uploadAvater}
+          deleteAvatar={deleteAvatar}
+        />
+      }
+      profileForm={
+        <ProfileFormComponent
+          userInfo={userInfo}
+          updateProfile={updateProfile}
+        />
+      }
     />
   )
 }

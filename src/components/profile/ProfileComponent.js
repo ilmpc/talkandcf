@@ -6,7 +6,7 @@ import { Container } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 import Typography from '@material-ui/core/Typography'
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '@material-ui/core/LinearProgress'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
@@ -85,7 +85,7 @@ function ProfileComponent ({
                 <ListItemIcon>
                   <SupervisorAccountIcon />
                 </ListItemIcon>
-                <Link to={Routes.MEETINGS || '/meetings'}>
+                <Link to={Routes.MEETINGS}>
                   <ListItemText primary={MY_MEETINGS} />
                 </Link>
               </ListItem>
