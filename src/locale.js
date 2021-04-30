@@ -1,4 +1,4 @@
-export default {
+const locale = {
   ERRORS: {
     UNKNOWN_ERROR: 'Something went wrong'
   },
@@ -8,3 +8,5 @@ export default {
     LOGIN: 'Login'
   }
 }
+
+export default locale
