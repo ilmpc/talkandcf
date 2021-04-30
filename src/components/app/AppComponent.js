@@ -2,6 +2,7 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Events, Routes } from '../../constants'
 import CalendarContainer from '../../containers/CalendarContainer'
+import NavbarContainer from '../../containers/NavbarContainer'
 
 const AppComponent = () => {
   return (

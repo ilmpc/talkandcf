@@ -4,7 +4,7 @@ import { push } from 'connected-react-router'
 import { useDispatch } from 'react-redux'
 import { Routes } from '../constants'
 
-export const NavbarContainer = () => {
+const NavbarContainer = () => {
   const dispatch = useDispatch()
   const loginHandler = useCallback(() => {
     dispatch(push(Routes.LOGIN))
@@ -43,3 +43,5 @@ export const NavbarContainer = () => {
     />
   )
 }
+
+export default NavbarContainer
