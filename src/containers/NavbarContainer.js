@@ -8,19 +8,19 @@ const NavbarContainer = () => {
   const dispatch = useDispatch()
   const loginHandler = useCallback(() => {
     dispatch(push(Routes.LOGIN))
-  }, [])
+  }, [dispatch])
 
   const notificationHandler = useCallback(() => {
     dispatch(push(Routes.NOTIFICATIONS))
-  }, [])
+  }, [dispatch])
 
   const dashboardHandler = useCallback(() => {
     dispatch(push(Routes.ROOT))
-  }, [])
+  }, [dispatch])
 
   const profileHandler = useCallback(() => {
     dispatch(push(Routes.PROFILE))
-  }, [])
+  }, [dispatch])
 
   const logoutHandler = useCallback(() => {
     // Do something
