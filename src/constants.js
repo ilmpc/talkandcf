@@ -1,4 +1,5 @@
 export const Routes = {
+  REGISTER: '/register',
   ROOT: '/',
   LOGIN: '/login',
   PROFILE: '/profile',

@@ -2,6 +2,8 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Events, Routes } from '../../constants'
 import CalendarContainer from '../../containers/CalendarContainer'
+import LoginContainer from '../../containers/LoginContainer'
+import RegisterContainer from '../../containers/RegisterContainer'
 
 const AppComponent = () => {
   return (
@@ -9,6 +11,8 @@ const AppComponent = () => {
       <NavbarContainer />
       <Switch>
         <Route exact path={Routes.ROOT} render={() => <>Main route</>} />
+        <Route exact path={Routes.LOGIN} component={LoginContainer} />
+        <Route exact path={Routes.REGISTER} component={RegisterContainer} />
       </Switch>
       <CalendarContainer events={Events} />
     </>
