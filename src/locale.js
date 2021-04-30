@@ -2,6 +2,11 @@ const locale = {
   ERRORS: {
     UNKNOWN_ERROR: 'Something went wrong'
   },
+  NAVBAR: {
+    PROFILE: 'Profile',
+    LOGOUT: 'Logout',
+    LOGIN: 'Login'
+  },
   PROFILE: {
     TITLE: 'Профиль',
     CHOOSE_NEW_PHOTO: 'Выбрать новое фото',
