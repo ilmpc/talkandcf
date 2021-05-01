@@ -4,8 +4,7 @@ const locale = {
   },
   NAVBAR: {
     PROFILE: 'Profile',
-    LOGOUT: 'Logout',
-    LOGIN: 'Login'
+    LOGOUT: 'Logout'
   }
 }
 
