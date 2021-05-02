@@ -1,4 +1,4 @@
-export default {
+const locale = {
   AUTH: {
     LOGIN: 'Войти',
     NO_ACCOUNT: 'Нет аккаунта?',
@@ -17,3 +17,5 @@ export default {
     LOGIN: 'Login'
   }
 }
+
+export default locale
