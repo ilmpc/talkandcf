@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react'
 import RegisterComponent from '../components/auth/RegisterComponent'
 import locale from '../locale'
-import {emailValidation, passwordValidation, usernameValidation} from "../validation";
+import { emailValidation, passwordValidation, usernameValidation } from '../validation'
+import PopupComponent from '../components/custom/PopupComponent'
 
 const {
-  AUTH: { USERNAME, EMAIL, PASSWORD },
+  AUTH: { USERNAME, EMAIL, PASSWORD }
 } = locale
 
 const formFields = {
@@ -31,7 +32,7 @@ const formFields = {
       label: PASSWORD,
       rules: passwordValidation
     }
-}
+  }
 }
 
 const defaultValues = {
@@ -41,15 +42,21 @@ const defaultValues = {
 }
 
 function RegisterContainer () {
+  // from store
+  const loading = false; const error = null
   const registerUser = useCallback((data) => {
     console.log(data)
   }, [])
   return (
-    <RegisterComponent
-      registerUser={registerUser}
-      formFields={formFields}
-      defaultValues={defaultValues}
-    />
+    <>
+      <PopupComponent isOpen={!!error} message={error?.message} severity='error' />
+      <RegisterComponent
+        registerUser={registerUser}
+        formFields={formFields}
+        defaultValues={defaultValues}
+        loading={loading}
+      />
+    </>
   )
 }
 

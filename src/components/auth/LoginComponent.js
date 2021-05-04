@@ -6,7 +6,8 @@ import { Routes, LOGO_URL } from '../../constants'
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import locale from '../../locale'
-import FormComponent from "../custom/FormComponent";
+import FormComponent from '../custom/FormComponent'
+import { LinearProgress } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const { AUTH: { LOGIN, NO_ACCOUNT, REGISTER } } = locale
 
-function LoginComponent ({ loginUser, formFields, defaultValues }) {
+function LoginComponent ({ loginUser, formFields, defaultValues, loading }) {
   const classes = useStyles()
 
   return (
@@ -44,18 +45,19 @@ function LoginComponent ({ loginUser, formFields, defaultValues }) {
         <Box className={classes.logo}>
           <img src={LOGO_URL} alt='noveo' />
         </Box>
+        {loading && <LinearProgress style={{ width: '100%' }} color='secondary' />}
         <FormComponent
-            defaultValues={defaultValues}
-            onSubmit={loginUser}
-            submitButton={{ text: LOGIN, className: classes.submit }}
-            fields={formFields}
-            formClassName={classes.form}
+          defaultValues={defaultValues}
+          onSubmit={loginUser}
+          submitButton={{ text: LOGIN, className: classes.submit }}
+          fields={formFields}
+          formClassName={classes.form}
         />
-          <Box className={classes.label}>
-            <Link to={Routes.REGISTER}>
-              {`${NO_ACCOUNT} ${REGISTER}`}
-            </Link>
-          </Box>
+        <Box className={classes.label}>
+          <Link to={Routes.REGISTER}>
+            {`${NO_ACCOUNT} ${REGISTER}`}
+          </Link>
+        </Box>
       </div>
     </Container>
   )
@@ -64,7 +66,8 @@ function LoginComponent ({ loginUser, formFields, defaultValues }) {
 LoginComponent.propTypes = {
   loginUser: PropTypes.func.isRequired,
   formFields: PropTypes.object.isRequired,
-  defaultValues: PropTypes.object.isRequired
+  defaultValues: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired
 }
 
 export default LoginComponent

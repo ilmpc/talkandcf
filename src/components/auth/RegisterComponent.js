@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import locale from '../../locale'
 import FormComponent from '../custom/FormComponent'
+import { LinearProgress } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const { AUTH: { LOGIN, HAVE_ACCOUNT, REGISTER } } = locale
 
-function RegisterComponent ({ registerUser, formFields, defaultValues }) {
+function RegisterComponent ({ registerUser, formFields, defaultValues, loading }) {
   const classes = useStyles()
 
   return (
@@ -44,6 +45,7 @@ function RegisterComponent ({ registerUser, formFields, defaultValues }) {
         <Box className={classes.logo}>
           <img src={LOGO_URL} alt='noveo' />
         </Box>
+        {loading && <LinearProgress style={{ width: '100%' }} color='secondary' />}
         <FormComponent
           defaultValues={defaultValues}
           fields={formFields}
@@ -64,7 +66,8 @@ function RegisterComponent ({ registerUser, formFields, defaultValues }) {
 RegisterComponent.propTypes = {
   registerUser: PropTypes.func.isRequired,
   formFields: PropTypes.object.isRequired,
-  defaultValues: PropTypes.object.isRequired
+  defaultValues: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired
 }
 
 export default RegisterComponent
