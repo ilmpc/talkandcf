@@ -1,21 +1,23 @@
-import { Route, Switch } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Events, Routes } from '../../constants'
+import { Routes } from '../../constants'
 import CalendarContainer from '../../containers/CalendarContainer'
-import NavbarContainer from '../../containers/NavbarContainer'
+import CommonLayoutComponent from '../layout/СommonLayoutComponent'
+import AuthLayoutComponent from '../layout/AuthLayoutComponent'
+import ProfileContainer from '../../containers/ProfileContainer'
 import LoginContainer from '../../containers/LoginContainer'
 import RegisterContainer from '../../containers/RegisterContainer'
 
 const AppComponent = () => {
   return (
     <>
-      <NavbarContainer />
       <Switch>
-        <Route exact path={Routes.ROOT} render={() => <>Main route</>} />
-        <Route exact path={Routes.LOGIN} component={LoginContainer} />
-        <Route exact path={Routes.REGISTER} component={RegisterContainer} />
+        <CommonLayoutComponent path={Routes.ROOT} component={CalendarContainer} exact isAuthenticated />
+        <CommonLayoutComponent path={Routes.PROFILE} component={ProfileContainer} exact isAuthenticated />
+        <CommonLayoutComponent path={Routes.MEETINGS} component={() => <p>Meetings</p>} exact isAuthenticated />
+        <AuthLayoutComponent path={Routes.LOGIN} component={LoginContainer} exact />
+        <AuthLayoutComponent path={Routes.REGISTER} component={RegisterContainer} exact />
       </Switch>
-      <CalendarContainer events={Events} />
     </>
   )
 }
