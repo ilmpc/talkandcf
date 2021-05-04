@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const { AUTH: { LOGIN, HAVE_ACCOUNT, REGISTER } } = locale
 
-function RegisterComponent ({ registerUser, formFields, defaultValues, loading }) {
+function RegisterComponent ({ registerUser, formFields, loading }) {
   const classes = useStyles()
 
   return (
@@ -47,7 +47,6 @@ function RegisterComponent ({ registerUser, formFields, defaultValues, loading }
         </Box>
         {loading && <LinearProgress style={{ width: '100%' }} color='secondary' />}
         <FormComponent
-          defaultValues={defaultValues}
           fields={formFields}
           onSubmit={registerUser}
           submitButton={{ text: REGISTER, className: classes.submit }}
@@ -66,7 +65,6 @@ function RegisterComponent ({ registerUser, formFields, defaultValues, loading }
 RegisterComponent.propTypes = {
   registerUser: PropTypes.func.isRequired,
   formFields: PropTypes.object.isRequired,
-  defaultValues: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired
 }
 

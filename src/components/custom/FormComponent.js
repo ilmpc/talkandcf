@@ -1,17 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import InputComponent from './InputComponent'
 import Button from '@material-ui/core/Button'
 
 function FormComponent ({
-  defaultValues,
   fields,
   onSubmit,
   submitButton,
   formClassName
 }) {
-  const { handleSubmit, control, formState: { errors } } = useForm({ defaultValues })
+  const { handleSubmit, control, formState: { errors } } = useFormContext()
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={formClassName}>
       {fields.order.map(fieldName => {
@@ -49,7 +48,6 @@ function FormComponent ({
 }
 
 FormComponent.propTypes = {
-  defaultValues: PropTypes.object.isRequired,
   fields: PropTypes.shape({
     children: PropTypes.object.isRequired,
     order: PropTypes.array.isRequired

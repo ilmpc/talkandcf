@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const { AUTH: { LOGIN, NO_ACCOUNT, REGISTER } } = locale
 
-function LoginComponent ({ loginUser, formFields, defaultValues, loading }) {
+function LoginComponent ({ loginUser, formFields, loading }) {
   const classes = useStyles()
 
   return (
@@ -47,7 +47,6 @@ function LoginComponent ({ loginUser, formFields, defaultValues, loading }) {
         </Box>
         {loading && <LinearProgress style={{ width: '100%' }} color='secondary' />}
         <FormComponent
-          defaultValues={defaultValues}
           onSubmit={loginUser}
           submitButton={{ text: LOGIN, className: classes.submit }}
           fields={formFields}
@@ -66,7 +65,6 @@ function LoginComponent ({ loginUser, formFields, defaultValues, loading }) {
 LoginComponent.propTypes = {
   loginUser: PropTypes.func.isRequired,
   formFields: PropTypes.object.isRequired,
-  defaultValues: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired
 }
 

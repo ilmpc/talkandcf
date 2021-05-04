@@ -3,6 +3,7 @@ import LoginComponent from '../components/auth/LoginComponent'
 import locale from '../locale'
 import { requiredField } from '../validation'
 import PopupComponent from '../components/custom/PopupComponent'
+import { useForm, FormProvider } from 'react-hook-form'
 
 const {
   AUTH: { USERNAME, PASSWORD }
@@ -34,21 +35,22 @@ const defaultValues = {
 }
 
 function LoginContainer () {
+  const methods = useForm({ defaultValues })
   // from store
   const loading = false; const error = null
   const loginUser = useCallback((data) => {
     console.log(data)
+    methods.reset()
   }, [])
   return (
-    <>
+    <FormProvider {...methods}>
       <PopupComponent isOpen={!!error} message={error?.message} severity='error' />
       <LoginComponent
         loginUser={loginUser}
         formFields={formFields}
-        defaultValues={defaultValues}
         loading={loading}
       />
-    </>
+    </FormProvider>
   )
 }
 

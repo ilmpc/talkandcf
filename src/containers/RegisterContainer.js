@@ -3,6 +3,7 @@ import RegisterComponent from '../components/auth/RegisterComponent'
 import locale from '../locale'
 import { emailValidation, passwordValidation, usernameValidation } from '../validation'
 import PopupComponent from '../components/custom/PopupComponent'
+import { useForm, FormProvider } from 'react-hook-form'
 
 const {
   AUTH: { USERNAME, EMAIL, PASSWORD }
@@ -42,21 +43,22 @@ const defaultValues = {
 }
 
 function RegisterContainer () {
+  const methods = useForm({ defaultValues })
   // from store
   const loading = false; const error = null
   const registerUser = useCallback((data) => {
     console.log(data)
+    methods.reset()
   }, [])
   return (
-    <>
+    <FormProvider {...methods}>
       <PopupComponent isOpen={!!error} message={error?.message} severity='error' />
       <RegisterComponent
         registerUser={registerUser}
         formFields={formFields}
-        defaultValues={defaultValues}
         loading={loading}
       />
-    </>
+    </FormProvider>
   )
 }
 
