@@ -2,7 +2,8 @@ export const Routes = {
   ROOT: '/',
   LOGIN: '/login',
   PROFILE: '/profile',
-  NOTIFICATIONS: '/notifications'
+  NOTIFICATIONS: '/notifications',
+  MEETINGS: '/meetings'
 }
 
 export const ViewTypes = {
