@@ -4,6 +4,9 @@ import locale from '../locale'
 import { requiredField } from '../validation'
 import PopupComponent from '../components/custom/PopupComponent'
 import { useForm, FormProvider } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import actions from '../ducks/users/actions'
+import selectors from '../ducks/users/selectors'
 
 const {
   AUTH: { USERNAME, PASSWORD }
@@ -36,12 +39,15 @@ const defaultValues = {
 
 function LoginContainer () {
   const methods = useForm({ defaultValues })
-  // from store
-  const loading = false; const error = null
+  const dispatch = useDispatch()
+
+  const loading = useSelector(selectors.selectLoading)
+  const error = useSelector(selectors.selectError)
+
   const loginUser = useCallback((data) => {
-    console.log(data)
+    dispatch(actions.loginRequest(data))
     methods.reset()
-  }, [])
+  }, [dispatch, methods])
   return (
     <FormProvider {...methods}>
       <PopupComponent isOpen={!!error} message={error?.message} severity='error' />

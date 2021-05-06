@@ -20,3 +20,11 @@ export const Events = [
 ]
 
 export const LOGO_URL = 'https://noveogroup.ru/build/images/logo-noveo.e179f24f.svg'
+
+export const UserEndpoints = {
+  LOGIN: '/auth/login',
+  REGISTER: '/auth/create',
+  LOAD_USER: '/auth/me',
+  UPDATE_PROFILE: '/users',
+  LOAD_USER_BY_ID: (id) => `/users/${id}`
+}
