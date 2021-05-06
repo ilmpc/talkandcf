@@ -47,30 +47,19 @@ class ApiError extends Error {
  * Excludes success field and unwrap data
  */
 function dataMapper (response) {
-  const { data } = response
-  const { success, data: payload } = data
-  
-  if (success === false) {
-    console.error(`Fail in success HTTP response.\n${JSON.stringify(response)}`)
-  }
-
-  return payload
+  return response.data.data
 }
 
 /**
  * Excludes success field and wrap error into ApiError
  */
 function errorMapper (error) {
-  const { response } = error
-  
-  if (response.data.success === true) {
-    console.error(`Success in error HTTP response.\n${JSON.stringify(error)}`)
-  }
+  const { status, statusText, data } = error.response
 
   return Promise.reject(new ApiError({
-    statusCode: response.status,
-    statusMessage: response.statusText,
-    error: response.data.error
+    statusCode: status,
+    statusMessage: statusText,
+    error: data.error
   }))
 }
 
