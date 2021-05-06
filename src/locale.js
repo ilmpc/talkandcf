@@ -5,7 +5,6 @@ const locale = {
   NAVBAR: {
     PROFILE: 'Profile',
     LOGOUT: 'Logout',
-    LOGIN: 'Login'
   },
   PROFILE: {
     TITLE: 'Профиль',

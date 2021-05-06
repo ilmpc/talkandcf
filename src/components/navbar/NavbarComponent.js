@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import EventNoteIcon from '@material-ui/icons/EventNote'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import Badge from '@material-ui/core/Badge'
@@ -15,7 +14,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import PropTypes from 'prop-types'
 import locale from '../../locale'
 
-const { NAVBAR: { PROFILE, LOGOUT, LOGIN } } = locale
+const { NAVBAR: { PROFILE, LOGOUT } } = locale
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   }
 }))
-export const NavbarComponent = ({ username, notifications, loginHandler, logoutHandler, profileHandler, dashboardHandler, notificationHandler }) => {
+export const NavbarComponent = ({notifications, logoutHandler, profileHandler, dashboardHandler, notificationHandler }) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -53,8 +52,6 @@ export const NavbarComponent = ({ username, notifications, loginHandler, logoutH
             <EventNoteIcon />
           </IconButton>
           <Typography variant='h6' className={classes.title} />
-          {username
-            ? (
               <div>
                 <IconButton color='inherit' onClick={handlerWithClose(notificationHandler)}>
                   <Badge badgeContent={notifications} color='secondary'>
@@ -89,17 +86,13 @@ export const NavbarComponent = ({ username, notifications, loginHandler, logoutH
                   <MenuItem onClick={handlerWithClose(logoutHandler)}><ExitToAppIcon />{LOGOUT}</MenuItem>
                 </Menu>
               </div>
-              )
-            : <Button color='inherit' onClick={loginHandler}>{LOGIN}</Button>}
         </Toolbar>
       </AppBar>
     </div>
   )
 }
 NavbarComponent.propTypes = {
-  username: PropTypes.string,
   notifications: PropTypes.number,
-  loginHandler: PropTypes.func.isRequired,
   logoutHandler: PropTypes.func.isRequired,
   profileHandler: PropTypes.func.isRequired,
   dashboardHandler: PropTypes.func.isRequired,
