@@ -5,12 +5,13 @@ import Spinner from '../components/custom/Spinner'
 
 const AppContainer = (props) => {
   const isInitialized = useSelector(selectors.isInitialized)
+  const isAuthenticated = useSelector(selectors.selectAuthState)
 
   if (!isInitialized) {
     return <Spinner />
   }
 
-  return <AppComponent {...props} />
+  return <AppComponent {...props} isAuthenticated={isAuthenticated} />
 }
 
 export default AppContainer

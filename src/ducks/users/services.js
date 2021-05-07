@@ -1,7 +1,7 @@
 import request from '../../utils/request'
 import { Api } from '../../constants'
 
-const { USER: { LOGIN, REGISTER, LOAD_USER, UPDATE_PROFILE, LOAD_USER_BY_ID }} = Api
+const { USER: { LOGIN, REGISTER, LOAD_USER, UPDATE_PROFILE, LOAD_USER_BY_ID } } = Api
 
 const loginUser = credentials => {
   return request.post(LOGIN, credentials)

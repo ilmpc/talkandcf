@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Redirect from 'react-router-dom/Redirect'
-import Route from 'react-router-dom/Route'
+import { Redirect, Route } from 'react-router-dom'
 import { Routes } from '../../constants'
 import NavbarContainer from '../../containers/NavbarContainer'
 

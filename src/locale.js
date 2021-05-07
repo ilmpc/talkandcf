@@ -19,7 +19,7 @@ const locale = {
   },
   NAVBAR: {
     PROFILE: 'Profile',
-    LOGOUT: 'Logout',
+    LOGOUT: 'Logout'
   },
   PROFILE: {
     TITLE: 'Профиль',

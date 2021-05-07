@@ -8,22 +8,47 @@ import ProfileContainer from '../../containers/ProfileContainer'
 import LoginContainer from '../../containers/LoginContainer'
 import RegisterContainer from '../../containers/RegisterContainer'
 
-const AppComponent = () => {
+const AppComponent = ({ isAuthenticated }) => {
   return (
     <>
       <Switch>
-        <CommonLayoutComponent path={Routes.ROOT} component={CalendarContainer} exact isAuthenticated />
-        <CommonLayoutComponent path={Routes.PROFILE} component={ProfileContainer} exact isAuthenticated />
-        <CommonLayoutComponent path={Routes.MEETINGS} component={() => <p>Meetings</p>} exact isAuthenticated />
-        <AuthLayoutComponent path={Routes.LOGIN} component={LoginContainer} exact />
-        <AuthLayoutComponent path={Routes.REGISTER} component={RegisterContainer} exact />
+        <CommonLayoutComponent
+            path={Routes.ROOT}
+            component={CalendarContainer}
+            isAuthenticated={isAuthenticated}
+            exact
+        />
+        <CommonLayoutComponent
+            path={Routes.PROFILE}
+            component={ProfileContainer}
+            isAuthenticated={isAuthenticated}
+            exact
+        />
+        <CommonLayoutComponent
+            path={Routes.MEETINGS}
+            isAuthenticated={isAuthenticated}
+            component={() => <p>Meetings</p>}
+        />
+        <AuthLayoutComponent
+            path={Routes.LOGIN}
+            component={LoginContainer}
+            isAuthenticated={isAuthenticated}
+            exact
+        />
+        <AuthLayoutComponent
+            path={Routes.REGISTER}
+            component={RegisterContainer}
+            isAuthenticated={isAuthenticated}
+            exact
+        />
       </Switch>
     </>
   )
 }
 
 AppComponent.propTypes = {
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 }
 
 export default AppComponent

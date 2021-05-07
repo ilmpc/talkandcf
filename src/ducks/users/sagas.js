@@ -3,24 +3,22 @@ import { changeRouteSaga } from '../router/sagas'
 import types from '../users/types'
 import actions from './actions'
 import services from './services'
-import {ApiTokenStorageKey, Routes} from '../../constants'
+import { ApiTokenStorageKey, Routes } from '../../constants'
 
 // sagas
 function * logoutSaga () {
   yield put(actions.logoutSuccess())
   // remove string and use constant
   yield window.localStorage.removeItem(ApiTokenStorageKey)
-  yield call(changeRouteSaga, Routes.LOGIN)
 }
 
 function * loginUserSaga (userInfo) {
   try {
     const res = yield call(services.loginUser, userInfo)
     yield put(actions.loginSuccess(res.user))
-    yield call(changeRouteSaga, Routes.ROOT)
   } catch (error) {
     console.error(error)
-    yield put(actions.loginError({ message: error.error}))
+    yield put(actions.loginError({ message: error.error }))
   } finally {
     if (yield cancelled()) {
       yield call(changeRouteSaga, Routes.LOGIN)
@@ -30,9 +28,8 @@ function * loginUserSaga (userInfo) {
 
 function * registerUserSaga ({ payload }) {
   try {
-    // const response = yield call(services.registerUser, payload)
-    yield put(actions.registerSuccess(payload))
-    yield call(changeRouteSaga, Routes.ROOT)
+    const response = yield call(services.registerUser, payload)
+    yield put(actions.registerSuccess(response))
     yield takeLatest(types.logout.REQUEST, logoutSaga)
   } catch (error) {
     yield put(actions.registerError({ message: error.error }))
@@ -48,7 +45,7 @@ function * loadUserSaga () {
     const userInfo = yield call(services.loadUser)
     yield put(actions.loadUserSuccess(userInfo))
   } catch (error) {
-    yield put(actions.loadUserError({ message: `${error.statusMessage}: ${error.error}`}))
+    yield put(actions.loadUserError({ message: `${error.statusMessage}: ${error.error}` }))
   }
 }
 
@@ -68,7 +65,7 @@ function * loadUserByIdSaga ({ id }) {
     if (!user.username) throw new Error('User is not found')
     yield put(actions.loadUserByIdSuccess(user))
   } catch (error) {
-    yield put(actions.loadUserByIdError({ message: `${error.statusMessage}: ${error.error}`}))
+    yield put(actions.loadUserByIdError({ message: `${error.statusMessage}: ${error.error}` }))
   }
 }
 
