@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import ProfileComponent from '../components/profile/ProfileComponent'
 import AvatarLoaderComponent from '../components/profile/AvatarLoaderComponent'
-import ProfileFormComponent from '../components/profile/ProfileFormComponent'
 import noImage from '../assets/images/no-image.jpg'
 import { emailValidation, passwordValidation, usernameValidation } from '../validation'
 import locale from '../locale'
@@ -162,10 +161,6 @@ function ProfileContainer (props) {
               formClassName=''
             />
           </FormProvider>
-          {/* <ProfileFormComponent */}
-          {/*    userInfo={userInfo} */}
-          {/*    updateProfile={updateProfile} */}
-          {/* /> */}
         </>
       }
     />
