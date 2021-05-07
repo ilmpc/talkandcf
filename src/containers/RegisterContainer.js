@@ -20,21 +20,24 @@ const formFields = {
       name: 'username',
       type: 'text',
       label: USERNAME,
-      rules: usernameValidation
+      rules: usernameValidation,
+      autocomplete: 'username'
     },
     email: {
       element: 'input',
       name: 'email',
       type: 'email',
       label: EMAIL,
-      rules: emailValidation
+      rules: emailValidation,
+      autocomplete: 'email'
     },
     password: {
       element: 'input',
       name: 'password',
       type: 'password',
       label: PASSWORD,
-      rules: passwordValidation
+      rules: passwordValidation,
+      autocomplete: 'new-password'
     }
   }
 }

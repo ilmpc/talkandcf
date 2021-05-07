@@ -14,7 +14,7 @@ function FormComponent ({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={formClassName}>
       {fields.order.map(fieldName => {
-        const { element, name, type, label, rules, styles } = fields.children[fieldName]
+        const { element, name, type, label, rules, styles, autocomplete } = fields.children[fieldName]
         switch (element) {
           case 'input':
             return (
@@ -27,6 +27,7 @@ function FormComponent ({
                 label={label}
                 rules={rules}
                 styles={styles}
+                autocomplete={autocomplete}
               />
             )
           default:

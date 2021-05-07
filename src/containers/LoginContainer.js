@@ -20,14 +20,16 @@ const formFields = {
       name: 'username',
       type: 'text',
       label: USERNAME,
-      rules: requiredField
+      rules: requiredField,
+      autocomplete: 'username'
     },
     password: {
       element: 'input',
       name: 'password',
       type: 'password',
       label: PASSWORD,
-      rules: requiredField
+      rules: requiredField,
+      autocomplete: 'current-password'
     }
   }
 }

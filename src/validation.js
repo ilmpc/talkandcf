@@ -10,7 +10,7 @@ export const usernameValidation = {
   required: { value: true, message: REQUIRED },
   minLength: { value: 5, message: MORE_THAN(5) },
   maxLength: { value: 20, message: LESS_THAN(20) },
-  pattern: { value: /^(?=.*[A-Za-z\d])[A-Za-z\d]{5,}$/, message: USERNAME_VALIDATION }
+  pattern: { value: /^(?=.*[a-z])[\w-]{5,20}$/, message: USERNAME_VALIDATION }
 }
 
 export const emailValidation = {
@@ -21,6 +21,6 @@ export const emailValidation = {
 export const passwordValidation = {
   required: { value: true, message: REQUIRED },
   minLength: { value: 8, message: MORE_THAN(8) },
-  maxLength: { value: 20, message: LESS_THAN(20) },
-  pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, message: PASSWORD_VALIDATION }
+  maxLength: { value: 256, message: LESS_THAN(256)},
+  pattern: { value: /^(?=.*[\d])(?=.*[a-z])[\w!@#$%^&*-]{8,}$/, message: PASSWORD_VALIDATION }
 }

@@ -8,9 +8,6 @@ import selectors from '../ducks/users/selectors'
 
 const NavbarContainer = () => {
   const dispatch = useDispatch()
-  const loginHandler = useCallback(() => {
-    dispatch(push(Routes.LOGIN))
-  }, [dispatch])
 
   const notificationHandler = useCallback(() => {
     dispatch(push(Routes.NOTIFICATIONS))
@@ -28,14 +25,10 @@ const NavbarContainer = () => {
     dispatch(actions.logoutRequest())
   }, [dispatch])
 
-  const username = useSelector(selectors.selectUsername) // useSelector
-
   const notifications = 0 // useSelector
 
   return (
     <NavbarComponent
-      username={username}
-      loginHandler={loginHandler}
       notificationHandler={notificationHandler}
       dashboardHandler={dashboardHandler}
       profileHandler={profileHandler}

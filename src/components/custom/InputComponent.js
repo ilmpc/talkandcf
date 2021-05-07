@@ -19,6 +19,7 @@ function InputComponent ({
   name,
   type,
   label,
+  autocomplete,
   rules,
   styles
 }) {
@@ -49,6 +50,9 @@ function InputComponent ({
           id={name}
           type={type === 'password' ? showPass : type}
           label={label || name}
+          inputProps={{
+            autoComplete: autocomplete
+          }}
           InputProps={{
             endAdornment: type === 'password' ? forPasswordField() : null
           }}
@@ -65,6 +69,7 @@ InputComponent.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   label: PropTypes.string,
+  autocomplete: PropTypes.string,
   rules: PropTypes.object,
   styles: PropTypes.object
 }
