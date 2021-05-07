@@ -3,16 +3,90 @@ import ProfileComponent from '../components/profile/ProfileComponent'
 import AvatarLoaderComponent from '../components/profile/AvatarLoaderComponent'
 import ProfileFormComponent from '../components/profile/ProfileFormComponent'
 import noImage from '../assets/images/no-image.jpg'
+import { emailValidation, passwordValidation, usernameValidation } from '../validation'
+import locale from '../locale'
+import FormComponent from '../components/custom/FormComponent'
+import { useForm, FormProvider } from 'react-hook-form'
+
+const {
+  PROFILE: { FORM_LABELS, UPDATE_PROFILE }
+} = locale
 
 const initialState = {
+  firstName: '',
+  lastName: '',
   username: '',
+  email: '',
+  about: '',
   password: '',
   oldPassword: '',
-  email: '',
-  avatar: '',
-  about: '',
-  firstName: '',
-  lastName: ''
+  avatar: ''
+}
+
+const formFields = {
+  order: ['firstName', 'lastName', 'username', 'email', 'about', 'password', 'oldPassword'],
+  children: {
+    firstName: {
+      element: 'input',
+      name: 'firstName',
+      type: 'text',
+      label: FORM_LABELS.firstName,
+      // rules: usernameValidation,
+      autocomplete: 'name'
+    },
+    lastName: {
+      element: 'input',
+      name: 'lastName',
+      type: 'text',
+      label: FORM_LABELS.lastName,
+      // rules: usernameValidation,
+      autocomplete: 'name'
+    },
+    username: {
+      element: 'input',
+      name: 'username',
+      type: 'text',
+      label: FORM_LABELS.username,
+      // rules: usernameValidation,
+      autocomplete: 'username'
+    },
+    email: {
+      element: 'input',
+      name: 'email',
+      type: 'email',
+      label: FORM_LABELS.email,
+      // rules: emailValidation,
+      autocomplete: 'email'
+    },
+    about: {
+      element: 'input',
+      name: 'about',
+      type: 'text',
+      label: FORM_LABELS.about,
+      // rules: emailValidation,
+      autocomplete: 'off',
+      customProps: {
+        multiline: true,
+        rows: 4
+      }
+    },
+    password: {
+      element: 'input',
+      name: 'password',
+      type: 'password',
+      label: FORM_LABELS.password,
+      // rules: passwordValidation,
+      autocomplete: 'new-password'
+    },
+    oldPassword: {
+      element: 'input',
+      name: 'oldPassword',
+      type: 'password',
+      label: FORM_LABELS.oldPassword,
+      // rules: passwordValidation,
+      autocomplete: 'current-password'
+    }
+  }
 }
 
 function ProfileContainer (props) {
@@ -24,6 +98,7 @@ function ProfileContainer (props) {
     createdAt: '2019-12-19T13:05:11.043Z',
     events: []
   }
+  const methods = useForm({ defaultValues: { ...initialState, ...userInfoFromStore } })
 
   const [userInfo, setUserInfo] = useState({ ...initialState, ...userInfoFromStore })
 
@@ -73,10 +148,25 @@ function ProfileContainer (props) {
         />
       }
       profileForm={
-        <ProfileFormComponent
-          userInfo={userInfo}
-          updateProfile={updateProfile}
-        />
+        <>
+          <FormProvider {...methods}>
+            <FormComponent
+              onSubmit={updateProfile}
+              fields={formFields}
+              submitButton={{
+                text: UPDATE_PROFILE,
+                options: {
+                  fullWidth: false
+                }
+              }}
+              formClassName=''
+            />
+          </FormProvider>
+          {/* <ProfileFormComponent */}
+          {/*    userInfo={userInfo} */}
+          {/*    updateProfile={updateProfile} */}
+          {/* /> */}
+        </>
       }
     />
   )

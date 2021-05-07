@@ -13,33 +13,33 @@ const AppComponent = ({ isAuthenticated }) => {
     <>
       <Switch>
         <CommonLayoutComponent
-            path={Routes.ROOT}
-            component={CalendarContainer}
-            isAuthenticated={isAuthenticated}
-            exact
+          path={Routes.ROOT}
+          component={CalendarContainer}
+          isAuthenticated={isAuthenticated}
+          exact
         />
         <CommonLayoutComponent
-            path={Routes.PROFILE}
-            component={ProfileContainer}
-            isAuthenticated={isAuthenticated}
-            exact
+          path={Routes.PROFILE}
+          component={ProfileContainer}
+          isAuthenticated={isAuthenticated}
+          exact
         />
         <CommonLayoutComponent
-            path={Routes.MEETINGS}
-            isAuthenticated={isAuthenticated}
-            component={() => <p>Meetings</p>}
+          path={Routes.MEETINGS}
+          isAuthenticated={isAuthenticated}
+          component={() => <p>Meetings</p>}
         />
         <AuthLayoutComponent
-            path={Routes.LOGIN}
-            component={LoginContainer}
-            isAuthenticated={isAuthenticated}
-            exact
+          path={Routes.LOGIN}
+          component={LoginContainer}
+          isAuthenticated={isAuthenticated}
+          exact
         />
         <AuthLayoutComponent
-            path={Routes.REGISTER}
-            component={RegisterContainer}
-            isAuthenticated={isAuthenticated}
-            exact
+          path={Routes.REGISTER}
+          component={RegisterContainer}
+          isAuthenticated={isAuthenticated}
+          exact
         />
       </Switch>
     </>

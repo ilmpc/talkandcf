@@ -7,7 +7,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-const initialStyles = {
+const initialProps = {
   variant: 'outlined',
   margin: 'normal',
   fullWidth: true
@@ -21,7 +21,7 @@ function InputComponent ({
   label,
   autocomplete,
   rules,
-  styles
+  customProps
 }) {
   const [showPass, setShowPass] = useState('password')
   const handleClickShowPassword = useCallback(() => setShowPass(() => 'text'), [setShowPass])
@@ -56,8 +56,8 @@ function InputComponent ({
           InputProps={{
             endAdornment: type === 'password' ? forPasswordField() : null
           }}
-          {...initialStyles}
-          {...styles}
+          {...initialProps}
+          {...customProps}
         />}
     />
   )
@@ -71,7 +71,7 @@ InputComponent.propTypes = {
   label: PropTypes.string,
   autocomplete: PropTypes.string,
   rules: PropTypes.object,
-  styles: PropTypes.object
+  customProps: PropTypes.object
 }
 
 export default InputComponent

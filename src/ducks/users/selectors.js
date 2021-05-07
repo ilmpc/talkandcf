@@ -1,4 +1,4 @@
-import locale from "../../locale";
+import locale from '../../locale'
 
 const isInitialized = state => state.user.isInitialized
 

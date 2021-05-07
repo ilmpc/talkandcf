@@ -19,7 +19,7 @@ import locale from '../../locale.js'
 import { Routes } from '../../constants'
 import { Link } from 'react-router-dom'
 
-const { PROFILE: { TITLE, MY_MEETINGS } } = locale
+const { PROFILE: { TITLE, MY_MEETINGS, EDIT_USERINFO } } = locale
 
 const useStyles = makeStyles({
   wrapper: {
@@ -94,6 +94,9 @@ function ProfileComponent ({
         </Grid>
         <Grid item xs={12} sm={8} md={9}>
           <Paper className={classes.rightColumn}>
+            <Typography color='primary' gutterBottom>
+              {EDIT_USERINFO}
+            </Typography>
             {profileForm}
           </Paper>
         </Grid>
