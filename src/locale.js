@@ -43,6 +43,23 @@ const locale = {
     },
     UPDATE_PROFILE: 'Обновить данные',
     EDIT_USERINFO: 'Редактировать данные'
+  },
+  NOTIFICATIONS: {
+    ALL_BUTTON: 'Все',
+    APPLIED_BUTTON: 'Принятые',
+    APPLY_BUTTON: 'Принять',
+    DENY_BUTTON: 'Отклонить',
+    INBOX_BUTTON: 'Входящие',
+    DONE_BUTTON: 'Завершённые',
+    TITLE: 'Заголовок',
+    DESCRIPTION: 'Описание',
+    FROM: 'Начало',
+    TO: 'Конец',
+    ROOM: 'Комната',
+    CREATED_BY: 'Создатель',
+    CREATED_AT: 'Создано в',
+    ACTION: 'Действие',
+    EVENT_ENDED: 'Это событие уже закончилось'
   }
 }
 

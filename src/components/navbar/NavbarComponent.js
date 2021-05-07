@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2)
   },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    top: 0
+  },
   title: {
     flexGrow: 1
   }
@@ -46,7 +50,7 @@ export const NavbarComponent = ({ notifications, logoutHandler, profileHandler, 
 
   return (
     <div className={classes.root}>
-      <AppBar position='static'>
+      <AppBar position='fixed' className={classes.appBar}>
         <Toolbar>
           <IconButton edge='start' className={classes.menuButton} color='inherit' aria-label='menu' onClick={handlerWithClose(dashboardHandler)}>
             <EventNoteIcon />
@@ -88,6 +92,7 @@ export const NavbarComponent = ({ notifications, logoutHandler, profileHandler, 
           </div>
         </Toolbar>
       </AppBar>
+      <Toolbar/>
     </div>
   )
 }
