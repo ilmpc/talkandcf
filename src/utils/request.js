@@ -1,93 +1,65 @@
 import axios from 'axios'
 
+import { Api, ApiTokenStorageKey } from '../constants'
+
 const request = axios.create({
-  baseURL: 'http://peregovorki-js.noveogroup.com/'
+  baseURL: Api.ROOT
 })
 
-/**
- * Request interceptor for setting JWT to request header
- */
 request.interceptors.request.use(setJWTHeader)
 
-/**
- * Response interceptor for setting JWT to LocalStorage
- */
 request.interceptors.response.use(setJWTLocalStorage)
 
-/**
- * Response interceptors for send and check response
- */
-request.interceptors.response.use(responseMapper, errorHandler)
+request.interceptors.response.use(dataMapper, errorMapper)
 
-/**
- * Set jwt token in the authorization header under the 'Authorization' key
- *
- * @param {AxiosRequestConfig} config
- * @return {AxiosRequestConfig}
- */
 function setJWTHeader (config) {
-  config.headers.common.Authorization = `Bearer ${window.localStorage.getItem('AUTH_TOKEN')}`
+  config.headers.common.Authorization = `Bearer ${window.localStorage.getItem(ApiTokenStorageKey)}`
 
   return config
 }
 
-/**
- * Save JWT to the LocalStorage
- *
- * @param {AxiosResponse} response
- * @return {AxiosResponse}
- */
 function setJWTLocalStorage (response) {
-  switch (true) {
-    case new RegExp('auth/create').test(response.config.url):
-    case new RegExp('/auth/login').test(response.config.url):
-      const { token } = response.data.data
+  const authUrlChecker = new RegExp(`${Api.USER.REGISTER}|${Api.USER.LOGIN}$`)
+  const isAuthUrl = authUrlChecker.test(response.config.url)
+  if (isAuthUrl) {
+    const { token } = response.data.data
 
-      if (token) {
-        window.localStorage.setItem('AUTH_TOKEN', token)
-      }
+    if (token) {
+      window.localStorage.setItem(ApiTokenStorageKey, token)
+    }
+  }
 
-      return response
-    default:
-      return response
+  return response
+}
+
+class ApiError extends Error {
+  constructor ({ statusCode, statusMessage, error }, ...rest) {
+    super(error.errorMessage ?? statusMessage, ...rest)
+    this.name = 'ApiError'
+
+    this.statusCode = statusCode
+    this.statusMessage = statusMessage
+    this.error = error
   }
 }
 
 /**
- * Check response for errors
- * This handler is specific for project
- *
- * @param {AxiosResponse} data - server's response
- * @return {Promise.<Object>}
+ * Excludes success field and unwrap data
  */
-function errorHandler (data) {
-  console.log(data.response)
-  const { response } = data
-  const newError = {}
-
-  newError.statusCode = response.status
-  newError.statusMessage = response.statusText
-  newError.errorCode = parseJSON(response.data && (response.data.error?.errorMessage || response.data.error.errors[0].message))
-
-  return Promise.reject(newError)
+function dataMapper (response) {
+  return response.data.data
 }
 
 /**
- * Parse json if needed
- *
- * @param {*} data
- * @return {Object|*}
+ * Excludes success field and wrap error into ApiError
  */
-function parseJSON (data) {
-  try {
-    return JSON.parse(data)
-  } catch (e) {
-    return data
-  }
-}
-
-function responseMapper (res) {
-  return res.data.data
+function errorMapper (error) {
+  const { status, statusText, data } = error.response
+  return Promise.reject(new ApiError({
+    statusCode: status,
+    statusMessage: statusText,
+    error: data.error.errors ? data.error.errors[0]?.message : data.error.errorMessage
+  }))
 }
 
 export default request
