@@ -55,10 +55,11 @@ function dataMapper (response) {
  */
 function errorMapper (error) {
   const { status, statusText, data } = error.response
+
   return Promise.reject(new ApiError({
     statusCode: status,
     statusMessage: statusText,
-    error: data.error.errors ? data.error.errors[0]?.message : data.error.errorMessage
+    error: data.error
   }))
 }
 

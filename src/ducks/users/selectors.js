@@ -1,3 +1,5 @@
+import locale from "../../locale";
+
 const isInitialized = state => state.user.isInitialized
 
 const selectUser = (state) => state.user.user
@@ -8,7 +10,13 @@ const selectAuthState = (state) => state.user.isAuthenticated
 
 const selectLoading = (state) => state.user.loading
 
-const selectError = (state) => state.user.error ? state.user.error : null
+const selectError = (state) => {
+  const { error: Error } = state.user
+  if (Error) {
+    const { error } = Error
+    return error.errors ? error.errors[0].message : (error.errorMessage || locale.ERRORS.UNKNOWN_ERROR)
+  }
+}
 
 const selectUserById = (state) => state.user.userById
 

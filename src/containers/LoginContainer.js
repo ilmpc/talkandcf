@@ -52,7 +52,7 @@ function LoginContainer () {
   }, [dispatch, methods])
   return (
     <FormProvider {...methods}>
-      <PopupComponent isOpen={!!error} message={error?.message} severity='error' />
+      <PopupComponent isOpen={!!error} message={error} severity='error' />
       <LoginComponent
         loginUser={loginUser}
         formFields={formFields}

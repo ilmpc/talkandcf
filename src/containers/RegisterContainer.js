@@ -61,7 +61,7 @@ function RegisterContainer () {
   }, [dispatch, methods])
   return (
     <FormProvider {...methods}>
-      <PopupComponent isOpen={!!error} message={error?.message} severity='error' />
+      <PopupComponent isOpen={!!error} message={error} severity='error' />
       <RegisterComponent
         registerUser={registerUser}
         formFields={formFields}

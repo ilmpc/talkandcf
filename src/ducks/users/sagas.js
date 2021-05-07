@@ -8,7 +8,6 @@ import { ApiTokenStorageKey, Routes } from '../../constants'
 // sagas
 function * logoutSaga () {
   yield put(actions.logoutSuccess())
-  // remove string and use constant
   yield window.localStorage.removeItem(ApiTokenStorageKey)
 }
 
@@ -17,8 +16,7 @@ function * loginUserSaga (userInfo) {
     const res = yield call(services.loginUser, userInfo)
     yield put(actions.loginSuccess(res.user))
   } catch (error) {
-    console.error(error)
-    yield put(actions.loginError({ message: error.error }))
+    yield put(actions.loginError(error))
   } finally {
     if (yield cancelled()) {
       yield call(changeRouteSaga, Routes.LOGIN)
@@ -32,7 +30,7 @@ function * registerUserSaga ({ payload }) {
     yield put(actions.registerSuccess(response))
     yield takeLatest(types.logout.REQUEST, logoutSaga)
   } catch (error) {
-    yield put(actions.registerError({ message: error.error }))
+    yield put(actions.registerError(error))
   } finally {
     if (yield cancelled()) {
       yield call(changeRouteSaga, Routes.REGISTER)
@@ -45,7 +43,7 @@ function * loadUserSaga () {
     const userInfo = yield call(services.loadUser)
     yield put(actions.loadUserSuccess(userInfo))
   } catch (error) {
-    yield put(actions.loadUserError({ message: `${error.statusMessage}: ${error.error}` }))
+    yield put(actions.loadUserError(error))
   }
 }
 
@@ -65,7 +63,7 @@ function * loadUserByIdSaga ({ id }) {
     if (!user.username) throw new Error('User is not found')
     yield put(actions.loadUserByIdSuccess(user))
   } catch (error) {
-    yield put(actions.loadUserByIdError({ message: `${error.statusMessage}: ${error.error}` }))
+    yield put(actions.loadUserByIdError(error.message))
   }
 }
 
