@@ -7,6 +7,19 @@ export const Routes = {
   MEETINGS: '/meetings'
 }
 
+export const Api = {
+  ROOT: process.env.REACT_APP_API_URL,
+  AUTH: {
+    SIGNUP: '/auth/create',
+    LOGIN: '/auth/login'
+  },
+  PROFILE: {
+    ME: '/auth/me'
+  }
+}
+
+export const ApiTokenStorageKey = 'BackendApiToken'
+
 export const ViewTypes = {
   daysInMonth: 'dayGridMonth',
   daysInWeek: 'dayGridWeek',
