@@ -104,7 +104,6 @@ const columns = [
   }
 ]
 
-
 const NotificationsComponent = (
     {
       events, getFormattedDate, allButtonHandler, appliedButtonHandler,
@@ -123,8 +122,6 @@ const NotificationsComponent = (
     setRowsPerPage(+event.target.value)
     setPage(0)
   }
-
-
 
   return (
     <div className={classes.root}>

@@ -95,7 +95,6 @@ const NotificationsContainer = () => {
         return `${hours}-${minutes} ${day}.${month}.${year}`
     }, []);
 
-
     return (
         <NotificationsComponent
             getFormattedDate={getFormattedDate}
