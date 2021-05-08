@@ -5,25 +5,25 @@ import axios from "axios";
 
 const NotificationsContainer = () => {
 
-    const [buttonsGroupState, setButtonsGroupState] = useState("all")
-    const [sidePanelState, setSidePanelState] = useState("inbox")
+    const [buttonsGroupState, setButtonsGroupState] = useState('all')
+    const [sidePanelState, setSidePanelState] = useState('inbox')
     const [filteredEvents, setFilteredEvents] = useState([])
     const today = new Date();
 
     const allButtonHandler = useCallback(() => {
-        setButtonsGroupState("all")
+        setButtonsGroupState('all')
     }, [setButtonsGroupState])
 
     const appliedButtonHandler = useCallback(() => {
-        setButtonsGroupState("applied")
+        setButtonsGroupState('applied')
     }, [setButtonsGroupState])
 
     const inboxHandler = useCallback(() => {
-        setSidePanelState("inbox")
+        setSidePanelState('inbox')
     }, [setSidePanelState])
 
     const doneHandler = useCallback(() => {
-        setSidePanelState("done")
+        setSidePanelState('done')
     }, [setSidePanelState])
 
     const userid = '6092acb3ac5134001b3186c0' //useSelector
@@ -53,6 +53,11 @@ const NotificationsContainer = () => {
                             )
                         }
                     }
+                    newEvents = newEvents.sort((a, b) => {
+                        const aDate = new Date(a.from)
+                        const bDate = new Date(b.from)
+                        return aDate - bDate
+                    })
                     setFilteredEvents(newEvents)
                 }
             })
@@ -71,14 +76,21 @@ const NotificationsContainer = () => {
             })
     }, [])
     const getFormattedDate = useCallback(stringDate => {
-        const date = new Date(stringDate)
-        let minutes = date.getMinutes() === 0 ? '00' : date.getMinutes()
-        if(minutes.toString().length < 2){
-            minutes='0' + minutes;
+        const addFirstZero = value => {
+            if(value === 0){
+                return '00'
+            }
+            if(value.toString().length < 2){
+                return '0' + value
+            }
+
+            return value
         }
-        const hours = date.getHours()
-        const day = date.getDate()
-        const month = date.getMonth() + 1
+        const date = new Date(stringDate)
+        const minutes = addFirstZero(date.getMinutes())
+        const hours = addFirstZero(date.getHours())
+        const day = addFirstZero(date.getDate())
+        const month = addFirstZero(date.getMonth() + 1)
         const year = date.getFullYear()
         return `${hours}-${minutes} ${day}.${month}.${year}`
     }, []);

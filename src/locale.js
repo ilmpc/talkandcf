@@ -59,7 +59,8 @@ const locale = {
     CREATED_BY: 'Создатель',
     CREATED_AT: 'Создано в',
     ACTION: 'Действие',
-    EVENT_ENDED: 'Это событие уже закончилось'
+    EVENT_ENDED: 'Это событие уже закончилось',
+    CREATOR_NOT_FOUND: 'Создатель покинул событие'
   }
 }
 

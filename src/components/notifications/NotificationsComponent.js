@@ -26,7 +26,7 @@ const drawerWidth = 250
 const {NOTIFICATIONS:{ALL_BUTTON, APPLIED_BUTTON,
   APPLY_BUTTON, DENY_BUTTON, DONE_BUTTON,
   INBOX_BUTTON, CREATED_AT, DESCRIPTION, TITLE,
-  FROM, ROOM, TO, ACTION, CREATED_BY, EVENT_ENDED}} = locale
+  FROM, ROOM, TO, ACTION, CREATED_BY, EVENT_ENDED, CREATOR_NOT_FOUND}} = locale
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,46 +51,55 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '100%'
   },
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
+    minWidth: '150px'
   }
 }))
 const columns = [
   { id: 'title',
     label: TITLE,
+    align: 'center',
     minWidth: 100
   },
   { id: 'description',
     label: DESCRIPTION,
+    align: 'center',
     minWidth: 100
   },
   {
     id: 'from',
     label: FROM,
-    minWidth: 170
+    align: 'center',
+    minWidth: 150
   },
   {
     id: 'to',
     label: TO,
-    minWidth: 170
+    align: 'center',
+    minWidth: 150
   },
   {
     id: 'room',
     label: ROOM,
+    align: 'center',
     minWidth: 50
   },
   {
     id: 'createdBy',
     label: CREATED_BY,
-    minWidth: 170
+    align: 'center',
+    minWidth: 100
   },
   {
     id: 'createdAt',
     label: CREATED_AT,
+    align: 'center',
     minWidth: 100
   },
   {
     id: 'action',
     label: ACTION,
+    align: 'center',
     minWidth: 170
   }
 ]
@@ -172,6 +181,12 @@ const NotificationsComponent = (
                       }
                       if (column.id === 'from' || column.id === 'to' || column.id === 'createdAt') {
                         value = getFormattedDate(event[column.id])
+                      }
+                      if (column.id === 'createdBy') {
+                        const creatorid = event.createdBy;
+                        value = event.appliedUsers.find(user=> user._id === creatorid).username
+                        if (!value)
+                          value = CREATOR_NOT_FOUND
                       }
                       if (column.id === 'action') {
                         if (sidePanelState === 'inbox') {
