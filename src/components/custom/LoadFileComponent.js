@@ -1,69 +1,63 @@
-import {useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
 
-import AttachFileIcon from "@material-ui/icons/AttachFile"
-import CloudUploadIcon from "@material-ui/icons/CloudUpload"
+import AttachFileIcon from '@material-ui/icons/AttachFile'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import PopupComponent from './PopupComponent'
 
-function LoadFileComponent({ loading, uploadFileCb, text: {OPEN_BTN, UPLOAD_BTN} }) {
-    const [newFile, setNewFile] = useState(null)
-
-    const pickFile = useCallback((e) => {
-        setNewFile(() => e.target.files[0])
-    }, [setNewFile])
-    const uploadFile = useCallback(() => {
-        uploadFileCb(newFile)
-        setNewFile(null)
-    }, [uploadFileCb, newFile, setNewFile])
-
-    return (
+function LoadFileComponent ({
+  loading,
+  file,
+  handleSelect,
+  handleUpload,
+  error,
+  text: { OPEN_BTN, UPLOAD_BTN }
+}) {
+  return (
+    <>
+      <PopupComponent isOpen={!!error} message={error} />
+      <label htmlFor='new-file'>
+        <ListItem button disabled={loading}>
+          <input
+            accept='image/*'
+            name='newFile'
+            onChange={handleSelect}
+            style={{ display: 'none' }}
+            id='new-file'
+            type='file'
+          />
+          <ListItemIcon>
+            <AttachFileIcon />
+          </ListItemIcon>
+          <ListItemText primary={OPEN_BTN} />
+        </ListItem>
+      </label>
+      {file && (
         <>
-            <label htmlFor='new-file'>
-                <ListItem button disabled={loading}>
-                    <input
-                        accept='image/*'
-                        name='newFile'
-                        onChange={pickFile}
-                        style={{ display: 'none' }}
-                        id='new-file'
-                        type='file'
-                    />
-                    <ListItemIcon>
-                        <AttachFileIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={OPEN_BTN} />
-                </ListItem>
-            </label>
-            {newFile && (
-                <>
-                    <ListItem>
-                        <ListItemText primary={newFile?.name} />
-                    </ListItem>
-                    <ListItem button disabled={loading} onClick={uploadFile}>
-                        <ListItemIcon>
-                            <CloudUploadIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={UPLOAD_BTN} />
-                    </ListItem>
-                </>
-            )}
+          <ListItem>
+            <ListItemText primary={file?.name} />
+          </ListItem>
+          <ListItem button disabled={loading} onClick={handleUpload}>
+            <ListItemIcon>
+              <CloudUploadIcon />
+            </ListItemIcon>
+            <ListItemText primary={UPLOAD_BTN} />
+          </ListItem>
         </>
-    );
+      )}
+    </>
+  )
 }
 
 LoadFileComponent.propTypes = {
-    loading: PropTypes.bool.isRequired,
-    uploadFileCb: PropTypes.func.isRequired,
-    text: PropTypes.object
-}
-
-LoadFileComponent.defaultProps = {
-    text: {
-        OPEN_BTN: 'Выбрать файл',
-        UPLOAD_BTN: 'Загрузить',
-    }
+  loading: PropTypes.bool.isRequired,
+  file: PropTypes.object,
+  handleSelect: PropTypes.func.isRequired,
+  handleUpload: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  text: PropTypes.object.isRequired
 }
 
 export default LoadFileComponent
