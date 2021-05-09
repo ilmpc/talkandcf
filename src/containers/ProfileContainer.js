@@ -66,7 +66,7 @@ function ProfileContainer (props) {
     if (changedFields.length === 0) {
       setMessage({text: 'Please, change the form data', type: 'error'})
     } else {
-      if (changedFields.includes('password') && !changedFields.includes('oldPassword') || !changedFields.includes('password') && changedFields.includes('oldPassword')) {
+      if ((changedFields.includes('password') && !changedFields.includes('oldPassword')) || (!changedFields.includes('password') && changedFields.includes('oldPassword'))) {
         setMessage({ text: 'Заполните оба пароля', type: 'error' })
       } else {
         const newUser = {}

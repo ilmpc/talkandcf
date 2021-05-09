@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import LoadFileComponent from '../../components/custom/LoadFileComponent'
 import { getBase64 } from '../../utils/convert'
+import actions from "../../ducks/utils/actions";
 
 function LoadFileContainer ({ fileType, text }) {
   const dispatch = useDispatch()
@@ -17,11 +18,12 @@ function LoadFileContainer ({ fileType, text }) {
   }, [setFile])
   const handleUpload = useCallback(async () => {
     const fileToBase64 = await getBase64(file)
-    const mockAction = () => ({ type: 'UPLOAD_FILE_REQUEST', payload: { fileType, file: fileToBase64 } })
+    console.log(file)
+    // const mockAction = () => ({ type: 'UPLOAD_FILsE_REQUEST', payload: { fileType, name: file.lastModified + file.size , file: fileToBase64 } })
     if (!fileToBase64) {
       setError(fileToBase64)
     }
-    dispatch(mockAction())
+    dispatch(actions.loadFileRequest({ fileType, name: file.name, file: fileToBase64 }))
     setFile(null)
   }, [dispatch, setFile, file, fileType])
 

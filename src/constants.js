@@ -15,6 +15,9 @@ export const Api = {
     LOAD_USER: '/auth/me',
     UPDATE_PROFILE: '/users',
     LOAD_USER_BY_ID: (id) => `/users/${id}`
+  },
+  UTILS: {
+    LOAD_FILE: '/media/upload'
   }
 }
 

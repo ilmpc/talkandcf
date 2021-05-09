@@ -6,6 +6,7 @@ export const getBase64 = file => new Promise((resolve, reject) => {
   reader.onload = () => resolve(
     reader.result
       .replace('data:', '')
-      .replace(/^.+,/, ''))
+      .replace(/^.+,/, '')
+  )
   reader.onerror = () => reject(locale.ERRORS.PROCESS_FILE_ERROR)
 })
