@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import locale from '../../locale'
 
 const initialProps = {
   variant: 'outlined',
@@ -21,6 +22,7 @@ function InputComponent ({
   label,
   autocomplete,
   rules,
+  required,
   customProps
 }) {
   const [showPass, setShowPass] = useState('password')
@@ -37,11 +39,12 @@ function InputComponent ({
       </IconButton>
     </InputAdornment>
   ), [handleClickShowPassword, handleMouseDownPassword, showPass])
+  const forRequiredField = useCallback(() => ({ ...rules, required: { value: true, message: locale.ERRORS.REQUIRED } }), [rules])
   return (
     <Controller
       name={name}
       control={control}
-      rules={rules}
+      rules={required ? forRequiredField() : rules}
       render={({ field }) =>
         <TextField
           {...field}
@@ -71,7 +74,12 @@ InputComponent.propTypes = {
   label: PropTypes.string,
   autocomplete: PropTypes.string,
   rules: PropTypes.object,
+  required: PropTypes.bool,
   customProps: PropTypes.object
+}
+
+InputComponent.defaultProps = {
+  required: false
 }
 
 export default InputComponent

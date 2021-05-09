@@ -8,7 +8,7 @@ import AvatarComponent from '../components/profile/AvatarComponent'
 import { formFields } from '../forms/ProfileForm'
 import PopupComponent from '../components/custom/PopupComponent'
 
-const { PROFILE: { UPDATE_PROFILE } } = locale
+const { PROFILE: { UPDATE_PROFILE }, ERRORS } = locale
 
 const initialState = {
   firstName: '',
@@ -43,7 +43,17 @@ function ProfileContainer (props) {
     dispatch(mockAction())
   }, [dispatch])
 
-  const updateProfile = useCallback((data) => console.log(data), [])
+  const updateProfile = useCallback((data) => {
+      if (data.password) {
+          if (!data.oldPassword) {
+              methods.setError("oldPassword", {
+                  type: "profileForm",
+                  message: ERRORS.ENTER_OLD_PASS
+              }, true)
+          }
+      }
+      console.log(data)
+  }, [methods])
 
   return (
     <>

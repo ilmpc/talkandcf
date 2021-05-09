@@ -1,4 +1,5 @@
 import locale from '../locale'
+import { emailValidation, lessThan, noDigits, passwordValidation, usernameValidation } from '../validation'
 
 const { PROFILE: { FORM_LABELS } } = locale
 export const formFields = {
@@ -9,7 +10,7 @@ export const formFields = {
       name: 'firstName',
       type: 'text',
       label: FORM_LABELS.firstName,
-      // rules: usernameValidation,
+      rules: noDigits,
       autocomplete: 'name'
     },
     lastName: {
@@ -17,7 +18,7 @@ export const formFields = {
       name: 'lastName',
       type: 'text',
       label: FORM_LABELS.lastName,
-      // rules: usernameValidation,
+      rules: noDigits,
       autocomplete: 'name'
     },
     username: {
@@ -25,7 +26,7 @@ export const formFields = {
       name: 'username',
       type: 'text',
       label: FORM_LABELS.username,
-      // rules: usernameValidation,
+      rules: usernameValidation,
       autocomplete: 'username'
     },
     email: {
@@ -33,7 +34,7 @@ export const formFields = {
       name: 'email',
       type: 'email',
       label: FORM_LABELS.email,
-      // rules: emailValidation,
+      rules: emailValidation,
       autocomplete: 'email'
     },
     about: {
@@ -41,7 +42,7 @@ export const formFields = {
       name: 'about',
       type: 'text',
       label: FORM_LABELS.about,
-      // rules: emailValidation,
+      rules: lessThan(500),
       autocomplete: 'off',
       customProps: {
         multiline: true,
@@ -53,7 +54,7 @@ export const formFields = {
       name: 'password',
       type: 'password',
       label: FORM_LABELS.password,
-      // rules: passwordValidation,
+      rules: passwordValidation,
       autocomplete: 'new-password'
     },
     oldPassword: {
@@ -61,7 +62,6 @@ export const formFields = {
       name: 'oldPassword',
       type: 'password',
       label: FORM_LABELS.oldPassword,
-      // rules: passwordValidation,
       autocomplete: 'current-password'
     }
   }

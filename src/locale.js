@@ -11,6 +11,8 @@ const locale = {
   ERRORS: {
     UNKNOWN_ERROR: 'Something went wrong',
     REQUIRED: 'Это поле обязательно',
+    NO_DIGITS: 'Цифры недопустимы',
+    ENTER_OLD_PASS: 'Введите текущий пароль',
     MORE_THAN: (num) => `Не должно содержать менеее ${num} символов`,
     LESS_THAN: (num) => `Не должно содержать более ${num} символов`,
     USERNAME_VALIDATION: 'Логин не может содержать только цифры, используйте латинские буквы, разрешены символы: _ и -',
