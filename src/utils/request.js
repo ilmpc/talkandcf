@@ -19,7 +19,7 @@ function setJWTHeader (config) {
 }
 
 function setJWTLocalStorage (response) {
-  const authUrlChecker = new RegExp(`${Api.AUTH.SIGNUP}|${Api.AUTH.LOGIN}$`)
+  const authUrlChecker = new RegExp(`${Api.USER.REGISTER}|${Api.USER.LOGIN}$`)
   const isAuthUrl = authUrlChecker.test(response.config.url)
   if (isAuthUrl) {
     const { token } = response.data.data
