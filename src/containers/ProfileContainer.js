@@ -1,12 +1,14 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import ProfileComponent from '../components/profile/ProfileComponent'
 import locale from '../locale'
 import FormComponent from '../components/custom/FormComponent'
 import { useForm, FormProvider, useFormState } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import AvatarComponent from '../components/profile/AvatarComponent'
 import { formFields } from '../forms/ProfileForm'
 import PopupComponent from '../components/custom/PopupComponent'
+import selectors from '../ducks/users/selectors'
+import actions from '../ducks/users/actions'
 
 const { PROFILE: { UPDATE_PROFILE }, ERRORS } = locale
 
@@ -24,20 +26,24 @@ const initialState = {
 function ProfileContainer (props) {
   const dispatch = useDispatch()
   // from store
-  const loading = false
-  const error = null
-  const [warning, setWarning] = useState(null)
-  const userInfoFromStore = {
-    _id: '5dfb75872be01a001bcd0b41',
-    username: 'test1',
-    email: 'tesat1@yandex.ru',
-    createdAt: '2019-12-19T13:05:11.043Z',
-    events: []
-  }
-
-  const [userInfo, setUserInfo] = useState({ ...initialState, ...userInfoFromStore })
+  const loading = useSelector(selectors.selectLoading)
+  const error = useSelector(selectors.selectError)
+  const user = useSelector(selectors.selectUser)
+  const userInfo = { ...initialState, ...user }
+  //maybe remove it to global state
+  const [message, setMessage] = useState(null)
 
   const methods = useForm({ defaultValues: userInfo })
+
+  useEffect(() => {
+    formFields.order.map(field => user[field] && methods.setValue(field, user[field]))
+    if (methods.formState.isSubmitSuccessful) {
+      setMessage({ text: 'Profile updated', type: 'success'})
+      methods.reset(userInfo)
+    }
+  //  eslint-disable-next-line
+  }, [user])
+
   const { dirtyFields } = useFormState({
     control: methods.control
   })
@@ -47,7 +53,7 @@ function ProfileContainer (props) {
   }, [dispatch])
 
   const updateProfile = useCallback((data) => {
-    setWarning(null)
+    setMessage(null)
     if (data.password) {
       if (!data.oldPassword) {
         methods.setError('oldPassword', {
@@ -56,21 +62,26 @@ function ProfileContainer (props) {
         }, true)
       }
     }
-    const mockUpdate = (data) => ({ type: 'UPDATE_PROFILE_REQUEST', user: data })
-    if (Object.keys(dirtyFields).length === 0) setWarning('Please, change the form data')
-    else {
-      const newUser = {}
-      Object.keys(dirtyFields).map(field => {
-        newUser[field] = data[field]
-        return null
-      })
-      dispatch(mockUpdate(newUser))
+    const changedFields = Object.keys(dirtyFields)
+    if (changedFields.length === 0) {
+      setMessage({text: 'Please, change the form data', type: 'error'})
+    } else {
+      if (changedFields.includes('password') && !changedFields.includes('oldPassword') || !changedFields.includes('password') && changedFields.includes('oldPassword')) {
+        setMessage({ text: 'Заполните оба пароля', type: 'error' })
+      } else {
+        const newUser = {}
+        changedFields.map(field => {
+          newUser[field] = data[field]
+          return null
+        })
+        dispatch(actions.updateProfileRequest(newUser))
+      }
     }
-  }, [methods])
+  }, [methods, dispatch, dirtyFields])
 
   return (
     <>
-      <PopupComponent isOpen={!!error || !!warning} message={error || warning} />
+      <PopupComponent isOpen={!!error || !!message} message={error || message?.text} severity={message?.type || 'error'} />
       <ProfileComponent
         loading={loading}
         avatarComponent={<AvatarComponent
