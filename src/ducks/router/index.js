@@ -1,7 +1,9 @@
 import createRouterReducer from './reducer'
+import routerSagas from './sagas'
 
 const router = {
-  createRouterReducer
+  createRouterReducer,
+  routerSagas
 }
 
 export default router

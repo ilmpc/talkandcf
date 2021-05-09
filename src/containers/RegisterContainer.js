@@ -4,6 +4,9 @@ import locale from '../locale'
 import { emailValidation, passwordValidation, usernameValidation } from '../validation'
 import PopupComponent from '../components/custom/PopupComponent'
 import { useForm, FormProvider } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import actions from '../ducks/users/actions'
+import selectors from '../ducks/users/selectors'
 
 const {
   AUTH: { USERNAME, EMAIL, PASSWORD }
@@ -47,15 +50,18 @@ const defaultValues = {
 
 function RegisterContainer () {
   const methods = useForm({ defaultValues })
-  // from store
-  const loading = false; const error = null
+  const dispatch = useDispatch()
+
+  const loading = useSelector(selectors.selectLoading)
+  const error = useSelector(selectors.selectError)
+
   const registerUser = useCallback((data) => {
-    console.log(data)
+    dispatch(actions.registerRequest(data))
     methods.reset()
-  }, [methods])
+  }, [dispatch, methods])
   return (
     <FormProvider {...methods}>
-      <PopupComponent isOpen={!!error} message={error?.message} severity='error' />
+      <PopupComponent isOpen={!!error} message={error} severity='error' />
       <RegisterComponent
         registerUser={registerUser}
         formFields={formFields}

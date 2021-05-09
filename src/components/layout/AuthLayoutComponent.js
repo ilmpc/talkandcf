@@ -1,8 +1,8 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
-import Redirect from 'react-router-dom/Redirect'
+import { Route, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Routes } from '../../constants'
+
 const AuthLayoutComponent = ({ isAuthenticated, ...restProps }) => {
   if (isAuthenticated) {
     return <Redirect to={Routes.ROOT} />

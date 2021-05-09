@@ -9,12 +9,12 @@ export const Routes = {
 
 export const Api = {
   ROOT: process.env.REACT_APP_API_URL,
-  AUTH: {
-    SIGNUP: '/auth/create',
-    LOGIN: '/auth/login'
-  },
-  PROFILE: {
-    ME: '/auth/me'
+  USER: {
+    LOGIN: '/auth/login',
+    REGISTER: '/auth/create',
+    LOAD_USER: '/auth/me',
+    UPDATE_PROFILE: '/users',
+    LOAD_USER_BY_ID: (id) => `/users/${id}`
   }
 }
 

@@ -21,6 +21,6 @@ export const emailValidation = {
 export const passwordValidation = {
   required: { value: true, message: REQUIRED },
   minLength: { value: 8, message: MORE_THAN(8) },
-  maxLength: { value: 256, message: LESS_THAN(256)},
+  maxLength: { value: 256, message: LESS_THAN(256) },
   pattern: { value: /^(?=.*[\d])(?=.*[a-z])[\w!@#$%^&*-]{8,}$/, message: PASSWORD_VALIDATION }
 }
