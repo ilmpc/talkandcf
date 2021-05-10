@@ -25,12 +25,11 @@ const initialState = {
 
 function ProfileContainer (props) {
   const dispatch = useDispatch()
-  // from store
   const loading = useSelector(selectors.selectLoading)
   const error = useSelector(selectors.selectError)
   const user = useSelector(selectors.selectUser)
   const userInfo = { ...initialState, ...user }
-  //maybe remove it to global state
+  // maybe remove it to global state
   const [message, setMessage] = useState(null)
 
   const methods = useForm({ defaultValues: userInfo })
@@ -38,7 +37,7 @@ function ProfileContainer (props) {
   useEffect(() => {
     formFields.order.map(field => user[field] && methods.setValue(field, user[field]))
     if (methods.formState.isSubmitSuccessful) {
-      setMessage({ text: 'Profile updated', type: 'success'})
+      setMessage({ text: 'Profile updated', type: 'success' })
       methods.reset(userInfo)
     }
   //  eslint-disable-next-line
@@ -48,8 +47,7 @@ function ProfileContainer (props) {
     control: methods.control
   })
   const deleteAvatar = useCallback(() => {
-    const mockAction = () => ({ type: 'DELETE_AVATAR_REQUEST' })
-    dispatch(mockAction())
+    dispatch(actions.deleteAvatar())
   }, [dispatch])
 
   const updateProfile = useCallback((data) => {
@@ -64,10 +62,10 @@ function ProfileContainer (props) {
     }
     const changedFields = Object.keys(dirtyFields)
     if (changedFields.length === 0) {
-      setMessage({text: 'Please, change the form data', type: 'error'})
+      setMessage({ text: ERRORS.NO_CHANGE, type: 'error' })
     } else {
       if ((changedFields.includes('password') && !changedFields.includes('oldPassword')) || (!changedFields.includes('password') && changedFields.includes('oldPassword'))) {
-        setMessage({ text: 'Заполните оба пароля', type: 'error' })
+        setMessage({ text: ERRORS.BOTH_PASSWORDS, type: 'error' })
       } else {
         const newUser = {}
         changedFields.map(field => {

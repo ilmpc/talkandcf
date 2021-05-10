@@ -33,9 +33,11 @@ const logout = {
 }
 
 const INIT = '@@auth/INIT'
+const DELETE_AVATAR_REQUEST = '@@auth/DELETE_AVATAR_REQUEST'
 
 const types = {
   init: INIT,
+  deleteAvatar: DELETE_AVATAR_REQUEST,
   login,
   register,
   loadUser,

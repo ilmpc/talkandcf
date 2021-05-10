@@ -36,3 +36,4 @@ export const Events = [
 ]
 
 export const LOGO_URL = 'https://noveogroup.ru/build/images/logo-noveo.e179f24f.svg'
+export const NO_AVATAR = 'https://peregovorki-noveo.s3.us-east-2.amazonaws.com/1d521a8b-8564-412b-830a-766cf4c90b24-no-image.jpgno-image.jpg'

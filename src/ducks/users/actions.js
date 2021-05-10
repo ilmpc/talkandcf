@@ -80,6 +80,9 @@ const loadUserByIdError = (error) => ({
   type: types.loadUserById.ERROR,
   error
 })
+const deleteAvatar = () => ({
+  type: types.deleteAvatar
+})
 
 const actions = {
   init,
@@ -99,7 +102,8 @@ const actions = {
   updateProfileError,
   loadUserByIdRequest,
   loadUserByIdSuccess,
-  loadUserByIdError
+  loadUserByIdError,
+  deleteAvatar
 }
 
 export default actions

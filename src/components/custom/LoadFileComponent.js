@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import AttachFileIcon from '@material-ui/icons/AttachFile'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import PopupComponent from './PopupComponent'
+import { LinearProgress } from '@material-ui/core'
 
 function LoadFileComponent ({
   loading,
@@ -17,6 +18,7 @@ function LoadFileComponent ({
 }) {
   return (
     <>
+      {loading && <LinearProgress />}
       <PopupComponent isOpen={!!error} message={error} />
       <label htmlFor='new-file'>
         <ListItem button disabled={loading}>

@@ -3,10 +3,10 @@ import types from './types'
 import actions from './actions'
 import services from './services'
 
-function * loadFileSaga ({ payload: { fileType, name, file } }) {
+function * loadFileSaga ({ payload: { fileType, fileName, file } }) {
   try {
-    const fileUrl = yield call(services.loadFile({ fileName: name, file}))
-    yield put(actions.loadFileSuccess({ fileType, name, fileUrl}))
+    const { url } = yield call(services.loadFile, fileName, file)
+    if (url) yield put(actions.loadFileSuccess({ fileType, fileName, url }))
   } catch (error) {
     yield put(actions.loadFileError(error))
   }
@@ -15,6 +15,6 @@ function * loadFileSaga ({ payload: { fileType, name, file } }) {
 // main saga
 export default function * userSagas () {
   yield all([
-    takeLatest(types.loadFile.REQUEST, loadFileSaga),
+    takeLatest(types.loadFile.REQUEST, loadFileSaga)
   ])
 }

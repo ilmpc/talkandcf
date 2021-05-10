@@ -1,9 +1,11 @@
-import { all, put, call, take, takeLatest, fork, cancel, cancelled } from 'redux-saga/effects'
+import { all, put, call, take, takeLatest, fork, cancel, cancelled, select } from 'redux-saga/effects'
 import { changeRouteSaga } from '../router/sagas'
 import types from '../users/types'
+import utils from '../utils'
 import actions from './actions'
 import services from './services'
-import { ApiTokenStorageKey, Routes } from '../../constants'
+import { ApiTokenStorageKey, NO_AVATAR, Routes } from '../../constants'
+import selectors from './selectors'
 
 // sagas
 function * logoutSaga () {
@@ -67,6 +69,20 @@ function * loadUserByIdSaga ({ id }) {
   }
 }
 
+function * updateAvatarSaga ({ payload }) {
+  const url = yield select(utils.selectors.selectAvatar(payload.fileName))
+  if (url) {
+    yield put(actions.updateProfileRequest({ avatar: url }))
+  }
+}
+
+function * deleteAvatarSaga () {
+  const user = yield select(selectors.selectUser)
+  if (!(user.avatar === '' || user.avatar === NO_AVATAR)) {
+    yield put(actions.updateProfileRequest({ avatar: NO_AVATAR }))
+  }
+}
+
 // watchers
 function * loginUserWatcher () {
   while (true) {
@@ -98,6 +114,8 @@ export default function * userSagas () {
     takeLatest(types.register.REQUEST, registerUserSaga),
     takeLatest(types.loadUser.REQUEST, loadUserSaga),
     takeLatest(types.updateProfile.REQUEST, updateProfileSaga),
-    takeLatest(types.loadUserById.REQUEST, loadUserByIdSaga)
+    takeLatest(types.loadUserById.REQUEST, loadUserByIdSaga),
+    takeLatest(utils.types.loadFile.SUCCESS, updateAvatarSaga),
+    takeLatest(types.deleteAvatar, deleteAvatarSaga)
   ])
 }

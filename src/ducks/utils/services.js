@@ -3,8 +3,11 @@ import { Api } from '../../constants'
 
 const { UTILS } = Api
 
-const loadFile = fileData => {
-  return request.post(UTILS.LOAD_FILE, fileData)
+const loadFile = (fileName, file) => {
+  const Form = new window.FormData()
+  Form.append('file', file)
+  Form.append('fileName', fileName)
+  return request.post(UTILS.LOAD_FILE, Form)
 }
 
 const services = {

@@ -1,14 +1,15 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import LoadFileComponent from '../../components/custom/LoadFileComponent'
-import { getBase64 } from '../../utils/convert'
-import actions from "../../ducks/utils/actions";
+import actions from '../../ducks/utils/actions'
+import locale from '../../locale'
+import selectors from '../../ducks/utils/selectors'
 
 function LoadFileContainer ({ fileType, text }) {
   const dispatch = useDispatch()
-  // selector from duck utils
-  const loading = false
+
+  const loading = useSelector(selectors.selectLoading)
 
   const [file, setFile] = useState(null)
   const [error, setError] = useState(null)
@@ -17,14 +18,12 @@ function LoadFileContainer ({ fileType, text }) {
     setFile(() => e.target.files[0])
   }, [setFile])
   const handleUpload = useCallback(async () => {
-    const fileToBase64 = await getBase64(file)
-    console.log(file)
-    // const mockAction = () => ({ type: 'UPLOAD_FILsE_REQUEST', payload: { fileType, name: file.lastModified + file.size , file: fileToBase64 } })
-    if (!fileToBase64) {
-      setError(fileToBase64)
+    if (file) {
+      dispatch(actions.loadFileRequest({ fileType, fileName: file.name, file }))
+      setFile(null)
+    } else {
+      setError(locale.ERRORS.PROCESS_FILE_ERROR)
     }
-    dispatch(actions.loadFileRequest({ fileType, name: file.name, file: fileToBase64 }))
-    setFile(null)
   }, [dispatch, setFile, file, fileType])
 
   return (

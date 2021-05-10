@@ -17,8 +17,8 @@ const utilsReducer = (state = initialState, action) => {
         ...state,
         loading: true
       }
-    case types.loadFile.SUCCESS:
-      const { fileType, name, fileUrl } = action.payload
+    case types.loadFile.SUCCESS: {
+      const { fileType, fileName, url } = action.payload
       return {
         ...state,
         loading: false,
@@ -26,10 +26,11 @@ const utilsReducer = (state = initialState, action) => {
           ...state.files,
           [fileType]: {
             ...state.files[fileType],
-            [name]: fileUrl
+            [fileName]: url
           }
         }
       }
+    }
     case types.loadFile.ERROR:
       return {
         ...state,
