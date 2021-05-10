@@ -1,9 +1,0 @@
-name = "talkand-worker"
-type = "webpack"
-account_id = "be3ae8c3ff210452dc34a83de1c5fe98"
-route = "https://talkand.cf/*"
-zone_id = "9d19dbe8d26164fd3848735cb3487e98"
-usage_model = ""
-workers_dev = false
-target_type = "webpack"
-site = {bucket = "./build", entry-point = "cloudflare-worker"}
