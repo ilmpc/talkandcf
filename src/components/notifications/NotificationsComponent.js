@@ -18,6 +18,7 @@ import Button from '@material-ui/core/Button'
 import CloseIcon from '@material-ui/icons/Close'
 import { ButtonGroup } from '@material-ui/core'
 import locale from '../../locale'
+import Spinner from '../custom/Spinner'
 
 const drawerWidth = 250
 
@@ -112,7 +113,7 @@ const NotificationsComponent = (
   {
     events, getFormattedDate, allButtonHandler, appliedButtonHandler,
     buttonsGroupState, inboxHandler, doneHandler, sidePanelState,
-    applyHandler, denyHandler, userid
+    applyHandler, denyHandler, userid, loading
   }) => {
   const classes = useStyles()
 
@@ -125,6 +126,9 @@ const NotificationsComponent = (
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value)
     setPage(0)
+  }
+  if (loading) {
+    return <Spinner />
   }
 
   return (

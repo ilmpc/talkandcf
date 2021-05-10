@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import userSelectors from '../ducks/users/selectors'
+import eventsSelectors from '../ducks/events/selectors'
+import actions from '../ducks/events/actions'
+import services from "../ducks/events/services";
 import NotificationsComponent from '../components/notifications/NotificationsComponent'
-import axios from 'axios'
 
 const NotificationsContainer = () => {
   const [buttonsGroupState, setButtonsGroupState] = useState('all')
   const [sidePanelState, setSidePanelState] = useState('inbox')
   const [filteredEvents, setFilteredEvents] = useState([])
   const today = new Date()
+  const dispatch = useDispatch()
 
   const allButtonHandler = useCallback(() => {
     setButtonsGroupState('all')
@@ -24,51 +29,52 @@ const NotificationsContainer = () => {
     setSidePanelState('done')
   }, [setSidePanelState])
 
-  const userid = '6092acb3ac5134001b3186c0' // useSelector
+  const userid = useSelector(userSelectors.selectUserId)
+  const loading = useSelector(eventsSelectors.selectLoading)
+  const events = useSelector(eventsSelectors.selectEvents)
+  useEffect(() => {
+    dispatch(actions.eventsRequest())
+  }, [])
 
   useEffect(() => {
-    axios.get('http://peregovorki-js.noveogroup.com/events') // use dispatch to update events
-      .then(response => {
-        if (response.status === 200) {
-          const events = response.data
-          let newEvents
-          if (sidePanelState === 'done') {
-            newEvents = events.data.filter(event => {
-              const eventDate = new Date(event.to)
-              return (today - eventDate) > 0
-            })
-          } else {
-            newEvents = events.data
-              .filter(event => {
-                const eventDate = new Date(event.to)
-                return (today - eventDate) < 0
-              })
-            if (buttonsGroupState === 'applied') {
-              newEvents = newEvents.filter(
-                event => event.appliedUsers.find(element => element._id === userid)
-              )
-            }
-          }
-          newEvents = newEvents.sort((a, b) => {
-            const aDate = new Date(a.from)
-            const bDate = new Date(b.from)
-            return aDate - bDate
+    if (events !== null) {
+      let newEvents
+      if (sidePanelState === 'done') {
+        newEvents = events.filter(event => {
+          const eventDate = new Date(event.to)
+          return (today - eventDate) > 0
+        })
+      } else {
+        newEvents = events
+          .filter(event => {
+            const eventDate = new Date(event.to)
+            return (today - eventDate) < 0
           })
-          setFilteredEvents(newEvents)
+        if (buttonsGroupState === 'applied') {
+          newEvents = newEvents.filter(
+            event => event.appliedUsers.find(element => element._id === userid)
+          )
         }
+      }
+      newEvents = newEvents.sort((a, b) => {
+        const aDate = new Date(a.from)
+        const bDate = new Date(b.from)
+        return aDate - bDate
       })
-  }, [sidePanelState, buttonsGroupState])
+      setFilteredEvents(newEvents)
+    }
+  }, [sidePanelState, buttonsGroupState, events])
 
   const applyHandler = useCallback(id => () => {
-    axios.post(`http://peregovorki-js.noveogroup.com/events/${id}/apply`)
-      .then(response => {
-        // use dispatch to update events
+    services.applyEvent(id)
+      .then(() => {
+        dispatch(actions.eventsRequest())
       })
   }, [])
   const denyHandler = useCallback(id => () => {
-    axios.post(`http://peregovorki-js.noveogroup.com/events/${id}/deny`)
-      .then(response => {
-        // use dispatch to update events
+    services.denyEvent(id)
+      .then(() => {
+        dispatch(actions.eventsRequest())
       })
   }, [])
   const getFormattedDate = useCallback(stringDate => {
@@ -104,6 +110,7 @@ const NotificationsContainer = () => {
       userid={userid}
       applyHandler={applyHandler}
       denyHandler={denyHandler}
+      loading={loading}
     />
   )
 }

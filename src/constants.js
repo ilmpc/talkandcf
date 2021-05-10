@@ -16,8 +16,15 @@ export const Api = {
     UPDATE_PROFILE: '/users',
     LOAD_USER_BY_ID: (id) => `/users/${id}`
   },
+
   UTILS: {
     LOAD_FILE: '/media/upload'
+  },
+
+  EVENTS: {
+    GET_EVENTS: '/events',
+    DENY: (id) => `/events/${id}/deny`,
+    APPLY: (id) => `/events/${id}/apply`
   }
 }
 
