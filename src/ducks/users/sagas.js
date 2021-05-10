@@ -7,7 +7,6 @@ import services from './services'
 import { ApiTokenStorageKey, NO_AVATAR, Routes } from '../../constants'
 import selectors from './selectors'
 
-// sagas
 function * logoutSaga () {
   yield put(actions.logoutSuccess())
   yield window.localStorage.removeItem(ApiTokenStorageKey)
@@ -106,7 +105,6 @@ function * initialSaga () {
   yield takeLatest(types.logout.REQUEST, logoutSaga)
 }
 
-// main saga
 export default function * userSagas () {
   yield all([
     call(initialSaga),

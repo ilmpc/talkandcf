@@ -4,7 +4,6 @@ const init = () => ({
   type: types.init
 })
 
-// login actions
 const loginRequest = (credentials) => ({
   type: types.login.REQUEST,
   payload: credentials
@@ -18,7 +17,6 @@ const loginError = (error) => ({
   error
 })
 
-// register actions
 const registerRequest = (credentials) => ({
   type: types.register.REQUEST,
   payload: credentials
@@ -32,7 +30,6 @@ const registerError = (error) => ({
   error
 })
 
-// logout
 const logoutRequest = () => ({
   type: types.logout.REQUEST
 })
@@ -40,7 +37,6 @@ const logoutSuccess = () => ({
   type: types.logout.SUCCESS
 })
 
-// load user data
 const loadUserRequest = () => ({
   type: types.loadUser.REQUEST
 })
@@ -53,7 +49,6 @@ const loadUserError = (error) => ({
   error
 })
 
-// profile update data
 const updateProfileRequest = (payload) => ({
   type: types.updateProfile.REQUEST,
   payload
@@ -67,7 +62,6 @@ const updateProfileError = (error) => ({
   error
 })
 
-// load user by id
 const loadUserByIdRequest = (id) => ({
   type: types.loadUserById.REQUEST,
   id
