@@ -92,7 +92,7 @@ export const NavbarComponent = ({ notifications, logoutHandler, profileHandler, 
           </div>
         </Toolbar>
       </AppBar>
-      <Toolbar/>
+      <Toolbar />
     </div>
   )
 }

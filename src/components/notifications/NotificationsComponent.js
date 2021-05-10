@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import DoneIcon from '@material-ui/icons/Done'
@@ -16,17 +16,19 @@ import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Button from '@material-ui/core/Button'
 import CloseIcon from '@material-ui/icons/Close'
-import {ButtonGroup} from "@material-ui/core";
+import { ButtonGroup } from '@material-ui/core'
 import locale from '../../locale'
-import {element} from "prop-types";
-
 
 const drawerWidth = 250
 
-const {NOTIFICATIONS:{ALL_BUTTON, APPLIED_BUTTON,
-  APPLY_BUTTON, DENY_BUTTON, DONE_BUTTON,
-  INBOX_BUTTON, CREATED_AT, DESCRIPTION, TITLE,
-  FROM, ROOM, TO, ACTION, CREATED_BY, EVENT_ENDED, CREATOR_NOT_FOUND}} = locale
+const {
+  NOTIFICATIONS: {
+    ALL_BUTTON, APPLIED_BUTTON,
+    APPLY_BUTTON, DENY_BUTTON, DONE_BUTTON,
+    INBOX_BUTTON, CREATED_AT, DESCRIPTION, TITLE,
+    FROM, ROOM, TO, ACTION, CREATED_BY, EVENT_ENDED, CREATOR_NOT_FOUND
+  }
+} = locale
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,12 +58,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 const columns = [
-  { id: 'title',
+  {
+    id: 'title',
     label: TITLE,
     align: 'center',
     minWidth: 100
   },
-  { id: 'description',
+  {
+    id: 'description',
     label: DESCRIPTION,
     align: 'center',
     minWidth: 100
@@ -105,11 +109,11 @@ const columns = [
 ]
 
 const NotificationsComponent = (
-    {
-      events, getFormattedDate, allButtonHandler, appliedButtonHandler,
-      buttonsGroupState, inboxHandler, doneHandler, sidePanelState,
-      applyHandler, denyHandler, userid
-    }) => {
+  {
+    events, getFormattedDate, allButtonHandler, appliedButtonHandler,
+    buttonsGroupState, inboxHandler, doneHandler, sidePanelState,
+    applyHandler, denyHandler, userid
+  }) => {
   const classes = useStyles()
 
   const [page, setPage] = useState(0)
@@ -147,11 +151,11 @@ const NotificationsComponent = (
       </Drawer>
       <main className={classes.content}>
 
-        {sidePanelState === 'inbox' && (<ButtonGroup color='primary' aria-label='filter'>
-          <Button variant={buttonsGroupState === 'all' ? 'contained' : ''} onClick={allButtonHandler}>{ALL_BUTTON}</Button>
-          <Button variant={buttonsGroupState === 'applied' ? 'contained' : ''} onClick={appliedButtonHandler}>{APPLIED_BUTTON}</Button>
-        </ButtonGroup>)}
-
+        {sidePanelState === 'inbox' && (
+          <ButtonGroup color='primary' aria-label='filter'>
+            <Button variant={buttonsGroupState === 'all' ? 'contained' : ''} onClick={allButtonHandler}>{ALL_BUTTON}</Button>
+            <Button variant={buttonsGroupState === 'applied' ? 'contained' : ''} onClick={appliedButtonHandler}>{APPLIED_BUTTON}</Button>
+          </ButtonGroup>)}
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label='sticky table'>
             <TableHead>
@@ -180,41 +184,40 @@ const NotificationsComponent = (
                         value = getFormattedDate(event[column.id])
                       }
                       if (column.id === 'createdBy') {
-                        const creatorid = event.createdBy;
-                        value = event.appliedUsers.find(user=> user._id === creatorid).username
-                        if (!value)
-                          value = CREATOR_NOT_FOUND
+                        const creatorid = event.createdBy
+                        value = event.appliedUsers.find(user => user._id === creatorid).username
+                        if (!value) { value = CREATOR_NOT_FOUND }
                       }
                       if (column.id === 'action') {
                         if (sidePanelState === 'inbox') {
-
-                          if(event.appliedUsers.find(element => element._id === userid)){
-                            value = (<Button
+                          if (event.appliedUsers.find(element => element._id === userid)) {
+                            value = (
+                              <Button
                                 variant='contained'
                                 color='secondary'
                                 className={classes.button}
-                                startIcon={<CloseIcon/>}
+                                startIcon={<CloseIcon />}
                                 onClick={denyHandler(event._id)}
-                            >
-                              {DENY_BUTTON}
-                            </Button>)
+                              >
+                                {DENY_BUTTON}
+                              </Button>
+                            )
                           } else {
                             value = (
-                                <Button
-                                    variant='contained'
-                                    color='primary'
-                                    className={classes.button}
-                                    startIcon={<DoneIcon/>}
-                                    onClick={applyHandler(event._id)}
-                                >
-                                  {APPLY_BUTTON}
-                                </Button>
+                              <Button
+                                variant='contained'
+                                color='primary'
+                                className={classes.button}
+                                startIcon={<DoneIcon />}
+                                onClick={applyHandler(event._id)}
+                              >
+                                {APPLY_BUTTON}
+                              </Button>
                             )
                           }
                         } else {
                           value = EVENT_ENDED
                         }
-
                       }
                       return (
                         <TableCell key={column.id} align={column.align}>
