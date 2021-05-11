@@ -9,6 +9,8 @@ const initialState = {
 const eventsReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.getEvents.REQUEST:
+    case types.denyEvents.REQUEST:
+    case types.applyEvents.REQUEST:
       return {
         ...state,
         loading: true
@@ -20,6 +22,8 @@ const eventsReducer = (state = initialState, action) => {
         events: action.events
       }
     case types.getEvents.ERROR:
+    case types.denyEvents.ERROR:
+    case types.applyEvents.ERROR:
       return {
         ...state,
         loading: false,

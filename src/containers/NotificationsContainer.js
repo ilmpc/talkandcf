@@ -33,7 +33,7 @@ const NotificationsContainer = () => {
   const loading = useSelector(eventsSelectors.selectLoading)
   const events = useSelector(eventsSelectors.selectEvents)
   useEffect(() => {
-    dispatch(actions.eventsRequest())
+    dispatch(actions.getEventsRequest())
   }, [dispatch])
 
   useEffect(() => {
@@ -66,16 +66,10 @@ const NotificationsContainer = () => {
   }, [sidePanelState, buttonsGroupState, events])
 
   const applyHandler = useCallback(id => () => {
-    services.applyEvent(id)
-      .then(() => {
-        dispatch(actions.eventsRequest())
-      })
+    dispatch((actions.applyEventRequest(id)))
   }, [dispatch])
   const denyHandler = useCallback(id => () => {
-    services.denyEvent(id)
-      .then(() => {
-        dispatch(actions.eventsRequest())
-      })
+    dispatch((actions.denyEventRequest(id)))
   }, [dispatch])
   const getFormattedDate = useCallback(stringDate => {
     const addFirstZero = value => {

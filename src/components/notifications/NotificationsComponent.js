@@ -128,7 +128,7 @@ const NotificationsComponent = (
     setRowsPerPage(+event.target.value)
     setPage(0)
   }
-  if (loading) {
+  if (loading && !events) {
     return <Spinner />
   }
 
@@ -249,9 +249,7 @@ const NotificationsComponent = (
     </div>
   )
 }
-// events, getFormattedDate, allButtonHandler, appliedButtonHandler,
-//   buttonsGroupState, inboxHandler, doneHandler, sidePanelState,
-//   applyHandler, denyHandler, userid, loading
+
 NotificationsComponent.propTypes = {
   events: PropTypes.array.isRequired,
   getFormattedDate: PropTypes.func.isRequired,
