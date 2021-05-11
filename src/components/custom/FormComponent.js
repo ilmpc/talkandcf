@@ -32,6 +32,9 @@ function FormComponent ({
             return (
               <SelectContainer key={name} name={name} {...rest} />
             )
+          case 'component':
+            const { component: Component }= fields.children[fieldName]
+            return <Component key={fieldName} />
           default:
             return null
         }
