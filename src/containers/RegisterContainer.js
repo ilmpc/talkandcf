@@ -21,7 +21,8 @@ const formFields = {
       type: 'text',
       label: USERNAME,
       rules: usernameValidation,
-      autocomplete: 'username'
+      autocomplete: 'username',
+      required: true
     },
     email: {
       element: 'input',
@@ -29,7 +30,8 @@ const formFields = {
       type: 'email',
       label: EMAIL,
       rules: emailValidation,
-      autocomplete: 'email'
+      autocomplete: 'email',
+      required: true
     },
     password: {
       element: 'input',
@@ -37,7 +39,8 @@ const formFields = {
       type: 'password',
       label: PASSWORD,
       rules: passwordValidation,
-      autocomplete: 'new-password'
+      autocomplete: 'new-password',
+      required: true
     }
   }
 }
