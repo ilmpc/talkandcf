@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useFormContext } from 'react-hook-form'
 import InputComponent from './InputComponent'
 import Button from '@material-ui/core/Button'
+import SelectContainer from '../../containers/custom/SelectContainer'
 
 function FormComponent ({
   fields,
@@ -25,6 +26,10 @@ function FormComponent ({
                 errors={errors}
                 {...rest}
               />
+            )
+          case 'select':
+            return (
+              <SelectContainer key={name} name={name} {...rest} />
             )
           default:
             return null

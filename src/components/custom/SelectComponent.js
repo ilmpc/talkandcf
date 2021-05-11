@@ -16,6 +16,7 @@ function SelectComponent ({
       variant='outlined'
       className={className}
       required={required}
+      fullWidth
     >
       <InputLabel id={`${name}-label`}>{placeholder}</InputLabel>
       <Select
