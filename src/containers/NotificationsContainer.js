@@ -34,7 +34,7 @@ const NotificationsContainer = () => {
   const events = useSelector(eventsSelectors.selectEvents)
   useEffect(() => {
     dispatch(actions.eventsRequest())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     if (events !== null) {
@@ -70,13 +70,13 @@ const NotificationsContainer = () => {
       .then(() => {
         dispatch(actions.eventsRequest())
       })
-  }, [])
+  }, [dispatch])
   const denyHandler = useCallback(id => () => {
     services.denyEvent(id)
       .then(() => {
         dispatch(actions.eventsRequest())
       })
-  }, [])
+  }, [dispatch])
   const getFormattedDate = useCallback(stringDate => {
     const addFirstZero = value => {
       if (value === 0) {

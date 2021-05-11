@@ -19,6 +19,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import { ButtonGroup } from '@material-ui/core'
 import locale from '../../locale'
 import Spinner from '../custom/Spinner'
+import PropTypes from 'prop-types'
 
 const drawerWidth = 250
 
@@ -248,4 +249,21 @@ const NotificationsComponent = (
     </div>
   )
 }
+// events, getFormattedDate, allButtonHandler, appliedButtonHandler,
+//   buttonsGroupState, inboxHandler, doneHandler, sidePanelState,
+//   applyHandler, denyHandler, userid, loading
+NotificationsComponent.propTypes = {
+  events: PropTypes.array.isRequired,
+  getFormattedDate: PropTypes.func.isRequired,
+  allButtonHandler: PropTypes.func.isRequired,
+  inboxHandler: PropTypes.func.isRequired,
+  doneHandler: PropTypes.func.isRequired,
+  applyHandler: PropTypes.func.isRequired,
+  denyHandler: PropTypes.func.isRequired,
+  buttonsGroupState: PropTypes.string.isRequired,
+  sidePanelState: PropTypes.string.isRequired,
+  userid: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired
+}
+
 export default NotificationsComponent
