@@ -17,6 +17,7 @@ function CalendarContainer ({ events }) {
     console.log(loadInfo)
   }, [])
   const selectEvent = React.useCallback((selectInfo) => {
+    console.log(selectInfo)
     const calendarApi = selectInfo.view.calendar
     const title = window.prompt('Please enter a new title for your event')
     calendarApi.unselect()
@@ -31,6 +32,7 @@ function CalendarContainer ({ events }) {
     }
   }, [])
   const clickEvent = React.useCallback((clickInfo) => {
+    console.log(clickInfo)
     setPopup(() => clickInfo.el)
     setEventInfo(() => clickInfo.event)
   }, [])

@@ -1,39 +1,22 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
-import { Container } from '@material-ui/core'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Divider from '@material-ui/core/Divider'
-import noImage from '../../assets/images/no-image.jpg'
 import locale from '../../locale.js'
-import { Routes } from '../../constants'
-import { Link } from 'react-router-dom'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import { Container } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
-const { PROFILE: { TITLE, MY_MEETINGS } } = locale
+const { PROFILE: { TITLE, EDIT_USERINFO } } = locale
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   wrapper: {
     padding: '1rem 1.5rem',
-    '& a': {
-      textDecoration: 'none'
-    },
     '& .MuiLinearProgress-root': {
       marginBottom: '1rem'
     }
-  },
-  photo: {
-    background: 'grey',
-    height: '3rem'
   },
   title: {
     display: 'flex',
@@ -55,15 +38,25 @@ const useStyles = makeStyles({
   rightColumn: {
     padding: '1rem'
   },
-  input: {
-    display: 'none'
+  formContainer: {
+    display: 'flex',
+    // justifyContent: 'center',
+    '& form': {
+      marginRight: '1rem',
+      maxWidth: '600px'
+    },
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1)
+    },
+    '& button': {
+      margin: '1rem 1rem 1rem 0'
+    }
   }
-})
+}))
 
 function ProfileComponent ({
-  userInfo,
   loading,
-  avatarLoader,
+  avatarComponent,
   profileForm
 }) {
   const classes = useStyles()
@@ -77,24 +70,17 @@ function ProfileComponent ({
       <Grid container spacing={3}>
         <Grid item xs={5} sm={4} md={3}>
           <Paper className={classes.leftColumn}>
-            <img src={userInfo.avatar || noImage} alt='avatar' />
-            <List component='nav' aria-label='image settings'>
-              {avatarLoader}
-              <Divider />
-              <ListItem button>
-                <ListItemIcon>
-                  <SupervisorAccountIcon />
-                </ListItemIcon>
-                <Link to={Routes.MEETINGS}>
-                  <ListItemText primary={MY_MEETINGS} />
-                </Link>
-              </ListItem>
-            </List>
+            {avatarComponent}
           </Paper>
         </Grid>
         <Grid item xs={12} sm={8} md={9}>
           <Paper className={classes.rightColumn}>
-            {profileForm}
+            <Typography color='primary' gutterBottom>
+              {EDIT_USERINFO}
+            </Typography>
+            <div className={classes.formContainer}>
+              {profileForm}
+            </div>
           </Paper>
         </Grid>
       </Grid>
@@ -103,9 +89,9 @@ function ProfileComponent ({
 }
 
 ProfileComponent.propTypes = {
-  userInfo: PropTypes.object.isRequired,
-  avatarLoader: PropTypes.element,
-  profileForm: PropTypes.element
+  loading: PropTypes.bool.isRequired,
+  avatarComponent: PropTypes.element.isRequired,
+  profileForm: PropTypes.element.isRequired
 }
 
 export default ProfileComponent

@@ -6,8 +6,9 @@ import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import locale from '../../locale'
 
-const initialStyles = {
+const initialProps = {
   variant: 'outlined',
   margin: 'normal',
   fullWidth: true
@@ -21,7 +22,8 @@ function InputComponent ({
   label,
   autocomplete,
   rules,
-  styles
+  required,
+  customProps
 }) {
   const [showPass, setShowPass] = useState('password')
   const handleClickShowPassword = useCallback(() => setShowPass(() => 'text'), [setShowPass])
@@ -37,11 +39,12 @@ function InputComponent ({
       </IconButton>
     </InputAdornment>
   ), [handleClickShowPassword, handleMouseDownPassword, showPass])
+  const forRequiredField = useCallback(() => ({ ...rules, required: { value: true, message: locale.ERRORS.REQUIRED } }), [rules])
   return (
     <Controller
       name={name}
       control={control}
-      rules={rules}
+      rules={required ? forRequiredField() : rules}
       render={({ field }) =>
         <TextField
           {...field}
@@ -56,8 +59,8 @@ function InputComponent ({
           InputProps={{
             endAdornment: type === 'password' ? forPasswordField() : null
           }}
-          {...initialStyles}
-          {...styles}
+          {...initialProps}
+          {...customProps}
         />}
     />
   )
@@ -71,7 +74,12 @@ InputComponent.propTypes = {
   label: PropTypes.string,
   autocomplete: PropTypes.string,
   rules: PropTypes.object,
-  styles: PropTypes.object
+  required: PropTypes.bool,
+  customProps: PropTypes.object
+}
+
+InputComponent.defaultProps = {
+  required: false
 }
 
 export default InputComponent
