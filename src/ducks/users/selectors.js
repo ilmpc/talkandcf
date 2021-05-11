@@ -14,7 +14,7 @@ const selectError = (state) => {
   const { error: Error } = state.user
   if (Error) {
     const { error } = Error
-    return error.errors ? error.errors[0].message : (error.errorMessage || locale.ERRORS.UNKNOWN_ERROR)
+    return error?.errors ? error.errors[0].message : (error?.errorMessage || locale.ERRORS.UNKNOWN_ERROR)
   }
 }
 
