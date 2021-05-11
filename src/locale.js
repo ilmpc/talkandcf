@@ -11,11 +11,16 @@ const locale = {
   ERRORS: {
     UNKNOWN_ERROR: 'Something went wrong',
     REQUIRED: 'Это поле обязательно',
+    NO_DIGITS: 'Цифры недопустимы',
+    ENTER_OLD_PASS: 'Введите текущий пароль',
     MORE_THAN: (num) => `Не должно содержать менеее ${num} символов`,
     LESS_THAN: (num) => `Не должно содержать более ${num} символов`,
     USERNAME_VALIDATION: 'Логин не может содержать только цифры, используйте латинские буквы, разрешены символы: _ и -',
     EMAIL_VALIDATION: 'Email некорректен',
-    PASSWORD_VALIDATION: 'Пароль должен содержать латинские буквы и цифры, разрешены символы: !@#$%^&*_-'
+    PASSWORD_VALIDATION: 'Пароль должен содержать латинские буквы и цифры, разрешены символы: !@#$%^&*_-',
+    PROCESS_FILE_ERROR: 'Ошибка обработки файла',
+    NO_CHANGE: 'Данные не были изменены',
+    BOTH_PASSWORDS: 'Введите новый и текущий пароли'
   },
   NAVBAR: {
     PROFILE: 'Profile',
