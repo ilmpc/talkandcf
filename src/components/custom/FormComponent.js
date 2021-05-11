@@ -9,7 +9,8 @@ function FormComponent ({
   fields,
   onSubmit,
   submitButton,
-  formClassName
+  formClassName,
+  children
 }) {
   const { handleSubmit, control, formState: { errors } } = useFormContext()
   return (
@@ -35,6 +36,7 @@ function FormComponent ({
             return null
         }
       })}
+      {children}
       <Button
         type='submit'
         className={submitButton.className}
