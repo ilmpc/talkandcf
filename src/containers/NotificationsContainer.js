@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import userSelectors from '../ducks/users/selectors'
 import eventsSelectors from '../ducks/events/selectors'
 import actions from '../ducks/events/actions'
-import services from "../ducks/events/services";
 import NotificationsComponent from '../components/notifications/NotificationsComponent'
 
 const NotificationsContainer = () => {

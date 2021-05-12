@@ -1,9 +1,8 @@
-import { all, put, call, takeLatest, cancelled, select } from 'redux-saga/effects'
+import { all, put, call, takeLatest, cancelled } from 'redux-saga/effects'
 import { changeRouteSaga } from '../router/sagas'
 import types from './types'
 import eventsActions from './actions'
 import services from './services'
-import userSelectors from '../users/selectors'
 import userActions from '../users/actions'
 import { Routes } from '../../constants'
 
