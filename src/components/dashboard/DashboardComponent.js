@@ -26,7 +26,7 @@ function DashboardComponent (props) {
       <SelectCityContainer />
       <RoomFiltersContainer />
       <button
-        style={{ margin: '1rem' }} onclick={props.loadFreeRooms}
+        style={{ margin: '1rem' }} onClick={props.loadFreeRooms}
       >
         Кнопка имитирует открытие модалки "Добавить ивент" или выбор юзером другого времени начала/окончания события
       </button>
