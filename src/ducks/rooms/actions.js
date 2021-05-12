@@ -1,10 +1,11 @@
 import types from './types'
 
-const getRoomsRequest = () => ({
-  type: types.getRooms.REQUEST
+const getRoomsRequest = (payload) => ({
+  type: types.getRooms.REQUEST,
+  payload
 })
 const getRoomsSuccess = (rooms) => ({
-  type: types.getRooms.REQUEST,
+  type: types.getRooms.SUCCESS,
   rooms
 })
 const getRoomsFail = (error) => ({
@@ -12,12 +13,12 @@ const getRoomsFail = (error) => ({
   error
 })
 
-
-const getRoomRequest = () => ({
-  type: types.getRoom.REQUEST
+const getRoomRequest = (id) => ({
+  type: types.getRoom.REQUEST,
+  id
 })
 const getRoomSuccess = (room) => ({
-  type: types.getRoom.REQUEST,
+  type: types.getRoom.SUCCESS,
   room
 })
 const getRoomFail = (error) => ({
@@ -25,32 +26,37 @@ const getRoomFail = (error) => ({
   error
 })
 
-
-const getFreeRoomsRequest = () => ({
-  type: types.getFreeRooms.REQUEST
-})
-const getFreeRoomsSuccess = (freeRoom) => ({
+const getFreeRoomsRequest = (payload) => ({
   type: types.getFreeRooms.REQUEST,
-  freeRoom
+  payload
+})
+const getFreeRoomsSuccess = (freeRooms) => ({
+  type: types.getFreeRooms.SUCCESS,
+  freeRooms
 })
 const getFreeRoomsFail = (error) => ({
   type: types.getFreeRooms.ERROR,
   error
 })
 
-
 const addFilter = (filter) => ({
-  type: types.setFilter.ADD_FILTER,
+  type: types.filters.ADD_FILTER,
   filter
 })
+
 const removeFilter = (filter) => ({
-  type: types.getFreeRooms.ERROR,
+  type: types.filters.REMOVE_FILTER,
   filter
 })
 
+const applyFilters = (payload) => ({
+  type: types.filters.APPLY_FILTER,
+  payload
+})
 
-const applyFilters = () => ({
-  type: types.applyFilters
+const setCapacity = (capacity) => ({
+  type: types.filters.SET_CAPACITY,
+  capacity
 })
 
 const actions = {
@@ -65,7 +71,8 @@ const actions = {
   getFreeRoomsFail,
   addFilter,
   removeFilter,
-  applyFilters
+  applyFilters,
+  setCapacity
 }
 
 export default actions

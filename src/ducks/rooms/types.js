@@ -16,18 +16,17 @@ const getRoom = {
   ERROR: '@@rooms/GET_ROOM_ERROR'
 }
 
-const setFilter = {
+const filters = {
   ADD_FILTER: '@@rooms/ADD_FILTER',
-  REMOVE_FILTER: '@@rooms/REMOVE_FILTER'
+  REMOVE_FILTER: '@@rooms/REMOVE_FILTER',
+  APPLY_FILTER: '@rooms/APPLY_FILTERS',
+  SET_CAPACITY: '@rooms/SET_CAPACITY'
 }
-
-const applyFilters = '@rooms/APPLY_FILTERS'
 
 const types = {
   getRooms,
   getRoom,
   getFreeRooms,
-  setFilter,
-  applyFilters
+  filters
 }
 export default types

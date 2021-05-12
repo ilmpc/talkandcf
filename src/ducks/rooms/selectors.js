@@ -10,7 +10,9 @@ const selectFreeRooms = state => state.rooms.freeRooms
 
 const selectFilteredRooms = state => state.rooms.filteredRooms
 
-const filters = state => state.rooms.filters
+const selectFilters = state => state.rooms.filters
+
+const selectCapacity = state => state.rooms.capacity
 
 const selectors = {
   selectLoading,
@@ -19,7 +21,8 @@ const selectors = {
   selectRooms,
   selectFreeRooms,
   selectFilteredRooms,
-  filters
+  selectFilters,
+  selectCapacity
 }
 
 export default selectors

@@ -43,6 +43,14 @@ const locale = {
     },
     UPDATE_PROFILE: 'Обновить данные',
     EDIT_USERINFO: 'Редактировать данные'
+  },
+  ROOMS: {
+    SELECT_FILTERS: 'Оборудование комнаты',
+    CAMERA: 'Камера',
+    MICRO: 'Микрофон',
+    SPEAKERS: 'Колонки',
+    BOARD: 'Маркерная доска',
+    CAPACITY: 'Вместимость'
   }
 }
 

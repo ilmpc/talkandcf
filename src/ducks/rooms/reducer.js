@@ -8,6 +8,7 @@ const initialState = {
   freeRooms: [],
   filteredRooms: [],
   filters: [],
+  capacity: 20
 }
 
 const roomsReducer = (state = initialState, action) => {
@@ -37,20 +38,27 @@ const roomsReducer = (state = initialState, action) => {
         loading: false,
         room: action.room
       }
-    case types.setFilter.ADD_FILTER:
+    case types.filters.ADD_FILTER:
       return {
         ...state,
-        filters: [...state.filters, action.filter]
+        filters: action.filter
       }
-    case types.setFilter.REMOVE_FILTER:
+    case types.filters.REMOVE_FILTER:
       return {
         ...state,
-        filters: state.filters.filter(filter => filter !== action.filter)
+        filters: state.filters.filter(f => f !== action.filter)
       }
-    case types.applyFilters:
+    case types.filters.APPLY_FILTER:
       return {
         ...state,
-        filteredRooms: state.freeRooms.filter(room => state.filters.every(filter => room?.equipment.includes(filter)))
+        freeRooms: action.payload.freeRooms
+          .filter(room => room.capacity >= state.capacity)
+          .filter(room => state.filters.every(f => room.equipment.includes(f.toLowerCase())))
+      }
+    case types.filters.SET_CAPACITY:
+      return {
+        ...state,
+        capacity: action.capacity
       }
     case types.getRooms.ERROR:
     case types.getFreeRooms.ERROR:
