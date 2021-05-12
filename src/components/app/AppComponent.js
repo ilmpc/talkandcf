@@ -1,20 +1,23 @@
 import { Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Routes } from '../../constants'
-import CalendarContainer from '../../containers/CalendarContainer'
+
 import CommonLayoutComponent from '../layout/СommonLayoutComponent'
 import AuthLayoutComponent from '../layout/AuthLayoutComponent'
 import ProfileContainer from '../../containers/ProfileContainer'
 import LoginContainer from '../../containers/LoginContainer'
 import RegisterContainer from '../../containers/RegisterContainer'
+import NotificationsContainer from '../../containers/NotificationsContainer'
+import DashboardContainer from '../../containers/DashboardContainer'
 
 const AppComponent = ({ isAuthenticated }) => {
   return (
     <>
+
       <Switch>
         <CommonLayoutComponent
           path={Routes.ROOT}
-          component={CalendarContainer}
+          component={DashboardContainer}
           isAuthenticated={isAuthenticated}
           exact
         />
@@ -23,6 +26,12 @@ const AppComponent = ({ isAuthenticated }) => {
           component={ProfileContainer}
           isAuthenticated={isAuthenticated}
           exact
+        />
+        <CommonLayoutComponent
+          path={Routes.NOTIFICATIONS}
+          component={NotificationsContainer}
+          exact
+          isAuthenticated
         />
         <CommonLayoutComponent
           path={Routes.MEETINGS}
