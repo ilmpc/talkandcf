@@ -18,6 +18,12 @@ export const Api = {
   },
   UTILS: {
     LOAD_FILE: '/media/upload'
+  },
+  ROOMS: {
+    GET_ROOMS: (city) => `/rooms/?city=${city}`,
+    GET_ROOMS_QUERY: (city, offset, limit) => `/rooms/?city=${city}&offset=${offset}&limit=${limit}`,
+    GET_FREE_ROOMS: (city, from, to) => `/rooms/free/?city=${city}&from=${from}&to=${to}`,
+    GET_ROOM: (id) => `/rooms/${id}`
   }
 }
 
