@@ -28,7 +28,11 @@ export const Api = {
   EVENTS: {
     GET_EVENTS: '/events',
     DENY: (id) => `/events/${id}/deny`,
-    APPLY: (id) => `/events/${id}/apply`
+    APPLY: (id) => `/events/${id}/apply`,
+    POST_EVENT: '/events',
+    GET_EVENT_BY_ID: (id) => `/events/${id}`,
+    PATCH_EVENT: (id) => `/events/${id}`,
+    DELETE_EVENT: (id) => `/events/${id}`
   },
   ROOMS: {
     GET_ROOMS: (city) => `/rooms/?city=${city}`,

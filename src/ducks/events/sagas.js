@@ -46,10 +46,69 @@ function * applyEventSaga ({ id }) {
   }
 }
 
+function * postEventSaga ({ data }) {
+  try {
+    yield call(services.postEvent, data)
+    yield put(eventsActions.getEventsRequest())
+    yield put(userActions.loadUserRequest())
+  } catch (error) {
+    yield put(eventsActions.postEventError(error))
+  } finally {
+    if (yield cancelled()) {
+      yield call(changeRouteSaga, Routes.NOTIFICATIONS)
+    }
+  }
+}
+
+function * getEventByIdSaga ({ id }) {
+  try {
+    const response = yield call(services.getEventById, id)
+    yield put(eventsActions.getEventByIdSuccess(response))
+  } catch (error) {
+    yield put(eventsActions.applyEventError(error))
+  } finally {
+    if (yield cancelled()) {
+      yield call(changeRouteSaga, Routes.NOTIFICATIONS)
+    }
+  }
+}
+
+function * patchEventSaga ({ id, data }) {
+  try {
+    yield call(services.patchEvent, id, data)
+    yield put(eventsActions.getEventsRequest())
+    yield put(userActions.loadUserRequest())
+  } catch (error) {
+    yield put(eventsActions.applyEventError(error))
+  } finally {
+    if (yield cancelled()) {
+      yield call(changeRouteSaga, Routes.NOTIFICATIONS)
+    }
+  }
+}
+
+function * deleteEventSaga ({ id }) {
+  try {
+    yield call(services.deleteEvent, id)
+    yield put(eventsActions.getEventsRequest())
+    yield put(userActions.loadUserRequest())
+  } catch (error) {
+    yield put(eventsActions.applyEventError(error))
+  } finally {
+    if (yield cancelled()) {
+      yield call(changeRouteSaga, Routes.NOTIFICATIONS)
+    }
+  }
+}
+
 export default function * userSagas () {
   yield all([
     takeLatest(types.getEvents.REQUEST, getEventsSaga),
-    takeLatest(types.denyEvents.REQUEST, denyEventSaga),
-    takeLatest(types.applyEvents.REQUEST, applyEventSaga)
+    takeLatest(types.denyEvent.REQUEST, denyEventSaga),
+    takeLatest(types.applyEvent.REQUEST, applyEventSaga),
+    takeLatest(types.patchEvent.REQUEST, patchEventSaga),
+    takeLatest(types.getEventById.REQUEST, getEventByIdSaga),
+    takeLatest(types.postEvent.REQUEST, postEventSaga),
+    takeLatest(types.deleteEvent.REQUEST, deleteEventSaga)
   ])
 }

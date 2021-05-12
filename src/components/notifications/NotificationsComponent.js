@@ -155,7 +155,6 @@ const NotificationsComponent = (
         </div>
       </Drawer>
       <main className={classes.content}>
-
         {sidePanelState === 'inbox' && (
           <ButtonGroup color='primary' aria-label='filter'>
             <Button variant={buttonsGroupState === 'all' ? 'contained' : ''} onClick={allButtonHandler}>{ALL_BUTTON}</Button>
