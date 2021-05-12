@@ -1,4 +1,4 @@
-import { all, call, put, takeLeading, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import types from './types'
 import services from './services'
 import actions from './actions'
@@ -6,6 +6,7 @@ import actions from './actions'
 function * loadRoomsSaga ({ payload }) {
   try {
     const { city, offset = 0, limit = 100 } = payload
+    yield put(actions.getRoomsRequest())
     const rooms = yield call(services.getRoomsQuery, city, offset, limit)
     yield put(actions.getRoomsSuccess(rooms))
   } catch (e) {
@@ -16,20 +17,31 @@ function * loadRoomsSaga ({ payload }) {
 function * getFreeRoomsSaga ({ payload }) {
   try {
     const { city, from, to } = payload
-
     const freeRooms = yield call(services.getFreeRooms, city, from, to)
 
     yield put(actions.applyFilters({
       freeRooms
     }))
+    yield put(actions.getFreeRoomsSuccess())
   } catch (e) {
     yield put(actions.getFreeRoomsFail({ message: e.message }))
   }
 }
 
+function * getRoomSaga ({ id }) {
+  try {
+    const room = yield call(services.getRoom, id)
+
+    yield put(actions.getRoomSuccess(room))
+  } catch (e) {
+    yield put(actions.getRoomFail({ message: e.message }))
+  }
+}
+
 export default function * roomsSagas () {
   yield all([
-    takeLeading(types.getRooms.REQUEST, loadRoomsSaga),
-    takeLatest(types.getFreeRooms.REQUEST, getFreeRoomsSaga)
+    takeLatest('SET_CITY', loadRoomsSaga),
+    takeLatest(types.getFreeRooms.REQUEST, getFreeRoomsSaga),
+    takeLatest(types.getRoom.REQUEST, getRoomSaga)
   ])
 }

@@ -1,8 +1,7 @@
 import types from './types'
 
-const getRoomsRequest = (payload) => ({
-  type: types.getRooms.REQUEST,
-  payload
+const getRoomsRequest = () => ({
+  type: types.getRooms.REQUEST
 })
 const getRoomsSuccess = (rooms) => ({
   type: types.getRooms.SUCCESS,
@@ -30,9 +29,8 @@ const getFreeRoomsRequest = (payload) => ({
   type: types.getFreeRooms.REQUEST,
   payload
 })
-const getFreeRoomsSuccess = (freeRooms) => ({
-  type: types.getFreeRooms.SUCCESS,
-  freeRooms
+const getFreeRoomsSuccess = () => ({
+  type: types.getFreeRooms.SUCCESS
 })
 const getFreeRoomsFail = (error) => ({
   type: types.getFreeRooms.ERROR,

@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import rooms from '../ducks/rooms'
 
 function SelectCityContainer () {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(rooms.actions.getRoomsRequest({ city: 'Академгородок' }))
-  }, [])
+    const mockAction = () => ({ type: 'SET_CITY', payload: { city: 'Академгородок' } })
+    dispatch(mockAction())
+  }, [dispatch])
 
   return (
     <div>
-      <p>Здесь будет компонент по выбору города, который вызовет getRoomsRequest</p>
-      <p>Пока загрузка происходит для Академгородка в useEffect </p>
+      <p>Здесь будет компонент Selector с выбором города, который диспачит SET_CITY, на который стоит watcher для загрузки комнат</p>
+      <p>Пока загрузка всех переговорок происходит для Академгородка в useEffect </p>
     </div>
   )
 }

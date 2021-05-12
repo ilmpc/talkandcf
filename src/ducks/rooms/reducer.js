@@ -6,7 +6,6 @@ const initialState = {
   room: null,
   rooms: [],
   freeRooms: [],
-  filteredRooms: [],
   filters: [],
   capacity: 20
 }
@@ -29,8 +28,7 @@ const roomsReducer = (state = initialState, action) => {
     case types.getFreeRooms.SUCCESS:
       return {
         ...state,
-        loading: false,
-        freeRooms: action.freeRooms
+        loading: false
       }
     case types.getRoom.SUCCESS:
       return {
