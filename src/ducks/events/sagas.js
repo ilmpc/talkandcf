@@ -23,8 +23,7 @@ function * denyEventSaga ({ id }) {
   try {
     yield call(services.denyEvent, id)
     yield put(eventsActions.getEventsRequest())
-    const userid = yield select(userSelectors.selectUserId)
-    yield put(userActions.loadUserByIdRequest(userid))
+    yield put(userActions.loadUserRequest())
   } catch (error) {
     yield put(eventsActions.denyEventError(error))
   } finally {
@@ -38,8 +37,7 @@ function * applyEventSaga ({ id }) {
   try {
     yield call(services.applyEvent, id)
     yield put(eventsActions.getEventsRequest())
-    const userid = yield select(userSelectors.selectUserId)
-    yield put(userActions.loadUserByIdRequest(userid))
+    yield put(userActions.loadUserRequest())
   } catch (error) {
     yield put(eventsActions.applyEventError(error))
   } finally {
