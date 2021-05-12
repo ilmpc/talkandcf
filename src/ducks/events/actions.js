@@ -34,9 +34,9 @@ const applyEventError = (error) => ({
   error
 })
 
-const postEventRequest = (id) => ({
+const postEventRequest = (data) => ({
   type: types.postEvent.REQUEST,
-  id
+  data
 })
 
 const postEventError = (error) => ({
