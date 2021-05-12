@@ -9,7 +9,6 @@ const NotificationsContainer = () => {
   const [buttonsGroupState, setButtonsGroupState] = useState('all')
   const [sidePanelState, setSidePanelState] = useState('inbox')
   const [filteredEvents, setFilteredEvents] = useState([])
-  const today = new Date()
   const dispatch = useDispatch()
 
   const allButtonHandler = useCallback(() => {
@@ -36,6 +35,7 @@ const NotificationsContainer = () => {
   }, [dispatch])
 
   useEffect(() => {
+    const today = new Date()
     if (events !== null) {
       let newEvents
       if (sidePanelState === 'done') {
@@ -62,7 +62,7 @@ const NotificationsContainer = () => {
       })
       setFilteredEvents(newEvents)
     }
-  }, [sidePanelState, buttonsGroupState, events, today, userid])
+  }, [sidePanelState, buttonsGroupState, events, userid])
 
   const applyHandler = useCallback(id => () => {
     dispatch((actions.applyEventRequest(id)))
