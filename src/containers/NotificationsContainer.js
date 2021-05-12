@@ -62,7 +62,7 @@ const NotificationsContainer = () => {
       })
       setFilteredEvents(newEvents)
     }
-  }, [sidePanelState, buttonsGroupState, events])
+  }, [sidePanelState, buttonsGroupState, events, today, userid])
 
   const applyHandler = useCallback(id => () => {
     dispatch((actions.applyEventRequest(id)))
