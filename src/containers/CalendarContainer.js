@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import CalendarComponent from '../components/calendar/CalendarComponent'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -6,10 +6,23 @@ import interactionPlugin from '@fullcalendar/interaction'
 import PropTypes from 'prop-types'
 import { ViewTypes } from '../constants'
 import EventPopoverContainer from './EventPopoverContainer'
+import { useSelector } from 'react-redux'
+import { formatEventsForCalendar } from '../utils/convert'
+import events from '../ducks/events'
+import user from '../ducks/users'
 
 const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]
 
-function CalendarContainer ({ events }) {
+function CalendarContainer () {
+  const eventsFromStore = useSelector(events.selectors.selectEvents)
+
+  const id = useSelector(user.selectors.selectUserId)
+
+  const eventsFormatted = useMemo(() => {
+    if (eventsFromStore) return formatEventsForCalendar(eventsFromStore, id)
+    else return []
+  }, [eventsFromStore, id])
+
   const [popup, setPopup] = useState(null)
   const [eventInfo, setEventInfo] = useState(null)
 
@@ -32,10 +45,13 @@ function CalendarContainer ({ events }) {
     }
   }, [])
   const clickEvent = React.useCallback((clickInfo) => {
+    if (clickInfo.event._def.extendedProps.userId !== id) {
+      return
+    }
     console.log(clickInfo)
     setPopup(() => clickInfo.el)
     setEventInfo(() => clickInfo.event)
-  }, [])
+  }, [id])
   const changeEvent = React.useCallback((clickInfo) => {
     if (window.confirm(`Are you sure you want to CHANGE the event '${clickInfo.event.title}'`)) {
       console.log(clickInfo)
@@ -64,7 +80,7 @@ function CalendarContainer ({ events }) {
     <>
       <CalendarComponent
         plugins={plugins}
-        events={events}
+        events={eventsFormatted}
         view={ViewTypes.timeAllWeek}
         actions={calendarActions}
       />
