@@ -1,4 +1,5 @@
 import types from './types'
+import user from '../users'
 
 const initialState = {
   loading: false,
@@ -65,6 +66,10 @@ const roomsReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.error
+      }
+    case user.types.logout.SUCCESS:
+      return {
+        ...initialState
       }
     default:
       return state

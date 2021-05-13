@@ -17,6 +17,7 @@ function CalendarComponent ({ view, plugins, events, actions }) {
       events={events}
       editable
       selectable
+      eventDisplay='list-item'
       eventContent={EventContentComponent}
       initialView={view}
       datesSet={actions.loadEvents}

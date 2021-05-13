@@ -22,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1)
   },
   formControl: {
-    margin: theme.spacing(0, 1, 2, 1),
-    minWidth: '300px'
+    minWidth: '250px'
   },
   chips: {
     display: 'flex',
@@ -51,7 +50,7 @@ function RoomFiltersComponent ({
 
   return (
     <Grid container spacing={3} className={classes.filters}>
-      <Grid item xs={12} sm={8}>
+      <Grid item xs={12} sm={7}>
         <FormControl className={classes.formControl}>
           <InputLabel id='rooms-filters-label'>{SELECT_FILTERS}</InputLabel>
           <Select
@@ -82,7 +81,7 @@ function RoomFiltersComponent ({
           </div>
         </FormControl>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={5}>
         <div className={classes.capacity}>
           <Typography id='capacity' gutterBottom>
             {CAPACITY}

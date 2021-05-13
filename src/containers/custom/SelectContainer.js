@@ -18,7 +18,7 @@ function SelectContainer ({
 
   const handleChange = e => {
     setValue(name, e.target.value)
-    if (handleChangeCb) handleChangeCb()
+    if (handleChangeCb) handleChangeCb(e.target.value)
   }
 
   return (

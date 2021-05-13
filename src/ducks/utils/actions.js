@@ -15,10 +15,22 @@ const loadFileError = error => ({
   error
 })
 
+const setCity = city => ({
+  type: types.setCity,
+  payload: { city }
+})
+
+const switchMyMeetings = myMeetings => ({
+  type: types.switchMyMeetings,
+  myMeetings
+})
+
 const actions = {
   loadFileRequest,
   loadFileSuccess,
-  loadFileError
+  loadFileError,
+  setCity,
+  switchMyMeetings
 }
 
 export default actions
