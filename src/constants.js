@@ -1,4 +1,5 @@
 import locale from './locale'
+import noAvatarImage from './assets/images/no-image.jpg'
 
 const { ROOMS: { CAMERA, MICRO, SPEAKERS, BOARD } } = locale
 
@@ -51,8 +52,7 @@ export const ViewTypes = {
   timeAllDay: 'timeGridDay'
 }
 
-export const LOGO_URL = 'https://noveogroup.ru/build/images/logo-noveo.e179f24f.svg'
-export const NO_AVATAR = 'https://peregovorki-noveo.s3.us-east-2.amazonaws.com/1d521a8b-8564-412b-830a-766cf4c90b24-no-image.jpgno-image.jpg'
+export const NO_AVATAR = noAvatarImage
 
 export const roomsFilters = [CAMERA, MICRO, SPEAKERS, BOARD]
 

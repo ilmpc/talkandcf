@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
-import { Routes, LOGO_URL } from '../../constants'
+import { Routes } from '../../constants'
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import locale from '../../locale'
 import FormComponent from '../custom/FormComponent'
 import { LinearProgress } from '@material-ui/core'
+import { ReactComponent as LogoComponent } from '../../assets/images/logo.svg'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -17,11 +18,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   logo: {
-    width: '50%',
-    margin: '0 auto 2rem auto',
-    '& img': {
-      width: '100%'
-    }
+    margin: 'auto'
   },
   form: {
     width: '100%'
@@ -43,7 +40,7 @@ function RegisterComponent ({ registerUser, formFields, loading }) {
     <Container component='main' maxWidth='xs'>
       <div className={classes.paper}>
         <Box className={classes.logo}>
-          <img src={LOGO_URL} alt='noveo' />
+          <LogoComponent />
         </Box>
         {loading && <LinearProgress style={{ width: '100%' }} color='secondary' />}
         <FormComponent
