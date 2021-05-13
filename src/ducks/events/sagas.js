@@ -1,15 +1,20 @@
-import { all, put, call, takeLatest, cancelled } from 'redux-saga/effects'
+import { all, put, call, takeLatest, cancelled, select } from 'redux-saga/effects'
 import { changeRouteSaga } from '../router/sagas'
 import types from './types'
 import eventsActions from './actions'
 import services from './services'
 import userActions from '../users/actions'
 import { Routes } from '../../constants'
+import utils from '../utils'
 
 function * getEventsSaga () {
   try {
+    const city = yield select(utils.selectors.selectCity)
+
     const response = yield call(services.getEvents)
-    yield put(eventsActions.getEventsSuccess(response))
+    const filtered = yield response.filter(e => e.room?.city.toLowerCase() === city.toLowerCase())
+
+    yield put(eventsActions.getEventsSuccess(filtered))
   } catch (error) {
     yield put(eventsActions.getEventsError(error))
   } finally {

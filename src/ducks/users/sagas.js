@@ -103,7 +103,7 @@ function * initialSaga () {
     yield call(loadUserSaga)
   }
   yield put(actions.init())
-  const city = localStorage.getItem('city')
+  const city = window.localStorage.getItem('city')
   if (city) {
     yield put(utils.actions.setCity(city))
   }

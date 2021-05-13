@@ -5,7 +5,7 @@ import locale from '../../locale'
 import { makeStyles } from '@material-ui/core/styles'
 import SelectCityContainer from '../../containers/SelectCityContainer'
 import RoomFiltersContainer from '../../containers/RoomFiltersContainer'
-import Spinner from '../custom/Spinner'
+import LinearLoader from '../custom/LinearLoader'
 
 const { DASHBOARD: { TITLE } } = locale
 
@@ -25,19 +25,22 @@ function DashboardComponent ({ city, rooms, loadFreeRooms, loading }) {
     <div className={classes.wrapper}>
       <Typography variant='h5' className={classes.heading}>{TITLE}</Typography>
       <SelectCityContainer />
-        {!rooms.length ? null :
-            (loading ? <Spinner /> : (<>
-              <RoomFiltersContainer />
-              <button
-                style={{ margin: '1rem' }} onClick={loadFreeRooms}
-              >
-                Кнопка имитирует открытие модалки "Добавить ивент" или выбор юзером другого времени начала/окончания события
-              </button>
-              <CalendarContainer />
-              <p>Комнаты в {city}:</p>
-              {rooms.map(r => <p key={r._id}>{r.roomNumber}</p>)}
-            </>
-          ))}
+      {!rooms.length
+        ? null
+        : (
+          <>
+            <RoomFiltersContainer />
+            <button
+              style={{ margin: '1rem' }} onClick={loadFreeRooms}
+            >
+              Кнопка имитирует открытие модалки "Добавить ивент" или выбор юзером другого времени начала/окончания события
+            </button>
+            {loading && <LinearLoader />}
+            <CalendarContainer />
+            <p>Комнаты в {city}:</p>
+            {rooms.map(r => <p key={r._id}>{r.roomNumber}</p>)}
+          </>
+          )}
     </div>
   )
 }

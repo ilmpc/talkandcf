@@ -2,6 +2,7 @@ import { all, put, call, takeLatest } from 'redux-saga/effects'
 import types from './types'
 import actions from './actions'
 import services from './services'
+import events from '../events'
 
 function * loadFileSaga ({ payload: { fileType, fileName, file } }) {
   try {
@@ -12,7 +13,8 @@ function * loadFileSaga ({ payload: { fileType, fileName, file } }) {
   }
 }
 function * setCitySaga ({ payload }) {
-  yield localStorage.setItem('city', payload.city)
+  yield window.localStorage.setItem('city', payload.city)
+  yield put(events.actions.getEventsRequest())
 }
 
 // main saga

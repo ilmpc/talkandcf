@@ -15,10 +15,6 @@ const options = [{
   text: 'Академгородок'
 }]
 
-const defaultValues = {
-  city: localStorage.getItem('city') || ''
-}
-
 const useStyles = makeStyles(theme => ({
   selector: {
     margin: theme.spacing(1),
@@ -27,8 +23,11 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function SelectCityContainer () {
-  const methods = useForm({ defaultValues })
+  const methods = useForm({
+    defaultValues: { city: window.localStorage.getItem('city') || '' }
+  })
   const dispatch = useDispatch()
+
   const classes = useStyles()
 
   const handleOfficeChange = (value) => {
