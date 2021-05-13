@@ -10,6 +10,7 @@ import RoomsList from './RoomsList'
 import EventsInfoComponent from './EventsInfoComponent'
 import Grid from '@material-ui/core/Grid'
 import MyMeetingsContainer from '../../containers/MyMeetingsContainer'
+
 const { DASHBOARD: { TITLE } } = locale
 
 const useStyles = makeStyles(theme => ({
