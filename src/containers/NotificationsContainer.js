@@ -2,16 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import userSelectors from '../ducks/users/selectors'
 import eventsSelectors from '../ducks/events/selectors'
+import utilsSelectors from '../ducks/utils/selectors'
 import actions from '../ducks/events/actions'
 import NotificationsComponent from '../components/notifications/NotificationsComponent'
-import selectors from '../ducks/utils/selectors'
 
 const NotificationsContainer = () => {
   const [page, setPage] = useState(0)
   const [buttonsGroupState, setButtonsGroupState] = useState('all')
   const [sidePanelState, setSidePanelState] = useState('inbox')
-  const [filteredEvents, setFilteredEvents] = useState([])
-  const myMeetings = useSelector(selectors.selectMyMeetings)
+  const filteredEvents = useSelector(eventsSelectors.selectFilteredEvents)
+  const myMeetings = useSelector(utilsSelectors.selectMyMeetings)
   const dispatch = useDispatch()
 
   const allButtonHandler = useCallback(() => {
@@ -68,9 +68,9 @@ const NotificationsContainer = () => {
         const bDate = new Date(b.from)
         return aDate - bDate
       })
-      setFilteredEvents(newEvents)
+      dispatch(actions.addFilteredEvents(newEvents))
     }
-  }, [sidePanelState, buttonsGroupState, events, userid, myMeetings])
+  }, [sidePanelState, buttonsGroupState, events, userid, myMeetings, dispatch])
 
   const applyHandler = useCallback(id => () => {
     dispatch((actions.applyEventRequest(id)))

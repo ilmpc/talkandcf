@@ -80,6 +80,11 @@ const deleteEventError = (error) => ({
   error
 })
 
+const addFilteredEvents = (events) => ({
+  type: types.addFilteredEvents,
+  events
+})
+
 const actions = {
   getEventsRequest,
   getEventsSuccess,
@@ -96,7 +101,8 @@ const actions = {
   deleteEventError,
   getEventByIdRequest,
   getEventByIdSuccess,
-  getEventByIdError
+  getEventByIdError,
+  addFilteredEvents
 }
 
 export default actions

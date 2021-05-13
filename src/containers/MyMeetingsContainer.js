@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import actions from '../ducks/utils/actions'
 import selectors from '../ducks/utils/selectors'
 
-const MyMeetingsContainer = ({ cityRequired }) => {
+const MyMeetingsContainer = () => {
   const dispatch = useDispatch()
   const switchState = useSelector(selectors.selectMyMeetings)
   const city = useSelector(selectors.selectCity)
   let disabled = false
-  if (city === '' && cityRequired) {
+  if (city === '') {
     disabled = true
   }
 

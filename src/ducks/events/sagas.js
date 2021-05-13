@@ -106,7 +106,7 @@ function * deleteEventSaga ({ id }) {
   }
 }
 
-export default function * userSagas () {
+export default function * eventsSagas () {
   yield all([
     takeLatest(types.getEvents.REQUEST, getEventsSaga),
     takeLatest(types.denyEvent.REQUEST, denyEventSaga),

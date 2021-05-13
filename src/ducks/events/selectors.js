@@ -6,6 +6,8 @@ const selectLoading = (state) => state.events.loading
 
 const selectEventById = (state) => state.events.eventById
 
+const selectFilteredEvents = (state) => state.events.filteredEvents
+
 const selectError = (state) => {
   const { error: Error } = state.events
   if (Error) {
@@ -18,7 +20,8 @@ const selectors = {
   selectEvents,
   selectLoading,
   selectError,
-  selectEventById
+  selectEventById,
+  selectFilteredEvents
 }
 
 export default selectors

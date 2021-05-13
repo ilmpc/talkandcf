@@ -26,8 +26,10 @@ const patchEvent = {
 }
 const deleteEvent = {
   REQUEST: '@@events/DELETE_EVENT_REQUEST',
-  ERROR: '@@events//DELETE_EVENT_ERROR'
+  ERROR: '@@events/DELETE_EVENT_ERROR'
 }
+const addFilteredEvents = '@@events/ADD_FILTERED_EVENTS'
+
 const types = {
   getEvents,
   denyEvent,
@@ -35,6 +37,7 @@ const types = {
   postEvent,
   getEventById,
   patchEvent,
-  deleteEvent
+  deleteEvent,
+  addFilteredEvents
 }
 export default types

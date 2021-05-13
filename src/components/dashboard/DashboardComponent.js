@@ -31,7 +31,7 @@ function DashboardComponent ({ city, rooms, loadFreeRooms, loading }) {
       <Typography variant='h5' className={classes.heading}>{TITLE}</Typography>
       <div className={classes.divFlex}>
         <SelectCityContainer />
-        <MyMeetingsContainer cityRequired />
+        <MyMeetingsContainer />
       </div>
       {!rooms.length
         ? null

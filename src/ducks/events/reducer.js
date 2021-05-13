@@ -5,6 +5,7 @@ const initialState = {
   events: null,
   loading: false,
   error: null,
+  filteredEvents: [],
   eventById: null
 }
 
@@ -45,6 +46,11 @@ const eventsReducer = (state = initialState, action) => {
         loading: false,
         events: null,
         error: action.error
+      }
+    case types.addFilteredEvents:
+      return {
+        ...state,
+        filteredEvents: action.events
       }
     case user.types.logout.SUCCESS:
       return {
