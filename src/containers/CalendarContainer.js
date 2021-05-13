@@ -24,9 +24,8 @@ function CalendarContainer () {
   const myMeetings = useSelector(utilsSelectors.selectMyMeetings)
   useEffect(() => {
     dispatch(actions.getEventsRequest())
-  }, [])
+  }, [dispatch])
   useEffect(() => {
-
     if (events !== null) {
       let newEvents = events
       if (myMeetings) {
@@ -34,18 +33,15 @@ function CalendarContainer () {
       }
       dispatch(actions.addFilteredEvents(newEvents))
     }
-  }, [myMeetings, dispatch])
+  }, [myMeetings, dispatch, userid, events])
   useEffect(() => {
     if (filteredEvents !== []) {
       calendarEvents = filteredEvents.map(event => {
         return {
           allDay: false,
-          startStr: event.from,
-          endStr: event.to,
           title: event.title,
           start: new Date(event.from),
-          end: new Date(event.to),
-          id: event._id
+          end: new Date(event.to)
         }
       })
       console.log(calendarEvents)
