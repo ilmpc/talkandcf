@@ -1,4 +1,5 @@
 import locale from '../locale'
+import { myEventCardColor, otherEventCardColor } from '../constants'
 
 export const getBase64 = file => new Promise((resolve, reject) => {
   const reader = new window.FileReader()
@@ -19,8 +20,8 @@ export const formatEventsForCalendar = (eventsFromStore, userId) =>
       id,
       start: from,
       end: to,
-      backgroundColor: userId === createdBy ? '#e33371' : '#003366',
-      borderColor: userId === createdBy ? '#e33371' : '#003366',
+      backgroundColor: userId === createdBy ? myEventCardColor : otherEventCardColor,
+      borderColor: userId === createdBy ? myEventCardColor : otherEventCardColor,
       editable: userId === createdBy,
       description,
       userId: createdBy,

@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import PropTypes from 'prop-types'
-import { ViewTypes } from '../constants'
+import { myEventCardColor, ViewTypes } from '../constants'
 import EventPopoverContainer from './EventPopoverContainer'
 import { useSelector } from 'react-redux'
 import { formatEventsForCalendar } from '../utils/convert'
@@ -40,7 +40,9 @@ function CalendarContainer () {
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
-        allDay: selectInfo.allDay
+        allDay: selectInfo.allDay,
+        backgroundColor: myEventCardColor,
+        borderColor: myEventCardColor
       }, true)
     }
   }, [])

@@ -18,7 +18,10 @@ const options = [{
 const useStyles = makeStyles(theme => ({
   selector: {
     margin: theme.spacing(1),
-    maxWidth: 500
+    maxWidth: 300,
+    '& .MuiSelect-root': {
+      padding: theme.spacing(2)
+    }
   }
 }))
 

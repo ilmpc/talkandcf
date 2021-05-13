@@ -6,12 +6,19 @@ import { makeStyles } from '@material-ui/core/styles'
 import SelectCityContainer from '../../containers/SelectCityContainer'
 import RoomFiltersContainer from '../../containers/RoomFiltersContainer'
 import LinearLoader from '../custom/LinearLoader'
+import RoomsList from './RoomsList'
+import EventsInfoComponent from './EventsInfoComponent'
+import Grid from '@material-ui/core/Grid'
 
 const { DASHBOARD: { TITLE } } = locale
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
     padding: theme.spacing(3)
+  },
+  info: {
+    margin: theme.spacing(2, 0, 2, 0),
+    padding: theme.spacing(0, 2, 0, 2)
   },
   heading: {
     marginBottom: theme.spacing(2)
@@ -36,9 +43,15 @@ function DashboardComponent ({ city, rooms, loadFreeRooms, loading }) {
               Кнопка имитирует открытие модалки "Добавить ивент" или выбор юзером другого времени начала/окончания события
             </button>
             {loading && <LinearLoader />}
+            <Grid container className={classes.info}>
+              <Grid item xs={12} sm={8}>
+                <RoomsList city={city} rooms={rooms} />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <EventsInfoComponent />
+              </Grid>
+            </Grid>
             <CalendarContainer />
-            <p>Комнаты в {city}:</p>
-            {rooms.map(r => <p key={r._id}>{r.roomNumber}</p>)}
           </>
           )}
     </div>
