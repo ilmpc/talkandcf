@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CalendarComponent from '../components/calendar/CalendarComponent'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -6,13 +6,51 @@ import interactionPlugin from '@fullcalendar/interaction'
 import PropTypes from 'prop-types'
 import { ViewTypes } from '../constants'
 import EventPopoverContainer from './EventPopoverContainer'
-
+import { useDispatch, useSelector } from 'react-redux'
+import eventsSelectors from '../ducks/events/selectors'
+import utilsSelectors from '../ducks/utils/selectors'
+import actions from '../ducks/events/actions'
+import userSelectors from '../ducks/users/selectors'
 const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]
 
-function CalendarContainer ({ events }) {
+function CalendarContainer () {
+  const dispatch = useDispatch()
   const [popup, setPopup] = useState(null)
   const [eventInfo, setEventInfo] = useState(null)
+  const events = useSelector(eventsSelectors.selectEvents)
+  const filteredEvents = useSelector(eventsSelectors.selectFilteredEvents)
+  let calendarEvents = null
+  const userid = useSelector(userSelectors.selectUserId)
+  const myMeetings = useSelector(utilsSelectors.selectMyMeetings)
+  useEffect(() => {
+    dispatch(actions.getEventsRequest())
+  }, [])
+  useEffect(() => {
 
+    if (events !== null) {
+      let newEvents = events
+      if (myMeetings) {
+        newEvents = events.filter(event => event.createdBy === userid)
+      }
+      dispatch(actions.addFilteredEvents(newEvents))
+    }
+  }, [myMeetings, dispatch])
+  useEffect(() => {
+    if (filteredEvents !== []) {
+      calendarEvents = filteredEvents.map(event => {
+        return {
+          allDay: false,
+          startStr: event.from,
+          endStr: event.to,
+          title: event.title,
+          start: new Date(event.from),
+          end: new Date(event.to),
+          id: event._id
+        }
+      })
+      console.log(calendarEvents)
+    }
+  }, [filteredEvents])
   const loadEvents = React.useCallback((loadInfo) => {
     console.log(loadInfo)
   }, [])
@@ -64,7 +102,7 @@ function CalendarContainer ({ events }) {
     <>
       <CalendarComponent
         plugins={plugins}
-        events={events}
+        events={calendarEvents}
         view={ViewTypes.timeAllWeek}
         actions={calendarActions}
       />
