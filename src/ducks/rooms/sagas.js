@@ -2,6 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import types from './types'
 import services from './services'
 import actions from './actions'
+import utils from '../utils'
 
 function * loadRoomsSaga ({ payload }) {
   try {
@@ -40,7 +41,7 @@ function * getRoomSaga ({ id }) {
 
 export default function * roomsSagas () {
   yield all([
-    takeLatest('SET_CITY', loadRoomsSaga),
+    takeLatest(utils.types.setCity, loadRoomsSaga),
     takeLatest(types.getFreeRooms.REQUEST, getFreeRoomsSaga),
     takeLatest(types.getRoom.REQUEST, getRoomSaga)
   ])

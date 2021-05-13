@@ -1,10 +1,14 @@
 import React from 'react'
 import DashboardComponent from '../components/dashboard/DashboardComponent'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import rooms from '../ducks/rooms'
+import utils from "../ducks/utils";
 
 function DashboardContainer () {
   const dispatch = useDispatch()
+  const loadingRooms = useSelector(rooms.selectors.selectLoading)
+  const roomsInCity = useSelector(rooms.selectors.selectRooms)
+  const city = useSelector(utils.selectors.selectCity)
 
   // функция для тестов. Такой экшн должен отрабатывать при открытии модалки с добавлением события
   // и когда пользователь меняет даты события
@@ -17,7 +21,12 @@ function DashboardContainer () {
   }
 
   return (
-    <DashboardComponent loadFreeRooms={loadFreeRooms} />
+    <DashboardComponent
+        city={city}
+      rooms={roomsInCity}
+      loading={loadingRooms}
+      loadFreeRooms={loadFreeRooms}
+    />
   )
 }
 

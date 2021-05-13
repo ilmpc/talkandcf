@@ -11,10 +11,14 @@ function * loadFileSaga ({ payload: { fileType, fileName, file } }) {
     yield put(actions.loadFileError(error))
   }
 }
+function * setCitySaga ({ payload }) {
+  yield localStorage.setItem('city', payload.city)
+}
 
 // main saga
 export default function * userSagas () {
   yield all([
-    takeLatest(types.loadFile.REQUEST, loadFileSaga)
+    takeLatest(types.loadFile.REQUEST, loadFileSaga),
+    takeLatest(types.setCity, setCitySaga)
   ])
 }

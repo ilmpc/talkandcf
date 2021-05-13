@@ -1,7 +1,7 @@
 import request from '../../utils/request'
 import { Api } from '../../constants'
 
-const { EVENTS: { GET_EVENTS, APPLY, DENY, DELETE_EVENT, PATCH_EVENT, GET_EVENT_BY_ID, POST_EVENT} } = Api
+const { EVENTS: { GET_EVENTS, APPLY, DENY, DELETE_EVENT, PATCH_EVENT, GET_EVENT_BY_ID, POST_EVENT } } = Api
 
 const getEvents = () => {
   return request.get(GET_EVENTS)
