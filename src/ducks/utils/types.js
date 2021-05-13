@@ -6,8 +6,11 @@ const loadFile = {
 
 const SET_CITY = '@@utils/SET_CITY'
 
+const switchMyMeetings = '@@utils/SWITCH_MY_MEETINGS'
+
 const types = {
   loadFile,
-  setCity: SET_CITY
+  setCity: SET_CITY,
+  switchMyMeetings
 }
 export default types

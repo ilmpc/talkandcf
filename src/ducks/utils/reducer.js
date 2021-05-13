@@ -5,6 +5,7 @@ const initialState = {
   city: '',
   loading: false,
   error: null,
+  myMeetings: false,
   files: {
     avatar: {},
     room: {},
@@ -43,6 +44,11 @@ const utilsReducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload.city
+      }
+    case types.switchMyMeetings:
+      return {
+        ...state,
+        myMeetings: action.myMeetings
       }
     case user.types.logout.SUCCESS:
       return {

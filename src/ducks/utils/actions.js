@@ -20,11 +20,17 @@ const setCity = city => ({
   payload: { city }
 })
 
+const switchMyMeetings = myMeetings => ({
+  type: types.switchMyMeetings,
+  myMeetings
+})
+
 const actions = {
   loadFileRequest,
   loadFileSuccess,
   loadFileError,
-  setCity
+  setCity,
+  switchMyMeetings
 }
 
 export default actions

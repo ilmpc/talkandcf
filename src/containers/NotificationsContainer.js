@@ -6,6 +6,7 @@ import actions from '../ducks/events/actions'
 import NotificationsComponent from '../components/notifications/NotificationsComponent'
 
 const NotificationsContainer = () => {
+  const [page, setPage] = useState(0)
   const [buttonsGroupState, setButtonsGroupState] = useState('all')
   const [sidePanelState, setSidePanelState] = useState('inbox')
   const [filteredEvents, setFilteredEvents] = useState([])
@@ -21,10 +22,12 @@ const NotificationsContainer = () => {
 
   const inboxHandler = useCallback(() => {
     setSidePanelState('inbox')
+    setPage(0)
   }, [setSidePanelState])
 
   const doneHandler = useCallback(() => {
     setSidePanelState('done')
+    setPage(0)
   }, [setSidePanelState])
 
   const userid = useSelector(userSelectors.selectUserId)
@@ -104,6 +107,8 @@ const NotificationsContainer = () => {
       applyHandler={applyHandler}
       denyHandler={denyHandler}
       loading={loading}
+      page={page}
+      setPage={setPage}
     />
   )
 }

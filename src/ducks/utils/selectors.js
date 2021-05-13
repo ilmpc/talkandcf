@@ -8,12 +8,15 @@ const selectAvatar = fileName => state => state.utils.files.avatar[fileName]
 
 const selectCity = state => state.utils.city
 
+const selectMyMeetings = state => state.utils.myMeetings
+
 const selectors = {
   selectFiles,
   selectLoading,
   selectError,
   selectAvatar,
-  selectCity
+  selectCity,
+  selectMyMeetings
 }
 
 export default selectors
