@@ -4,11 +4,15 @@ import userSelectors from '../ducks/users/selectors'
 import eventsSelectors from '../ducks/events/selectors'
 import actions from '../ducks/events/actions'
 import NotificationsComponent from '../components/notifications/NotificationsComponent'
+import selectors from '../ducks/utils/selectors'
+import { isAllOf } from '@reduxjs/toolkit'
 
 const NotificationsContainer = () => {
+  const [page, setPage] = useState(0)
   const [buttonsGroupState, setButtonsGroupState] = useState('all')
   const [sidePanelState, setSidePanelState] = useState('inbox')
   const [filteredEvents, setFilteredEvents] = useState([])
+  const myMeetings = useSelector(selectors.selectMyMeetings)
   const dispatch = useDispatch()
 
   const allButtonHandler = useCallback(() => {
@@ -21,10 +25,12 @@ const NotificationsContainer = () => {
 
   const inboxHandler = useCallback(() => {
     setSidePanelState('inbox')
+    setPage(0)
   }, [setSidePanelState])
 
   const doneHandler = useCallback(() => {
     setSidePanelState('done')
+    setPage(0)
   }, [setSidePanelState])
 
   const userid = useSelector(userSelectors.selectUserId)
@@ -54,6 +60,9 @@ const NotificationsContainer = () => {
             event => event.appliedUsers.find(element => element._id === userid)
           )
         }
+        if (myMeetings) {
+          newEvents = newEvents.filter(event => event.createdBy === userid)
+        }
       }
       newEvents = newEvents.sort((a, b) => {
         const aDate = new Date(a.from)
@@ -62,7 +71,7 @@ const NotificationsContainer = () => {
       })
       setFilteredEvents(newEvents)
     }
-  }, [sidePanelState, buttonsGroupState, events, userid])
+  }, [sidePanelState, buttonsGroupState, events, userid, myMeetings])
 
   const applyHandler = useCallback(id => () => {
     dispatch((actions.applyEventRequest(id)))
@@ -104,6 +113,8 @@ const NotificationsContainer = () => {
       applyHandler={applyHandler}
       denyHandler={denyHandler}
       loading={loading}
+      page={page}
+      setPage={setPage}
     />
   )
 }

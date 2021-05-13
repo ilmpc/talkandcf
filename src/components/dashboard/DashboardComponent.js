@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import SelectCityContainer from '../../containers/SelectCityContainer'
 import RoomFiltersContainer from '../../containers/RoomFiltersContainer'
 import LinearLoader from '../custom/LinearLoader'
+import MyMeetings from '../myMeetings/MyMeetings'
+import MyMeetingsContainer from '../../containers/MyMeetingsContainer'
 
 const { DASHBOARD: { TITLE } } = locale
 
@@ -25,6 +27,7 @@ function DashboardComponent ({ city, rooms, loadFreeRooms, loading }) {
     <div className={classes.wrapper}>
       <Typography variant='h5' className={classes.heading}>{TITLE}</Typography>
       <SelectCityContainer />
+      <MyMeetingsContainer cityRequired />
       {!rooms.length
         ? null
         : (

@@ -3,6 +3,7 @@ import user from '../users'
 
 const initialState = {
   city: '',
+  myMeetings: false,
   loading: false,
   error: null,
   files: {
@@ -43,6 +44,11 @@ const utilsReducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload.city
+      }
+    case types.switchMyMeetings:
+      return {
+        ...state,
+        myMeetings: action.myMeetings
       }
     case user.types.logout.SUCCESS:
       return {

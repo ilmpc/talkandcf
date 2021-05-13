@@ -31,7 +31,7 @@ const AppComponent = ({ isAuthenticated }) => {
           path={Routes.NOTIFICATIONS}
           component={NotificationsContainer}
           exact
-          isAuthenticated
+          isAuthenticated={isAuthenticated}
         />
         <CommonLayoutComponent
           path={Routes.MEETINGS}
