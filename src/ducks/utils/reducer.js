@@ -9,7 +9,12 @@ const initialState = {
     avatar: {},
     room: {},
     event: {}
-  }
+  },
+  addPopup: false,
+  editPopup: false,
+  selected: null,
+  from: '',
+  to: ''
 }
 
 const utilsReducer = (state = initialState, action) => {
@@ -43,6 +48,19 @@ const utilsReducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload.city
+      }
+    case types.popUp.SET_ADD_EVENT_POPUP:
+      return {
+        ...state,
+        addPopup: action.payload.isOpen,
+        selected: action.payload.event,
+        from: action.payload.event?.start,
+        to: action.payload.event?.end
+      }
+    case types.popUp.SET_EDIT_EVENT_POPUP:
+      return {
+        ...state,
+        editPopup: action.isOpen
       }
     case user.types.logout.SUCCESS:
       return {

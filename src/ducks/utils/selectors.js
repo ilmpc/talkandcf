@@ -8,12 +8,18 @@ const selectAvatar = fileName => state => state.utils.files.avatar[fileName]
 
 const selectCity = state => state.utils.city
 
+const selectAddPopup = state => state.utils.addPopup
+
+const selectEditPopup = state => state.utils.editPopup
+
 const selectors = {
   selectFiles,
   selectLoading,
   selectError,
   selectAvatar,
-  selectCity
+  selectCity,
+  selectAddPopup,
+  selectEditPopup
 }
 
 export default selectors

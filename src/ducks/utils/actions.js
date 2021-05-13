@@ -20,11 +20,23 @@ const setCity = city => ({
   payload: { city }
 })
 
+const setAddEventPopup = (payload) => ({
+  type: types.popUp.SET_ADD_EVENT_POPUP,
+  payload
+})
+
+const setEditEventPopup = (isOpen) => ({
+  type: types.popUp.SET_EDIT_EVENT_POPUP,
+  isOpen
+})
+
 const actions = {
   loadFileRequest,
   loadFileSuccess,
   loadFileError,
-  setCity
+  setCity,
+  setAddEventPopup,
+  setEditEventPopup
 }
 
 export default actions

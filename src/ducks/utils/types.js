@@ -6,8 +6,14 @@ const loadFile = {
 
 const SET_CITY = '@@utils/SET_CITY'
 
+const popUp = {
+  SET_ADD_EVENT_POPUP: '@@utils/SET_ADD_EVENT_POPUP',
+  SET_EDIT_EVENT_POPUP: '@@utils/SET_EDIT_EVENT_POPUP'
+}
+
 const types = {
   loadFile,
-  setCity: SET_CITY
+  setCity: SET_CITY,
+  popUp
 }
 export default types
