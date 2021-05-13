@@ -1,4 +1,5 @@
 import types from './types'
+import user from '../users'
 
 const initialState = {
   events: null,
@@ -44,6 +45,10 @@ const eventsReducer = (state = initialState, action) => {
         loading: false,
         events: null,
         error: action.error
+      }
+    case user.types.logout.SUCCESS:
+      return {
+        ...initialState
       }
     default:
       return state

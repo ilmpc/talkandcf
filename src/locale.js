@@ -63,7 +63,10 @@ const locale = {
     CREATOR_NOT_FOUND: 'Создатель покинул событие'
   },
   DASHBOARD: {
-    TITLE: 'Главная'
+    TITLE: 'Главная',
+    MY_EVENTS: 'Мои события',
+    OTHER_EVENTS: 'Другие события',
+    ALL_ROOMS: 'все комнаты для переговоров'
   },
   ROOMS: {
     SELECT_FILTERS: 'Оборудование комнаты',

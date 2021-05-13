@@ -6,7 +6,7 @@ const selectUser = (state) => state.user.user
 
 const selectUsername = (state) => state.user.user?.username
 
-const selectUserId = (state) => state.user.user._id
+const selectUserId = (state) => state.user.user?._id
 
 const selectAuthState = (state) => state.user.isAuthenticated
 

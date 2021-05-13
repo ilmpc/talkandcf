@@ -13,3 +13,11 @@ a:after, a:active, a:hover {
     align-items: center;
     height: 100vh;
 }
+
+.event-card {
+    padding: 0.3rem;
+}
+
+.event-card > * {
+    margin: 0;
+}

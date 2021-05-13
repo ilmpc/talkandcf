@@ -20,6 +20,7 @@ import { ButtonGroup } from '@material-ui/core'
 import locale from '../../locale'
 import Spinner from '../custom/Spinner'
 import PropTypes from 'prop-types'
+import MyMeetingsContainer from '../../containers/MyMeetingsContainer'
 
 const drawerWidth = 250
 
@@ -57,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
     minWidth: '150px'
+  },
+  divFlex: {
+    display: 'flex',
+    alignItems: 'center'
   }
 }))
 const columns = [
@@ -114,11 +119,10 @@ const NotificationsComponent = (
   {
     events, getFormattedDate, allButtonHandler, appliedButtonHandler,
     buttonsGroupState, inboxHandler, doneHandler, sidePanelState,
-    applyHandler, denyHandler, userid, loading
+    applyHandler, denyHandler, userid, loading, page, setPage
   }) => {
   const classes = useStyles()
 
-  const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
@@ -156,10 +160,13 @@ const NotificationsComponent = (
       </Drawer>
       <main className={classes.content}>
         {sidePanelState === 'inbox' && (
-          <ButtonGroup color='primary' aria-label='filter'>
-            <Button variant={buttonsGroupState === 'all' ? 'contained' : ''} onClick={allButtonHandler}>{ALL_BUTTON}</Button>
-            <Button variant={buttonsGroupState === 'applied' ? 'contained' : ''} onClick={appliedButtonHandler}>{APPLIED_BUTTON}</Button>
-          </ButtonGroup>)}
+          <div className={classes.divFlex}>
+            <ButtonGroup color='primary' aria-label='filter'>
+              <Button variant={buttonsGroupState === 'all' ? 'contained' : ''} onClick={allButtonHandler}>{ALL_BUTTON}</Button>
+              <Button variant={buttonsGroupState === 'applied' ? 'contained' : ''} onClick={appliedButtonHandler}>{APPLIED_BUTTON}</Button>
+            </ButtonGroup>
+            <MyMeetingsContainer />
+          </div>)}
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label='sticky table'>
             <TableHead>

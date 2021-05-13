@@ -4,7 +4,13 @@ const loadFile = {
   ERROR: '@@utils/LOAD_FILE_ERROR'
 }
 
+const SET_CITY = '@@utils/SET_CITY'
+
+const switchMyMeetings = '@@utils/SWITCH_MY_MEETINGS'
+
 const types = {
-  loadFile
+  loadFile,
+  setCity: SET_CITY,
+  switchMyMeetings
 }
 export default types

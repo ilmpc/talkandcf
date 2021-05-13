@@ -1,8 +1,11 @@
 import types from './types'
+import user from '../users'
 
 const initialState = {
+  city: '',
   loading: false,
   error: null,
+  myMeetings: false,
   files: {
     avatar: {},
     room: {},
@@ -36,6 +39,20 @@ const utilsReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.error
+      }
+    case types.setCity:
+      return {
+        ...state,
+        city: action.payload.city
+      }
+    case types.switchMyMeetings:
+      return {
+        ...state,
+        myMeetings: action.myMeetings
+      }
+    case user.types.logout.SUCCESS:
+      return {
+        ...initialState
       }
     default:
       return state

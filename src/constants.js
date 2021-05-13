@@ -51,12 +51,10 @@ export const ViewTypes = {
   timeAllDay: 'timeGridDay'
 }
 
-export const Events = [
-  { title: 'event 1', date: '2021-04-07', id: '123123123123' },
-  { title: 'event 2', date: '2021-04-20', id: '010101010110' }
-]
-
 export const LOGO_URL = 'https://noveogroup.ru/build/images/logo-noveo.e179f24f.svg'
 export const NO_AVATAR = 'https://peregovorki-noveo.s3.us-east-2.amazonaws.com/1d521a8b-8564-412b-830a-766cf4c90b24-no-image.jpgno-image.jpg'
 
 export const roomsFilters = [CAMERA, MICRO, SPEAKERS, BOARD]
+
+export const myEventCardColor = '#f43057'
+export const otherEventCardColor = '#556cd6'
