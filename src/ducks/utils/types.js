@@ -4,7 +4,10 @@ const loadFile = {
   ERROR: '@@utils/LOAD_FILE_ERROR'
 }
 
+const SET_CITY = '@@utils/SET_CITY'
+
 const types = {
-  loadFile
+  loadFile,
+  setCity: SET_CITY
 }
 export default types

@@ -6,11 +6,14 @@ const selectError = state => state.utils.error
 
 const selectAvatar = fileName => state => state.utils.files.avatar[fileName]
 
+const selectCity = state => state.utils.city
+
 const selectors = {
   selectFiles,
   selectLoading,
   selectError,
-  selectAvatar
+  selectAvatar,
+  selectCity
 }
 
 export default selectors

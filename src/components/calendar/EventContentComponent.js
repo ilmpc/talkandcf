@@ -1,8 +1,7 @@
 function EventContentComponent (eventInfo) {
   return (
-    <div id={eventInfo.event.id || eventInfo.event._def.defId}>
-      <h5>{eventInfo.timeText}</h5>
-      <p>{eventInfo.event.title}</p>
+    <div id={eventInfo.event._def.publicId} className='event-card'>
+      <span>{eventInfo.timeText} - {eventInfo.event.title}</span>
     </div>
   )
 }

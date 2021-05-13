@@ -61,6 +61,20 @@ const locale = {
     ACTION: 'Действие',
     EVENT_ENDED: 'Это событие уже закончилось',
     CREATOR_NOT_FOUND: 'Создатель покинул событие'
+  },
+  DASHBOARD: {
+    TITLE: 'Главная',
+    MY_EVENTS: 'Мои события',
+    OTHER_EVENTS: 'Другие события',
+    ALL_ROOMS: 'все комнаты для переговоров'
+  },
+  ROOMS: {
+    SELECT_FILTERS: 'Оборудование комнаты',
+    CAMERA: 'Камера',
+    MICRO: 'Микрофон',
+    SPEAKERS: 'Колонки',
+    BOARD: 'Маркерная доска',
+    CAPACITY: 'Вместимость'
   }
 }
 

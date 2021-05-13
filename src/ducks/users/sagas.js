@@ -10,6 +10,7 @@ import selectors from './selectors'
 function * logoutSaga () {
   yield put(actions.logoutSuccess())
   yield window.localStorage.removeItem(ApiTokenStorageKey)
+  yield window.localStorage.removeItem('city')
 }
 
 function * loginUserSaga (userInfo) {
@@ -102,6 +103,10 @@ function * initialSaga () {
     yield call(loadUserSaga)
   }
   yield put(actions.init())
+  const city = window.localStorage.getItem('city')
+  if (city) {
+    yield put(utils.actions.setCity(city))
+  }
   yield takeLatest(types.logout.REQUEST, logoutSaga)
 }
 

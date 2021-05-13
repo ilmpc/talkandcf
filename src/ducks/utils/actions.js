@@ -15,10 +15,16 @@ const loadFileError = error => ({
   error
 })
 
+const setCity = city => ({
+  type: types.setCity,
+  payload: { city }
+})
+
 const actions = {
   loadFileRequest,
   loadFileSuccess,
-  loadFileError
+  loadFileError,
+  setCity
 }
 
 export default actions

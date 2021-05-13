@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import { useFormContext } from 'react-hook-form'
 import InputComponent from './InputComponent'
 import Button from '@material-ui/core/Button'
+import SelectContainer from '../../containers/custom/SelectContainer'
 
 function FormComponent ({
   fields,
   onSubmit,
   submitButton,
-  formClassName
+  formClassName,
+  children
 }) {
   const { handleSubmit, control, formState: { errors } } = useFormContext()
   return (
@@ -26,10 +28,19 @@ function FormComponent ({
                 {...rest}
               />
             )
+          case 'select':
+            return (
+              <SelectContainer key={name} name={name} {...rest} />
+            )
+          case 'component': {
+            const { component: Component } = fields.children[fieldName]
+            return <Component key={fieldName} />
+          }
           default:
             return null
         }
       })}
+      {children}
       <Button
         type='submit'
         className={submitButton.className}
