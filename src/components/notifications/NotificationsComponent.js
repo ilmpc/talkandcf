@@ -58,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
     minWidth: '150px'
+  },
+  divFlex: {
+    display: 'flex',
+    alignItems: 'center'
   }
 }))
 const columns = [
@@ -156,13 +160,13 @@ const NotificationsComponent = (
       </Drawer>
       <main className={classes.content}>
         {sidePanelState === 'inbox' && (
-          <>
+          <div className={classes.divFlex}>
             <ButtonGroup color='primary' aria-label='filter'>
               <Button variant={buttonsGroupState === 'all' ? 'contained' : ''} onClick={allButtonHandler}>{ALL_BUTTON}</Button>
               <Button variant={buttonsGroupState === 'applied' ? 'contained' : ''} onClick={appliedButtonHandler}>{APPLIED_BUTTON}</Button>
-              <MyMeetingsContainer />
             </ButtonGroup>
-          </>)}
+            <MyMeetingsContainer />
+          </div>)}
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label='sticky table'>
             <TableHead>

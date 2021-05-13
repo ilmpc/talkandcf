@@ -11,7 +11,6 @@ function DashboardContainer () {
   const loadingEvents = useSelector(events.selectors.selectLoading)
   const roomsInCity = useSelector(rooms.selectors.selectRooms)
   const city = useSelector(utils.selectors.selectCity)
-  const myMeetings = useSelector(utils.selectors.selectMyMeetings)
 
   // функция для тестов. Такой экшн должен отрабатывать при открытии модалки с добавлением события
   // и когда пользователь меняет даты события

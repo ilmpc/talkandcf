@@ -5,7 +5,6 @@ import eventsSelectors from '../ducks/events/selectors'
 import actions from '../ducks/events/actions'
 import NotificationsComponent from '../components/notifications/NotificationsComponent'
 import selectors from '../ducks/utils/selectors'
-import { isAllOf } from '@reduxjs/toolkit'
 
 const NotificationsContainer = () => {
   const [page, setPage] = useState(0)
