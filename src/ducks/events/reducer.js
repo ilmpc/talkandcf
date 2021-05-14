@@ -36,15 +36,25 @@ const eventsReducer = (state = initialState, action) => {
     case types.getEvents.ERROR:
     case types.denyEvent.ERROR:
     case types.applyEvent.ERROR:
-    case types.postEvent.ERROR:
-    case types.patchEvent.ERROR:
     case types.getEventById.ERROR:
-    case types.deleteEvent.ERROR:
       return {
         ...state,
         loading: false,
         events: null,
         error: action.error
+      }
+    case types.postEvent.ERROR:
+    case types.patchEvent.ERROR:
+    case types.deleteEvent.ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+    case types.clearErrors:
+      return {
+        ...state,
+        error: null
       }
     case user.types.logout.SUCCESS:
       return {

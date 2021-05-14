@@ -80,6 +80,10 @@ const deleteEventError = (error) => ({
   error
 })
 
+const clearError = () => ({
+  type: types.clearErrors
+})
+
 const actions = {
   getEventsRequest,
   getEventsSuccess,
@@ -96,7 +100,8 @@ const actions = {
   deleteEventError,
   getEventByIdRequest,
   getEventByIdSuccess,
-  getEventByIdError
+  getEventByIdError,
+  clearError
 }
 
 export default actions

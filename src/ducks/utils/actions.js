@@ -20,9 +20,14 @@ const setCity = city => ({
   payload: { city }
 })
 
-const switchMyMeetings = myMeetings => ({
-  type: types.switchMyMeetings,
-  myMeetings
+const setAddEventPopup = (payload) => ({
+  type: types.popUp.SET_ADD_EVENT_POPUP,
+  payload
+})
+
+const setEditEventPopup = (payload) => ({
+  type: types.popUp.SET_EDIT_EVENT_POPUP,
+  payload
 })
 
 const actions = {
@@ -30,7 +35,8 @@ const actions = {
   loadFileSuccess,
   loadFileError,
   setCity,
-  switchMyMeetings
+  setAddEventPopup,
+  setEditEventPopup
 }
 
 export default actions

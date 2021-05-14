@@ -5,12 +5,16 @@ const initialState = {
   city: '',
   loading: false,
   error: null,
-  myMeetings: false,
   files: {
     avatar: {},
     room: {},
     event: {}
-  }
+  },
+  addPopup: false,
+  editPopup: false,
+  selected: null,
+  from: '',
+  to: ''
 }
 
 const utilsReducer = (state = initialState, action) => {
@@ -45,10 +49,21 @@ const utilsReducer = (state = initialState, action) => {
         ...state,
         city: action.payload.city
       }
-    case types.switchMyMeetings:
+    case types.popUp.SET_ADD_EVENT_POPUP:
       return {
         ...state,
-        myMeetings: action.myMeetings
+        addPopup: action.payload.isOpen,
+        selected: action.payload.event,
+        from: action.payload.event?.startStr,
+        to: action.payload.event?.endStr
+      }
+    case types.popUp.SET_EDIT_EVENT_POPUP:
+      return {
+        ...state,
+        editPopup: action.payload.isOpen,
+        selected: action.payload.event,
+        from: action.payload.event?.startStr,
+        to: action.payload.event?.endStr
       }
     case user.types.logout.SUCCESS:
       return {
