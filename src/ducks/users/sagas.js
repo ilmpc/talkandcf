@@ -79,7 +79,8 @@ function * updateAvatarSaga ({ payload }) {
 function * deleteAvatarSaga () {
   const user = yield select(selectors.selectUser)
   if (!(user.avatar === '' || user.avatar === NO_AVATAR)) {
-    yield put(actions.updateProfileRequest({ avatar: NO_AVATAR }))
+    const serverUrl = process.env.REACT_APP_BASE_URL
+    yield put(actions.updateProfileRequest({ avatar: serverUrl + NO_AVATAR }))
   }
 }
 
