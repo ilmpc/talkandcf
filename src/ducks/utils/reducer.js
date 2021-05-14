@@ -14,7 +14,8 @@ const initialState = {
   editPopup: false,
   selected: null,
   from: '',
-  to: ''
+  to: '',
+  timeZone: ''
 }
 
 const utilsReducer = (state = initialState, action) => {
@@ -47,7 +48,8 @@ const utilsReducer = (state = initialState, action) => {
     case types.setCity:
       return {
         ...state,
-        city: action.payload.city
+        city: action.payload.city,
+        timeZone: (action.payload.city === 'Питер' && 'Europe/Moscow') || 'Asia/Novosibirsk'
       }
     case types.popUp.SET_ADD_EVENT_POPUP:
       return {

@@ -14,6 +14,8 @@ const selectTo = state => state.utils.to
 
 const selectEditPopup = state => state.utils.editPopup
 
+const selectTimeZone = state => state.utils.timeZone
+
 const selectors = {
   selectFiles,
   selectLoading,
@@ -23,7 +25,8 @@ const selectors = {
   selectAddPopup,
   selectFrom,
   selectTo,
-  selectEditPopup
+  selectEditPopup,
+  selectTimeZone
 }
 
 export default selectors
