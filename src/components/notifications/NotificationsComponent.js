@@ -196,8 +196,12 @@ const NotificationsComponent = (
                       }
                       if (column.id === 'createdBy') {
                         const creatorid = event.createdBy
-                        value = event.appliedUsers.find(user => user._id === creatorid).username
-                        if (!value) { value = CREATOR_NOT_FOUND }
+                        const creator = event.appliedUsers.find(user => user._id === creatorid)
+                        if (!creator) {
+                          value = CREATOR_NOT_FOUND
+                        } else {
+                          value = creator.username
+                        }
                       }
                       if (column.id === 'action') {
                         if (sidePanelState === 'inbox') {
