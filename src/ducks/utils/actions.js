@@ -30,11 +30,17 @@ const setEditEventPopup = (payload) => ({
   payload
 })
 
+const switchMyMeetings = myMeetings => ({
+  type: types.switchMyMeetings,
+  myMeetings
+})
+
 const actions = {
   loadFileRequest,
   loadFileSuccess,
   loadFileError,
   setCity,
+  switchMyMeetings,
   setAddEventPopup,
   setEditEventPopup
 }

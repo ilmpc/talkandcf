@@ -8,6 +8,8 @@ const selectAvatar = fileName => state => state.utils.files.avatar[fileName]
 
 const selectCity = state => state.utils.city
 
+const selectMyMeetings = state => state.utils.myMeetings
+
 const selectAddPopup = state => state.utils.addPopup
 const selectFrom = state => state.utils.from
 const selectTo = state => state.utils.to
@@ -23,6 +25,7 @@ const selectors = {
   selectError,
   selectAvatar,
   selectCity,
+  selectMyMeetings,
   selectAddPopup,
   selectFrom,
   selectTo,

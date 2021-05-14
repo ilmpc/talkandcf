@@ -5,6 +5,7 @@ const initialState = {
   city: '',
   loading: false,
   error: null,
+  myMeetings: false,
   files: {
     avatar: {},
     room: {},
@@ -51,17 +52,10 @@ const utilsReducer = (state = initialState, action) => {
         city: action.payload.city,
         timeZone: (action.payload.city === 'Питер' && 'Europe/Moscow') || 'Asia/Novosibirsk'
       }
-    case types.popUp.SET_ADD_EVENT_POPUP:
+    case types.switchMyMeetings:
       return {
         ...state,
-        addPopup: action.payload.isOpen,
-        selected: action.payload.event,
-        from: action.payload.event?.startStr,
-        to: action.payload.event?.endStr
-      }
-    case user.types.logout.SUCCESS:
-      return {
-        ...initialState
+        myMeetings: action.myMeetings
       }
     case types.popUp.SET_ADD_EVENT_POPUP:
       return {
