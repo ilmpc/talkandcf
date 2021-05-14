@@ -15,6 +15,8 @@ const selectSelectedEvent = state => state.utils.selected
 
 const selectEditPopup = state => state.utils.editPopup
 
+const selectTimeZone = state => state.utils.timeZone
+
 const selectors = {
   selectFiles,
   selectLoading,
@@ -25,6 +27,7 @@ const selectors = {
   selectFrom,
   selectTo,
   selectEditPopup,
+  selectTimeZone,
   selectSelectedEvent
 }
 

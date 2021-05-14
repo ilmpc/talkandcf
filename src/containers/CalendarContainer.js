@@ -50,7 +50,6 @@ function CalendarContainer () {
   }, [id])
   const changeEvent = React.useCallback((clickInfo) => {
     console.log(clickInfo, 'dispatch change')
-    console.log(clickInfo)
     dispatch(events.actions.patchEventRequest(clickInfo.event.id, clickInfo))
     // clickInfo.revert()
   }, [])

@@ -69,7 +69,7 @@ function AddEventComponent ({ open, handleClose, addEvent, formFields, loadFreeR
 
   useEffect(() => {
     if (new Date(fromWatcher) < new Date(toWatcher)) {
-      loadFreeRooms(new Date(fromWatcher).toISOString(), new Date(toWatcher).toISOString())
+      loadFreeRooms(fromWatcher.toString(), toWatcher.toString())
       setError(null)
     } else if (!(fromWatcher === '' && toWatcher === '')) {
       setError('Дата конца должна быть позже чем дата начала')

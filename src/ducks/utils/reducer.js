@@ -14,7 +14,8 @@ const initialState = {
   editPopup: false,
   selected: null,
   from: '',
-  to: ''
+  to: '',
+  timeZone: ''
 }
 
 const utilsReducer = (state = initialState, action) => {
@@ -43,6 +44,29 @@ const utilsReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.error
+      }
+    case types.setCity:
+      return {
+        ...state,
+        city: action.payload.city,
+        timeZone: (action.payload.city === 'Питер' && 'Europe/Moscow') || 'Asia/Novosibirsk'
+      }
+    case types.popUp.SET_ADD_EVENT_POPUP:
+      return {
+        ...state,
+        addPopup: action.payload.isOpen,
+        selected: action.payload.event,
+        from: action.payload.event?.startStr,
+        to: action.payload.event?.endStr
+      }
+    case types.popUp.SET_EDIT_EVENT_POPUP:
+      return {
+        ...state,
+        editPopup: action.isOpen
+      }
+    case user.types.logout.SUCCESS:
+      return {
+        ...initialState
       }
     case types.setCity:
       return {

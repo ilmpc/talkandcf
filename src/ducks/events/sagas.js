@@ -88,8 +88,8 @@ function * patchEventSaga ({ id, data }) {
       title,
       description,
       room: _id,
-      from: new Date(startStr).toISOString(),
-      to: new Date(endStr).toISOString()
+      from: startStr.toString(),
+      to: endStr.toString()
     })
     // yield call(services.patchEvent, id, data)
     yield put(eventsActions.getEventsRequest())

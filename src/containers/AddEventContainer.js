@@ -102,8 +102,8 @@ function AddEventContainer () {
     const { from, to } = data
     dispatch(events.actions.postEventRequest({
       ...data,
-      from: new Date(from).toISOString(),
-      to: new Date(to).toISOString()
+      from: from.toString(),
+      to: to.toString()
     }))
     dispatch(utils.actions.setAddEventPopup({ isOpen: false, event: null }))
     methods.reset(defaultValues)

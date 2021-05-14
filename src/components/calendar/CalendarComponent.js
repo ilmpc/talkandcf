@@ -2,10 +2,14 @@ import FullCalendar from '@fullcalendar/react'
 import ruLocale from '@fullcalendar/core/locales/ru'
 import PropTypes from 'prop-types'
 import EventContentComponent from './EventContentComponent'
+import {useSelector} from "react-redux";
+import utils from "../../ducks/utils";
 
 function CalendarComponent ({ view, plugins, events, actions }) {
+    const timeZone = useSelector(utils.selectors.selectTimeZone)
   return (
     <FullCalendar
+      timeZone={timeZone}
       plugins={plugins}
       headerToolbar={{
         left: 'prev,next today',
