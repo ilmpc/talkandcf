@@ -13,6 +13,7 @@ import user from '../ducks/users'
 import utils from '../ducks/utils'
 import AddEventContainer from './AddEventContainer'
 import PopupComponent from '../components/custom/PopupComponent'
+import EditEventContainer from './EditEventContainer'
 
 const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]
 
@@ -44,8 +45,8 @@ function CalendarContainer () {
     if (clickInfo.event._def.extendedProps.userId !== id) {
       return
     }
-    setPopup(() => clickInfo.el)
-    setEventInfo(() => clickInfo.event)
+    console.log(clickInfo)
+    dispatch(utils.actions.setEditEventPopup({ isOpen: true, event: clickInfo.event }))
   }, [id])
   const changeEvent = React.useCallback((clickInfo) => {
     console.log(clickInfo, 'dispatch change')
@@ -81,6 +82,7 @@ function CalendarContainer () {
       />
       <EventPopoverContainer popup={popup} setPopup={setPopup} eventInfo={eventInfo} />
       <AddEventContainer />
+      <EditEventContainer />
       <PopupComponent isOpen={!!error} message={error} />
     </>
   )

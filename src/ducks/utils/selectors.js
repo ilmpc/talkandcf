@@ -11,6 +11,7 @@ const selectCity = state => state.utils.city
 const selectAddPopup = state => state.utils.addPopup
 const selectFrom = state => state.utils.from
 const selectTo = state => state.utils.to
+const selectSelectedEvent = state => state.utils.selected
 
 const selectEditPopup = state => state.utils.editPopup
 
@@ -26,7 +27,8 @@ const selectors = {
   selectFrom,
   selectTo,
   selectEditPopup,
-  selectTimeZone
+  selectTimeZone,
+  selectSelectedEvent
 }
 
 export default selectors

@@ -25,9 +25,9 @@ const setAddEventPopup = (payload) => ({
   payload
 })
 
-const setEditEventPopup = (isOpen) => ({
+const setEditEventPopup = (payload) => ({
   type: types.popUp.SET_EDIT_EVENT_POPUP,
-  isOpen
+  payload
 })
 
 const actions = {

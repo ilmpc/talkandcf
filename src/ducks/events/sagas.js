@@ -82,9 +82,11 @@ function * patchEventSaga ({ id, data }) {
   try {
     yield put(eventsActions.clearError())
     const { title, extendedProps: { room: { _id } } } = data.event._def
+    const description = data.event._def.extendedProps.description
     const { endStr, startStr } = data.event
     yield call(services.patchEvent, id, {
       title,
+      description,
       room: _id,
       from: startStr.toString(),
       to: endStr.toString()
