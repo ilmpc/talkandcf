@@ -75,6 +75,10 @@ const locale = {
     SPEAKERS: 'Колонки',
     BOARD: 'Маркерная доска',
     CAPACITY: 'Вместимость'
+  },
+  EVENTS: {
+    ADD_EVENT: 'Добавить новое событие',
+    SAVE_EVENT: 'Сохранить'
   }
 }
 

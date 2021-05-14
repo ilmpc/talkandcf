@@ -28,6 +28,8 @@ const deleteEvent = {
   REQUEST: '@@events/DELETE_EVENT_REQUEST',
   ERROR: '@@events//DELETE_EVENT_ERROR'
 }
+
+const CLEAR_ERRORS = '@@events/CLEAR_ERRORS'
 const types = {
   getEvents,
   denyEvent,
@@ -35,6 +37,7 @@ const types = {
   postEvent,
   getEventById,
   patchEvent,
-  deleteEvent
+  deleteEvent,
+  clearErrors: CLEAR_ERRORS
 }
 export default types
