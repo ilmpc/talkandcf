@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import MuiDialogTitle from '@material-ui/core/DialogTitle'
@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog'
 import locale from '../../locale'
 import FormComponent from '../custom/FormComponent'
 import { makeStyles } from '@material-ui/core'
+import { useFormContext } from 'react-hook-form'
 
 const { EVENTS: { ADD_EVENT, SAVE_EVENT } } = locale
 
@@ -52,12 +53,29 @@ const useStyles = makeStyles({
   form: {
     '& button': {
       marginTop: '2rem'
+    },
+    '& .MuiFormControl-root': {
+      marginTop: '1rem'
     }
   }
 })
 
-function AddEventComponent ({ open, handleClose, addEvent, formFields }) {
+function AddEventComponent ({ open, handleClose, addEvent, formFields, loadFreeRooms, setError }) {
   const classes = useStyles()
+  const { watch } = useFormContext()
+
+  const fromWatcher = watch('from')
+  const toWatcher = watch('to')
+
+  useEffect(() => {
+    if (new Date(fromWatcher) < new Date(toWatcher)) {
+      loadFreeRooms(new Date(fromWatcher).toISOString(), new Date(toWatcher).toISOString())
+      setError(null)
+    } else if (!(fromWatcher === '' && toWatcher === '')) {
+      setError('Дата конца должна быть позже чем дата начала')
+    }
+  }, [fromWatcher, toWatcher])
+
   return (
     <Dialog onClose={handleClose} aria-labelledby='add-event-title' open={open}>
       <DialogTitle id='add-event-title' onClose={handleClose}>

@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function DashboardComponent ({ city, rooms, loadFreeRooms, loading }) {
+function DashboardComponent ({ city, rooms, loading }) {
   const classes = useStyles()
 
   return (
@@ -37,11 +37,6 @@ function DashboardComponent ({ city, rooms, loadFreeRooms, loading }) {
         : (
           <>
             <RoomFiltersContainer />
-            <button
-              style={{ margin: '1rem' }} onClick={loadFreeRooms}
-            >
-              Кнопка имитирует открытие модалки "Добавить ивент" или выбор юзером другого времени начала/окончания события
-            </button>
             {loading && <LinearLoader />}
             <Grid container className={classes.info}>
               <Grid item xs={12} sm={8}>

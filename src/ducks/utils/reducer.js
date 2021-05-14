@@ -54,8 +54,8 @@ const utilsReducer = (state = initialState, action) => {
         ...state,
         addPopup: action.payload.isOpen,
         selected: action.payload.event,
-        from: action.payload.event?.start,
-        to: action.payload.event?.end
+        from: action.payload.event?.startStr,
+        to: action.payload.event?.endStr
       }
     case types.popUp.SET_EDIT_EVENT_POPUP:
       return {
