@@ -12,22 +12,11 @@ function DashboardContainer () {
   const roomsInCity = useSelector(rooms.selectors.selectRooms)
   const city = useSelector(utils.selectors.selectCity)
 
-  // функция для тестов. Такой экшн должен отрабатывать при открытии модалки с добавлением события
-  // и когда пользователь меняет даты события
-  const loadFreeRooms = () => {
-    dispatch(rooms.actions.getFreeRoomsRequest({
-      city: city,
-      from: '2019-12-27',
-      to: '2019-12-28'
-    }))
-  }
-
   return (
     <DashboardComponent
       city={city}
       rooms={roomsInCity}
       loading={loadingRooms || loadingEvents}
-      loadFreeRooms={loadFreeRooms}
     />
   )
 }

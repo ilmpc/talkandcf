@@ -84,10 +84,23 @@ function * getEventByIdSaga ({ id }) {
 
 function * patchEventSaga ({ id, data }) {
   try {
-    yield call(services.patchEvent, id, data)
+    yield put(eventsActions.clearError())
+    const { title, extendedProps: { room: { _id } } } = data.event._def
+    const description = data.event._def.extendedProps.description
+    const { endStr, startStr } = data.event
+    yield call(services.patchEvent, id, {
+      title,
+      description,
+      room: _id,
+      from: startStr.toString(),
+      to: endStr.toString()
+    })
+    // yield call(services.patchEvent, id, data)
     yield put(eventsActions.getEventsRequest())
     yield put(userActions.loadUserRequest())
   } catch (error) {
+    yield data.revert()
+    yield put(eventsActions.getEventsRequest())
     yield put(eventsActions.applyEventError(error))
   } finally {
     if (yield cancelled()) {

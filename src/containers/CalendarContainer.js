@@ -4,17 +4,24 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import PropTypes from 'prop-types'
-import { myEventCardColor, ViewTypes } from '../constants'
+import { ViewTypes } from '../constants'
 import EventPopoverContainer from './EventPopoverContainer'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { formatEventsForCalendar } from '../utils/convert'
 import events from '../ducks/events'
 import user from '../ducks/users'
+import utils from '../ducks/utils'
+import AddEventContainer from './AddEventContainer'
+import PopupComponent from '../components/custom/PopupComponent'
+import EditEventContainer from './EditEventContainer'
 
 const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]
 
 function CalendarContainer () {
+  const dispatch = useDispatch()
   const eventsFromStore = useSelector(events.selectors.selectEvents)
+
+  const error = useSelector(events.selectors.selectError)
 
   const id = useSelector(user.selectors.selectUserId)
 
@@ -30,34 +37,21 @@ function CalendarContainer () {
     console.log(loadInfo)
   }, [])
   const selectEvent = React.useCallback((selectInfo) => {
-    console.log(selectInfo)
-    const calendarApi = selectInfo.view.calendar
-    const title = window.prompt('Please enter a new title for your event')
-    calendarApi.unselect()
-
-    if (title) {
-      calendarApi.addEvent({
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-        backgroundColor: myEventCardColor,
-        borderColor: myEventCardColor
-      }, true)
-    }
+    dispatch(utils.actions.setAddEventPopup({ isOpen: true, event: selectInfo }))
+    // const calendarApi = selectInfo.view.calendar
+    // calendarApi.unselect()
   }, [])
   const clickEvent = React.useCallback((clickInfo) => {
     if (clickInfo.event._def.extendedProps.userId !== id) {
       return
     }
     console.log(clickInfo)
-    setPopup(() => clickInfo.el)
-    setEventInfo(() => clickInfo.event)
+    dispatch(utils.actions.setEditEventPopup({ isOpen: true, event: clickInfo.event }))
   }, [id])
   const changeEvent = React.useCallback((clickInfo) => {
-    if (window.confirm(`Are you sure you want to CHANGE the event '${clickInfo.event.title}'`)) {
-      console.log(clickInfo)
-    }
+    console.log(clickInfo, 'dispatch change')
+    dispatch(events.actions.patchEventRequest(clickInfo.event.id, clickInfo))
+    // clickInfo.revert()
   }, [])
   const removeEvent = React.useCallback((info) => {
     console.log(`deleted item with title: ${info.event.title}`)
@@ -87,6 +81,9 @@ function CalendarContainer () {
         actions={calendarActions}
       />
       <EventPopoverContainer popup={popup} setPopup={setPopup} eventInfo={eventInfo} />
+      <AddEventContainer />
+      <EditEventContainer />
+      <PopupComponent isOpen={!!error} message={error} />
     </>
   )
 }

@@ -65,7 +65,8 @@ const roomsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.error
+        error: action.error,
+        getFreeRooms: []
       }
     case user.types.logout.SUCCESS:
       return {
