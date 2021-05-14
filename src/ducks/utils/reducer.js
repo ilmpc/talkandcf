@@ -59,19 +59,9 @@ const utilsReducer = (state = initialState, action) => {
         from: action.payload.event?.startStr,
         to: action.payload.event?.endStr
       }
-    case types.popUp.SET_EDIT_EVENT_POPUP:
-      return {
-        ...state,
-        editPopup: action.isOpen
-      }
     case user.types.logout.SUCCESS:
       return {
         ...initialState
-      }
-    case types.setCity:
-      return {
-        ...state,
-        city: action.payload.city
       }
     case types.popUp.SET_ADD_EVENT_POPUP:
       return {
